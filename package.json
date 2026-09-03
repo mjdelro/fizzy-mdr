@@ -1,0 +1,59 @@
+{
+  "name": "fizzy-mdr",
+  "version": "2.0.0",
+  "description": "A customized Ghost theme forked from Fizzy for michaeldelrosar.io, featuring accessible typography, editorial cards, streamlined footer socials, and a cleaner reading experience.",
+  "author": {
+    "name": "Yuzhang Huang",
+    "email": "huangyuzhang@live.cn",
+    "url": "https://github.com/huangyuzhang/Fizzy-Theme"
+  },
+  "contributors": [
+    {
+      "name": "Michael del Rosario",
+      "url": "https://michaeldelrosar.io"
+    }
+  ],
+  "homepage": "https://michaeldelrosar.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjdelro/fizzy-mdr"
+  },
+  "license": "MIT",
+  "engines": {
+    "ghost": ">=3.0.0"
+  },
+  "keywords": [
+    "ghost",
+    "ghost-theme",
+    "theme",
+    "blog",
+    "editorial",
+    "accessibility",
+    "atkinson-hyperlegible-next",
+    "ibm-plex-sans",
+    "atkinson-hyperlegible-mono",
+    "portfolio",
+    "personal-site"
+  ],
+  "dependencies": {},
+  "config": {
+    "posts_per_page": 8,
+    "image_sizes": {
+      "icon": {
+        "width": 64
+      },
+      "small": {
+        "width": 300
+      },
+      "medium": {
+        "width": 600
+      },
+      "large": {
+        "width": 900
+      },
+      "wide": {
+        "width": 1200
+      }
+    }
+  }
+}

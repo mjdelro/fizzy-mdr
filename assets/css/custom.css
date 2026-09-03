@@ -1,0 +1,364 @@
+/* ===== Customize Styles ===== */
+
+/* global */
+:root {
+  --main-color: #01581f;
+  --secondary-color: #4472e4;
+  --link-color-hover: #218f17;
+  --text-black: #333;
+  --text-dark: #7a0404;
+  --bg-color-light: #e6f5ea;
+  --shadow: rgba(1, 88, 31, 0.15);
+}
+
+/* footer */
+.site-license .cc-icons,
+.site-license .footer-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.site-license .cc-icons {
+  gap: 4px;
+  margin-top: 0.5rem;
+}
+
+.site-license .cc-icons img {
+  display: block;
+  width: auto !important;
+  height: 22px !important;
+  max-width: none !important;
+}
+
+.site-license .footer-badges {
+  gap: 5px;
+  margin-top: 0.75rem;
+}
+
+.site-license .footer-badges img {
+  display: block;
+  width: auto !important;
+  height: 32px !important;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .site-license .footer-badges img {
+    height: 28px !important;
+  }
+}
+
+.post-archive .post-archive-item time {
+  white-space: nowrap;
+  width: 75px;
+}
+
+/* Wider article content */
+.single-article .post-wrap {
+  width: 100%;
+  max-width: 960px;
+}
+
+/* ===== Typography ===== */
+body {
+  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Keep the original Fizzy class name for template compatibility. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.is-montserrat {
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Article copy */
+.is-georgia,
+.post-content,
+figcaption {
+  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+/* Tags and compact article UI use the heading/UI family. */
+.single-article .tags .button {
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Stronger, slightly tighter display typography for post titles. */
+.single-article .post-wrap > .title {
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+}
+
+/* Code: use Atkinson's monospaced companion everywhere. */
+code,
+pre,
+kbd,
+samp,
+code[class*="language-"],
+pre[class*="language-"] {
+  font-family: "Atkinson Hyperlegible Mono", "SFMono-Regular", Consolas, monospace !important;
+}
+
+p code,
+blockquote code,
+li > code,
+table code,
+h2 code,
+h3 code {
+  font-size: 0.88em !important;
+  font-weight: 500;
+}
+
+.post-wrap .post-content pre code {
+  font-size: 0.9rem !important;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* Keep the typewriter accent only where it reads as an intentional quote style. */
+.single-article .post-wrap .post-content blockquote,
+blockquote.kg-blockquote-alt {
+  font-family: "Special Elite", "Atkinson Hyperlegible Next", sans-serif !important;
+}
+
+figcaption,
+.content figure figcaption {
+  font-size: 0.875rem !important;
+  font-style: italic !important;
+}
+
+/* ===== v5 editorial polish ===== */
+:root {
+  --main-color: #176b3a;
+  --link-color-hover: #0f5b30;
+  --bg-color-light: #edf6f0;
+  --surface-page: #f5f6f4;
+  --surface-card: #ffffff;
+  --surface-accent: #edf6f0;
+  --border-soft: rgba(25, 40, 32, 0.08);
+  --text-muted: #737a75;
+}
+
+/* Replace Fizzy's diagonal stripe texture with a quieter editorial canvas. */
+.has-background-light-line {
+  background-image: none !important;
+  background-color: var(--surface-page) !important;
+}
+
+/* A flatter, cleaner header that stays visually connected to the page. */
+.navbar.has-shadow-thin {
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.navbar-end .navbar-item {
+  padding-left: 0.85rem;
+  padding-right: 0.85rem;
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: #3f4742;
+}
+
+.navbar-start .navbar-item:hover,
+.navbar-end .navbar-item:hover,
+#search-btn:hover {
+  background-color: var(--surface-accent) !important;
+}
+
+/* Featured markers stay quiet until the card is engaged. */
+.featured-label {
+  background: rgba(40, 48, 43, 0.78) !important;
+  transition: background-color 160ms ease, opacity 160ms ease;
+}
+
+.post-list-card:hover .featured-label,
+.tf-item:hover .featured-label {
+  background: var(--main-color) !important;
+}
+
+
+/* Homepage/index article cards: subtle border, restrained lift, softer radius. */
+.post-list-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.045) !important;
+}
+
+.post-list-card.can-scale:hover {
+  transform: translateY(-1px);
+  border-color: rgba(25, 40, 32, 0.14);
+  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.07) !important;
+}
+
+@media screen and (min-width: 769px) {
+  /* Give the writing a little more room than the image on list cards. */
+  .post-list-card .post-card > a.column:first-child {
+    flex: none;
+    width: 38%;
+  }
+
+  .post-list-card .post-card > .column.is-7 {
+    flex: none;
+    width: 62%;
+  }
+
+  .post-list-card .post-info {
+    padding: 2.25rem 2.5rem;
+  }
+}
+
+.post-list-card .post-card-excerpt {
+  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  color: #474d49;
+  margin-bottom: 0 !important;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.post-list-card .title {
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+/* Quieter metadata so the headline remains the focal point. */
+.post-list-card .level.is-uppercase {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.035em;
+}
+
+.post-list-card .level-item.is-size-7 {
+  color: #5d665f;
+}
+
+.post-list-card .level .button.is-light {
+  background-color: var(--surface-accent);
+  border-color: transparent;
+  color: var(--main-color);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.post-list-card .level .button.is-light:hover {
+  background-color: #e0f0e5;
+  color: var(--link-color-hover);
+}
+
+/* Showcase: same surface language, slightly more compact proportions. */
+.carousel .carousel-item,
+.tf-item {
+  border: 1px solid var(--border-soft);
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
+}
+
+.carousel .carousel-item.can-scale:hover,
+.tf-item.can-scale:hover {
+  transform: translateY(-1px);
+  border-color: rgba(25, 40, 32, 0.14);
+  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
+}
+
+/* A little more breathing room before the article list. */
+#showcase {
+  margin-bottom: 0.75rem;
+}
+
+@media screen and (min-width: 769px) {
+  .carousel,
+  .carousel .carousel-item,
+  .top-featured {
+    height: 300px;
+  }
+
+  .top-featured .tf-item {
+    height: calc((300px - 1.5rem) / 2);
+  }
+}
+
+/* Make article text breathe a little more at the new 960px measure. */
+.single-article .post-content {
+  line-height: 1.68;
+}
+
+@media screen and (max-width: 768px) {
+  .post-list-card {
+    border-radius: 10px !important;
+  }
+}
+
+/* ===== v5.3 footer socials ===== */
+.footer-socials {
+  max-width: 34rem;
+  margin: 1rem auto 1.25rem;
+  padding: 0.65rem 0 0.55rem;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+
+.footer-social-links {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.55rem;
+  flex-wrap: wrap;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.42rem;
+  min-width: 3.75rem;
+  padding: 0.25rem;
+  color: #39423c;
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.2;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.footer-social-link svg {
+  display: block;
+  width: 34px;
+  height: 34px;
+  fill: currentColor;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  color: var(--main-color);
+  transform: translateY(-1px);
+}
+
+.footer-social-link:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 480px) {
+  .footer-social-links {
+    gap: 1rem;
+  }
+
+  .footer-social-link svg {
+    width: 32px;
+    height: 32px;
+  }
+}
