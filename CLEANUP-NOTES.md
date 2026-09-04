@@ -4,8 +4,15 @@ These notes describe the current structure and cleanup decisions for the maintai
 
 ## Current baseline
 
-This theme should now be treated as **version 2.0.0** of the customized fork.
-It is no longer documented as a sequence of ad hoc patch zips. The current package metadata, README, and changelog are aligned to that version.
+This theme should now be treated as **version 2.1.7** of the customized fork.
+It is no longer documented as a sequence of ad hoc patch zips. The package metadata, README, and changelog should stay aligned with the current release version.
+
+## Recent fixes
+
+- Dark-mode showcase tag pills no longer use a faint border or bright edge treatment.
+- The desktop theme toggle no longer inherits a rectangular navbar hover surface.
+- The showcase pill wrappers no longer produce a thin baseline gap that can look like a bright underline in dark mode.
+- Dark-mode showcase cards no longer use a translucent border; separation is handled by shadow to avoid image-colored edge artifacts.
 
 ## Code Injection
 
@@ -31,6 +38,16 @@ The following legacy variables are no longer used by the theme:
 
 You can also remove any old Gitalk or Disqus scripts and styles from Ghost Code Injection.
 
+## Color scheme
+
+- Light/dark mode is implemented with `data-theme="light|dark"` on the root `<html>` element.
+- The first visit follows the operating-system color scheme.
+- A visitor's explicit choice is stored as `fizzy-color-scheme` in `localStorage`.
+- `default.hbs` contains a small pre-paint bootstrap so the correct theme is applied before CSS renders.
+- `assets/js/main.js` owns the toggle behavior and OS-preference listener.
+- `assets/css/custom.css` owns the theme variables and dark-mode overrides.
+- Desktop toggle markup lives in `partials/navigation.hbs`; the mobile toggle lives in `partials/header.hbs`.
+
 ## Structural cleanup already completed
 
 ### Comments and credit UI
@@ -50,6 +67,13 @@ You can also remove any old Gitalk or Disqus scripts and styles from Ghost Code 
 - **Special Elite** is retained only as a blockquote accent.
 - Figure captions use Atkinson Hyperlegible Next, not the decorative quote font.
 - Duplicate and unused font loads were removed.
+
+### Dark-mode coverage
+- The header theme-toggle uses a strictly circular hover treatment that matches the icon button on desktop and mobile.
+- Article H1–H6 headings inherit the active theme text color.
+- TOC panels switch their background, border, and link colors with the theme.
+- Ghost file/attachment cards use theme-aware surfaces, borders, text, metadata, and hover states.
+- Showcase cards and tag pills were refined to remove bright outlines and underline-like artifacts in dark mode.
 
 ### CSS and JS
 - `custom.css` is loaded once, last, so custom overrides win predictably.
@@ -96,9 +120,5 @@ Suggested release flow:
 
 ## Upstream attribution
 
-This remains a customized fork of:
-
-- **Fizzy** by **Yuzhang Huang**
-- Upstream repo: `https://github.com/huangyuzhang/Fizzy-Theme`
-
-Keep the MIT license and attribution intact when publishing or sharing the theme.
+This customized fork is based on the original **Fizzy** theme by **Yuzhang Huang**.
+Keep that attribution in the repository and package metadata.

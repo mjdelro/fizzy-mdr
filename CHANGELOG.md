@@ -5,6 +5,61 @@ All notable changes to this customized theme fork are documented in this file.
 This project is based on the original **Fizzy** theme by **Yuzhang Huang**.
 Legacy upstream history is not reproduced in full here; this changelog tracks the maintained customized fork.
 
+## [2.1.7] - 2026-09-04
+
+### Fixed
+- Removed the remaining bright colored edge along dark-mode showcase cards by removing the translucent showcase border entirely in dark mode.
+- Kept card separation through the existing dark shadow instead of a light border.
+
+## [2.1.6] - 2026-09-04
+
+### Fixed
+- Removed the thin bright line artifact under showcase tag pills by eliminating inline baseline gap behavior on the pill wrappers and links.
+- Kept showcase tag pills visually clean in dark mode with no underline, border, or shadow artifacts.
+
+## [2.1.5] - 2026-09-04
+
+### Fixed
+- Removed the remaining faint outline on showcase tag pills in dark mode by dropping the pill border and relying on a clean overlay background only.
+
+## [2.1.4] - 2026-09-04
+
+### Fixed
+- Removed the remaining square hover highlight around the desktop light/dark mode toggle by neutralizing the parent navbar-item hover state.
+
+## [2.1.3] - 2026-09-04
+
+### Fixed
+- Softened the dark-mode showcase card borders so the carousel and top-featured cards no longer show a bright outline.
+- Refined dark-mode showcase tag pills so they sit more naturally on top of images without a noticeable light edge.
+
+## [2.1.2] - 2026-09-04
+
+### Fixed
+- Refined the theme-toggle hover state so the hover treatment stays circular and matches the icon/button shape in both light and dark modes.
+- Added stricter sizing and overflow rules for the light/dark toggle so Bulma navbar-item hover behavior cannot produce a pill or rectangular hover surface.
+
+## [2.1.1] - 2026-09-04
+
+### Fixed
+- Fixed article H1–H6 heading colors so headings correctly switch in dark mode.
+- Fixed TOC panel backgrounds and borders remaining light after switching to dark mode.
+- Fixed Ghost file/attachment cards and download links so their surfaces, text, metadata, borders, and hover states follow the active theme.
+
+## [2.1.0] - 2026-09-04
+
+### Added
+- Added a top-right light/dark mode toggle with inline sun and moon icons.
+- Added a mobile theme toggle beside the navigation burger.
+- Added automatic first-visit detection via `prefers-color-scheme`.
+- Added persistent visitor preference via `localStorage`.
+- Added a pre-paint theme bootstrap in `default.hbs` to minimize light/dark flashing during navigation and reloads.
+- Added dark-mode styling for navigation, cards, articles, tags, tables, search, inline code, bookmarks, archives, TOC, related posts, and the footer.
+
+### Changed
+- Updated package metadata and documentation for version 2.1.0.
+- Extended the existing green editorial palette into a warm charcoal dark theme rather than using pure black.
+
 ## [2.0.0] - 2026-09-03
 
 ### Added

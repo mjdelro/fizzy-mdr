@@ -14,6 +14,7 @@ This version keeps Fizzy's magazine-style structure, but updates the theme with 
 - Wider single-post content column (**960px**)
 - Cleaner homepage card styling and warmer background
 - Built-in custom footer and social links section
+- Persistent light/dark color scheme with a top-right toggle
 - Comments removed
 - KaTeX and Prism styles loaded only where needed
 - Streamlined code injection requirements
@@ -21,7 +22,7 @@ This version keeps Fizzy's magazine-style structure, but updates the theme with 
 
 ## Version
 
-Current customized release: **2.0.0**
+Current customized release: **2.1.7**
 
 ## Installation
 
@@ -52,6 +53,15 @@ Do **not** keep these old variables around:
 - `fizzy_credit`
 
 Any old Gitalk or Disqus code injection can also be removed.
+
+## Light and dark mode
+
+The top-right sun/moon button switches between light and dark color schemes.
+
+- On a visitor's first visit, the theme follows the operating-system `prefers-color-scheme` setting.
+- A manual choice is stored in `localStorage` under `fizzy-color-scheme`.
+- The saved choice is applied in the document head before the stylesheets paint, minimizing theme flash during page load.
+- On mobile, the same toggle remains visible beside the navigation burger.
 
 ## Theme behavior
 

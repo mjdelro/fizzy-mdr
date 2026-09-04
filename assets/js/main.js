@@ -166,3 +166,88 @@ document.addEventListener("DOMContentLoaded", function () {
     refreshFsLightbox();
   }
 });
+
+/*----------------------------------------------------*/
+/*  Light / dark color scheme
+/*----------------------------------------------------*/
+document.addEventListener("DOMContentLoaded", function () {
+  var storageKey = "fizzy-color-scheme";
+  var root = document.documentElement;
+  var toggles = Array.prototype.slice.call(
+    document.querySelectorAll(".theme-toggle")
+  );
+  var mediaQuery = window.matchMedia
+    ? window.matchMedia("(prefers-color-scheme: dark)")
+    : null;
+  var themeColorMeta = document.getElementById("theme-color-meta");
+
+  function getTheme() {
+    return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  }
+
+  function updateControls(theme) {
+    var nextTheme = theme === "dark" ? "light" : "dark";
+    var label = "Switch to " + nextTheme + " mode";
+
+    toggles.forEach(function (toggle) {
+      toggle.setAttribute("aria-label", label);
+      toggle.setAttribute("title", label);
+      toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+
+      var text = toggle.querySelector(".theme-toggle-text");
+      if (text) {
+        text.textContent = label;
+      }
+    });
+  }
+
+  function applyTheme(theme, persist) {
+    root.setAttribute("data-theme", theme);
+    root.style.colorScheme = theme;
+
+    if (themeColorMeta) {
+      themeColorMeta.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
+    }
+
+    if (persist) {
+      try {
+        window.localStorage.setItem(storageKey, theme);
+      } catch (error) {
+        // Theme still works for this page if storage is unavailable.
+      }
+    }
+
+    updateControls(theme);
+  }
+
+  toggles.forEach(function (toggle) {
+    toggle.addEventListener("click", function () {
+      applyTheme(getTheme() === "dark" ? "light" : "dark", true);
+    });
+  });
+
+  // Follow OS changes until the visitor explicitly chooses a theme.
+  if (mediaQuery) {
+    var handleSystemThemeChange = function (event) {
+      var hasStoredPreference = false;
+      try {
+        var stored = window.localStorage.getItem(storageKey);
+        hasStoredPreference = stored === "light" || stored === "dark";
+      } catch (error) {
+        hasStoredPreference = false;
+      }
+
+      if (!hasStoredPreference) {
+        applyTheme(event.matches ? "dark" : "light", false);
+      }
+    };
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleSystemThemeChange);
+    } else if (typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(handleSystemThemeChange);
+    }
+  }
+
+  applyTheme(getTheme(), false);
+});

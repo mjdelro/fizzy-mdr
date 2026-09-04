@@ -362,3 +362,545 @@ figcaption,
     height: 32px;
   }
 }
+
+/* ===== v2.1 light/dark mode ===== */
+:root {
+  --text-primary: #2d332f;
+  --text-secondary: #474d49;
+  --surface-elevated: #ffffff;
+  --surface-subtle: #fafbf9;
+  --input-background: #ffffff;
+  --inline-code-background: #eef1ef;
+  --inline-code-border: #d7ddd9;
+  --table-stripe: #f8f9f7;
+  --table-head: #eef1ef;
+  --table-hover: rgba(23, 107, 58, 0.08);
+}
+
+html[data-theme="dark"] {
+  --main-color: #6bc189;
+  --link-color-hover: #8dd7a5;
+  --text-black: #edf1ee;
+  --text-primary: #e7ece8;
+  --text-secondary: #c2cac4;
+  --text-muted: #929d95;
+  --bg-color-light: #173222;
+  --surface-page: #111512;
+  --surface-card: #181d1a;
+  --surface-elevated: #202622;
+  --surface-subtle: #151a17;
+  --surface-accent: #183323;
+  --border-soft: rgba(230, 238, 232, 0.11);
+  --shadow: rgba(0, 0, 0, 0.32);
+  --input-background: #1b211d;
+  --inline-code-background: #202722;
+  --inline-code-border: #354039;
+  --table-stripe: #171d19;
+  --table-head: #202722;
+  --table-hover: rgba(107, 193, 137, 0.11);
+}
+
+/* Top-right theme toggle */
+.theme-toggle-wrap {
+  padding-left: 0.3rem !important;
+  padding-right: 0.3rem !important;
+}
+
+.theme-toggle {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  padding: 0 !important;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  background: transparent;
+  background-clip: padding-box;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1;
+  overflow: hidden;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle.navbar-item:hover {
+  border-radius: 999px;
+  background: var(--surface-accent);
+  border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
+  color: var(--main-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 3px;
+}
+
+.theme-toggle .theme-icon {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-icon-sun {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+.theme-toggle-mobile {
+  margin-left: auto;
+  align-self: center;
+  flex: none;
+}
+
+.theme-toggle-mobile + .navbar-burger {
+  margin-left: 0;
+}
+
+@media screen and (max-width: 1023px) {
+  .theme-toggle-mobile {
+    margin-top: 0.35rem;
+    margin-bottom: 0.35rem;
+  }
+}
+
+/* Shared surfaces/text use variables so light and dark stay visually related. */
+body,
+.title,
+.subtitle,
+.content,
+.label,
+.table,
+.footer,
+.box {
+  color: var(--text-primary);
+}
+
+.post-list-card .post-card-excerpt,
+.footer-social-link,
+.navbar-end .navbar-item,
+.declare,
+.declare a {
+  color: var(--text-secondary);
+}
+
+/* Dark-mode overrides for Bulma and original Fizzy hard-coded light surfaces. */
+html[data-theme="dark"] body,
+html[data-theme="dark"] .has-background-light-line {
+  background-color: var(--surface-page) !important;
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .navbar,
+html[data-theme="dark"] .navbar.is-white,
+html[data-theme="dark"] .navbar-menu,
+html[data-theme="dark"] .footer {
+  background-color: var(--surface-card) !important;
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .navbar-brand .navbar-item a,
+html[data-theme="dark"] .navbar-item,
+html[data-theme="dark"] .navbar-link,
+html[data-theme="dark"] #search-btn {
+  color: var(--text-secondary) !important;
+}
+
+html[data-theme="dark"] .navbar-brand .navbar-item a:hover,
+html[data-theme="dark"] .navbar-item:hover,
+html[data-theme="dark"] .navbar-link:hover,
+html[data-theme="dark"] #search-btn:hover {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="dark"] .navbar-burger {
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .navbar-burger span {
+  background-color: currentColor;
+}
+
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .post-list-card,
+html[data-theme="dark"] .aside .post-card,
+html[data-theme="dark"] .tag-card,
+html[data-theme="dark"] .carousel .carousel-item,
+html[data-theme="dark"] .top-featured .box {
+  background-color: var(--surface-card) !important;
+  color: var(--text-primary);
+  border-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .has-text-black,
+html[data-theme="dark"] a.has-text-black,
+html[data-theme="dark"] .has-text-grey-darker,
+html[data-theme="dark"] .has-text-grey-dark,
+html[data-theme="dark"] .title,
+html[data-theme="dark"] .subtitle,
+html[data-theme="dark"] .tag-card .tag-info .tag-name,
+html[data-theme="dark"] .tag-card .tag-info .post-count {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="dark"] .has-text-grey,
+html[data-theme="dark"] .post-archive-item .authors,
+html[data-theme="dark"] .post-archive-item .authors a,
+html[data-theme="dark"] figcaption {
+  color: var(--text-muted) !important;
+}
+
+html[data-theme="dark"] .post-list-card .level-item.is-size-7 {
+  color: var(--text-muted);
+}
+
+html[data-theme="dark"] .button.is-light,
+html[data-theme="dark"] .button.is-static {
+  background-color: var(--surface-accent) !important;
+  border-color: var(--border-soft) !important;
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="dark"] .button.is-light:hover {
+  background-color: #21422d !important;
+  color: var(--link-color-hover) !important;
+}
+
+html[data-theme="dark"] .input,
+html[data-theme="dark"] .textarea,
+html[data-theme="dark"] .select select,
+html[data-theme="dark"] #close-btn .button {
+  background-color: var(--input-background);
+  border-color: var(--border-soft);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .input::placeholder,
+html[data-theme="dark"] .textarea::placeholder {
+  color: var(--text-muted);
+}
+
+html[data-theme="dark"] #search-results,
+html[data-theme="dark"] #search-results a {
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] #search-results a:hover {
+  background: var(--surface-accent);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .post-wrap .post-content a {
+  color: #d8eee0;
+}
+
+html[data-theme="dark"] .post-wrap .post-content a:hover {
+  color: var(--link-color-hover);
+}
+
+html[data-theme="dark"] p code,
+html[data-theme="dark"] blockquote code,
+html[data-theme="dark"] li > code,
+html[data-theme="dark"] table code,
+html[data-theme="dark"] h2 code,
+html[data-theme="dark"] h3 code {
+  color: #e4ebe6;
+  background: var(--inline-code-background);
+  border-color: var(--inline-code-border);
+}
+
+html[data-theme="dark"] .single-article .post-wrap .post-content blockquote {
+  color: var(--text-primary);
+  background-color: var(--bg-color-light);
+}
+
+html[data-theme="dark"] .post-content table,
+html[data-theme="dark"] .post-content table th,
+html[data-theme="dark"] .post-content table td {
+  color: var(--text-primary);
+  border-color: var(--border-soft);
+}
+
+html[data-theme="dark"] table tr:first-child,
+html[data-theme="dark"] table tr:last-child,
+html[data-theme="dark"] table thead tr:first-child,
+html[data-theme="dark"] table tr td:first-child,
+html[data-theme="dark"] table tr td:last-child {
+  border-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .post-content tbody tr:nth-child(even) {
+  background-color: var(--table-stripe);
+}
+
+html[data-theme="dark"] .post-content table th {
+  background-color: var(--table-head);
+}
+
+html[data-theme="dark"] .post-content table tr:hover {
+  background-color: var(--table-hover);
+}
+
+html[data-theme="dark"] #toc:before,
+html[data-theme="dark"] #toc-img:before,
+html[data-theme="dark"] #toc a:hover,
+html[data-theme="dark"] #toc-img a:hover,
+html[data-theme="dark"] #toc .active a,
+html[data-theme="dark"] #toc-img .active a {
+  color: var(--text-primary);
+  border-color: var(--border-soft);
+}
+
+html[data-theme="dark"] #toc a,
+html[data-theme="dark"] #toc-img a {
+  color: var(--text-muted);
+}
+
+html[data-theme="dark"] #toc ul,
+html[data-theme="dark"] #toc-img ul {
+  border-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .aside .card-frame .nav-label {
+  background-color: var(--surface-elevated);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] .tag-card .tag-image,
+html[data-theme="dark"] .tag-card .tag-image.noimg {
+  background-color: var(--surface-elevated);
+  box-shadow: 0 1px 0 var(--border-soft);
+}
+
+html[data-theme="dark"] .kg-bookmark-container {
+  color: var(--text-primary);
+  border-color: var(--border-soft) !important;
+  background: var(--surface-card);
+}
+
+html[data-theme="dark"] .kg-bookmark-card a:hover {
+  color: var(--text-primary) !important;
+}
+
+html[data-theme="dark"] .kg-bookmark-content {
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
+}
+
+html[data-theme="dark"] hr,
+html[data-theme="dark"] .footer,
+html[data-theme="dark"] .footer-socials {
+  border-color: var(--border-soft);
+}
+
+html[data-theme="dark"] .footer-social-link:hover,
+html[data-theme="dark"] .footer-social-link:focus-visible,
+html[data-theme="dark"] .declare a:hover {
+  color: var(--link-color-hover);
+}
+
+html[data-theme="dark"] .footer {
+  box-shadow: 0 -1px 0 var(--border-soft);
+}
+
+html[data-theme="dark"] {
+  background-color: var(--surface-page);
+}
+
+html[data-theme="dark"] .post-wrap .post-content hr {
+  background: linear-gradient(90deg, var(--text-muted) 0%, var(--main-color) 50%, var(--main-color) 100%);
+}
+
+html[data-theme="dark"] .site-license .cc-icons img {
+  filter: invert(1) brightness(0.9);
+}
+
+.tag-card:hover .tag-info .tag-name {
+  color: var(--main-color);
+}
+
+/* Avoid animated theme changes for visitors who request reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .post-list-card,
+  .footer-social-link {
+    transition: none !important;
+  }
+}
+
+/* ===== v2.1.1 dark-mode completeness fixes ===== */
+/* Bulma assigns heading colors directly, so article headings need an explicit
+   theme-aware color rather than relying on the parent .content color. */
+html[data-theme="dark"] .post-wrap .post-content h1,
+html[data-theme="dark"] .post-wrap .post-content h2,
+html[data-theme="dark"] .post-wrap .post-content h3,
+html[data-theme="dark"] .post-wrap .post-content h4,
+html[data-theme="dark"] .post-wrap .post-content h5,
+html[data-theme="dark"] .post-wrap .post-content h6 {
+  color: var(--text-primary) !important;
+}
+
+/* TOCify's original stylesheet hard-codes a white panel background. */
+html[data-theme="dark"] #toc,
+html[data-theme="dark"] #toc-img {
+  background-color: var(--surface-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-soft) !important;
+}
+
+/* Ghost file cards / attachment links. Keep the native card layout while
+   replacing hard-coded light colors with the theme palette. */
+.post-wrap .post-content .kg-file-card,
+.post-wrap .post-content a.kg-file-card-container {
+  color: var(--text-primary) !important;
+}
+
+.post-wrap .post-content a.kg-file-card-container {
+  background-color: var(--surface-elevated) !important;
+  border: 1px solid var(--border-soft) !important;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.post-wrap .post-content a.kg-file-card-container:hover,
+.post-wrap .post-content a.kg-file-card-container:focus-visible {
+  background-color: var(--surface-accent) !important;
+  border-color: color-mix(in srgb, var(--main-color) 45%, var(--border-soft)) !important;
+  color: var(--text-primary) !important;
+}
+
+.post-wrap .post-content .kg-file-card-title,
+.post-wrap .post-content .kg-file-card-title a {
+  color: var(--text-primary) !important;
+}
+
+.post-wrap .post-content .kg-file-card-caption,
+.post-wrap .post-content .kg-file-card-metadata,
+.post-wrap .post-content .kg-file-card-filesize,
+.post-wrap .post-content .kg-file-card-filename {
+  color: var(--text-secondary) !important;
+}
+
+.post-wrap .post-content .kg-file-card-icon,
+.post-wrap .post-content .kg-file-card-icon svg {
+  color: var(--main-color) !important;
+}
+
+.post-wrap .post-content .kg-file-card-icon svg {
+  fill: currentColor;
+}
+
+html[data-theme="dark"] .post-wrap .post-content .kg-file-card,
+html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
+  color: var(--text-primary) !important;
+}
+
+
+/* ===== v2.1.3 dark showcase polish ===== */
+/* The showcase cards looked slightly outlined in dark mode because the shared
+   card border color was still a bit too bright at large image sizes. Tuck the
+   border back and lean more on shadow for separation. */
+html[data-theme="dark"] .carousel .carousel-item,
+html[data-theme="dark"] .tf-item,
+html[data-theme="dark"] .top-featured .box {
+  border-color: rgba(230, 238, 232, 0.05) !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* Tone down the category/tag pills in the showcase so they read as overlays
+   instead of outlined chips against the dark hero images. */
+html[data-theme="dark"] .carousel-tag a,
+html[data-theme="dark"] .tf-tag a {
+  background-color: rgba(7, 10, 8, 0.78) !important;
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] .carousel-tag a:hover,
+html[data-theme="dark"] .tf-tag a:hover {
+  background-color: color-mix(in srgb, var(--surface-accent) 82%, black) !important;
+  border: 0 !important;
+  outline: none !important;
+  color: var(--text-primary) !important;
+  box-shadow: none !important;
+}
+
+
+/* ===== v2.1.4 theme-toggle hover containment ===== */
+/* The desktop toggle sits inside a .navbar-item wrapper, and that wrapper was
+   still receiving the generic rectangular navbar hover fill. Keep the wrapper
+   visually neutral so only the circular button shows a hover state. */
+.theme-toggle-wrap,
+.theme-toggle-wrap.navbar-item {
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.theme-toggle-wrap:hover,
+.theme-toggle-wrap:focus-within,
+.theme-toggle-wrap.navbar-item:hover,
+.theme-toggle-wrap.navbar-item:focus-within {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+
+/* ===== v2.1.6 showcase pill baseline fix ===== */
+/* The showcase tag links are inline-block elements. In some browsers the
+   baseline/descender gap under the line box can read like a thin bright
+   underline against dark hero images. Collapse the wrapper line box and align
+   the pills to the top so the artifact disappears. */
+.carousel-tag,
+.tf-tag {
+  line-height: 0;
+}
+
+.carousel-tag a,
+.tf-tag a {
+  vertical-align: top;
+  text-decoration: none;
+}
+
+html[data-theme="dark"] .carousel-tag a,
+html[data-theme="dark"] .tf-tag a,
+html[data-theme="dark"] .carousel-tag a:hover,
+html[data-theme="dark"] .tf-tag a:hover {
+  text-decoration: none !important;
+}
+
+
+/* ===== v2.1.7 dark showcase edge fix ===== */
+/* The remaining bright line was the semi-transparent card border itself.
+   Because background images paint underneath the border, the translucent
+   border picked up image color and looked like a bright colored edge. */
+html[data-theme="dark"] .carousel .carousel-item,
+html[data-theme="dark"] .tf-item,
+html[data-theme="dark"] .top-featured .box {
+  border: 0 !important;
+}
+
+html[data-theme="dark"] .carousel .carousel-item.can-scale:hover,
+html[data-theme="dark"] .tf-item.can-scale:hover {
+  border: 0 !important;
+}

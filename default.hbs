@@ -11,6 +11,34 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" id="theme-color-meta" content="#f5f6f4" />
+
+    {{!-- Apply the saved/system color scheme before styles paint to avoid a light-mode flash. --}}
+    <script>
+        (function () {
+            var storageKey = "fizzy-color-scheme";
+            var theme = "light";
+            try {
+                var savedTheme = window.localStorage.getItem(storageKey);
+                if (savedTheme === "light" || savedTheme === "dark") {
+                    theme = savedTheme;
+                } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    theme = "dark";
+                }
+            } catch (error) {
+                if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    theme = "dark";
+                }
+            }
+            document.documentElement.setAttribute("data-theme", theme);
+            document.documentElement.style.colorScheme = theme;
+            var themeColorMeta = document.getElementById("theme-color-meta");
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
+            }
+        }());
+    </script>
 
     {{!-- This tag outputs SEO meta + structured data and Code injections in Site Header--}}
     {{ghost_head}}
