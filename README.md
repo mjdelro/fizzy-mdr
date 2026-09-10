@@ -61,17 +61,6 @@ default.hbs
 post.hbs
 ```
 
-## Development
-
-```bash
-git status
-git diff
-git add .
-git diff --staged
-git commit -m "Describe the change"
-git push
-```
-
 ## Releases
 
 ```text
