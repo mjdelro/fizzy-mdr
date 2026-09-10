@@ -4,16 +4,16 @@
 
 {{#post}}
 <section class="hero">
-    <article class="single-article">
+    <article class="{{post_class}} single-article">
         <div class="box is-paddingless is-shadowless is-full-mobile is-centered">
             {{!-- featured_image --}}
             {{#if feature_image}}
             <div class="featured-image">
-                <div class="featured-image" style="background-image:url({{img_url feature_image}});">
+                <div class="featured-image post-hero-image-wrap"><img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="100vw" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high">
                     {{!-- featured post label --}}
                     {{#if featured}}
                     <div class="post-wrap full-width is-vpadding-15" style="position:relative;height:inherit;">
-                        <span class="featured-label large is-montserrat" title="Featured Post"><i class="iconfont icon-like"></i> {{t "Featured"}}</span>
+                        <span class="featured-label large is-montserrat" title="Featured Post">{{> "icons/like"}} {{t "Featured"}}</span>
                     </div>
                     {{/if}}
                 </div>
@@ -28,7 +28,7 @@
                     <div class="spacing-15 is-hidden-mobile"></div> 
                     {{!-- meta --}}
                     <div class="has-2-ends is-montserrat is-uppercase is-size-7">
-                        <div class="end date">{{date format=(t "DD MMMM YYYY")}}</div>
+                        <div class="end date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></div>
                         <div class="end reading_time">{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</div>
                     </div>
                     {{!-- title --}}
@@ -37,8 +37,8 @@
                     {{#has tag="count:>0"}}
                     <div class="buttons tags has-text-weight-semibold">
                         <span class="button is-static is-size-7-mobile" style="min-width:2.5em">
-                            {{#has tag="count:1"}}<i class="iconfont icon-tag"></i>{{/has}}
-                            {{#has tag="count:>1"}}<i class="iconfont icon-tags"></i>{{/has}}
+                            {{#has tag="count:1"}}{{> "icons/tag"}}{{/has}}
+                            {{#has tag="count:>1"}}{{> "icons/tags"}}{{/has}}
                         </span>
                         {{#foreach tags}}
                         <a href="{{url}}" class="button is-light is-size-7-mobile has-text-weight-semibold">{{name}}</a>
@@ -55,10 +55,8 @@
                 </div>
             </div>
             <div class="column is-hidden-touch" style="position:relative;">
-                {{#if feature_image}}
-                    <div id="toc-img" class="is-absolute"></div>
-                {{else}}
-                    <div id="toc"></div>
+                {{#if @custom.show_toc}}
+                    {{#if feature_image}}<div id="toc-img" class="is-absolute"></div>{{else}}<div id="toc"></div>{{/if}}
                 {{/if}}
             </div>
         </div>
@@ -66,8 +64,7 @@
 </section>
 <section class="section is-vpadding-15"></section>
 
-{{!-- toc --}}
-{{> "post/post_toc"}}
+{{#if @custom.show_toc}}{{> "post/post_toc"}}{{/if}}
 
 {{!-- aside section (related post, prev & next) --}}
 {{> "post/post_aside"}}

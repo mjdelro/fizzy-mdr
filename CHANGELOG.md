@@ -1,5 +1,42 @@
 # Changelog
 
+## 2.2.4
+
+- Fixed homepage showcase cards so clicking anywhere on the featured image opens the post.
+- Kept title and category-pill links independently clickable while allowing non-interactive overlays and the featured badge to pass clicks through to the full-card link.
+
+## 2.2.3
+
+- Made native Ghost YouTube embeds responsive to the article body width.
+- Preserved a 16:9 aspect ratio while scaling down cleanly on tablets and mobile.
+- Added a 10px corner radius to match the theme's card styling.
+
+## 2.2.2
+
+- Removed the square hover/focus background from the header search and theme toggle wrappers.
+- Kept the circular hover treatment on the search button and theme toggle themselves.
+
+## 2.2.1
+
+- Updated the header search control so it uses the same 40px circular button shell as the light/dark theme toggle.
+- Increased the search icon sizing and centered it within the circle for better visual balance.
+
+## 2.2.0
+
+- Updated theme compatibility target to Ghost 6.
+- Replaced custom Content API search with native Ghost search.
+- Replaced Slick carousel, jQuery, jQuery UI, and Tocify with vanilla JavaScript.
+- Added Ghost Admin custom settings for the homepage showcase, TOC, and code line numbers.
+- Converted primary homepage/article feature images to responsive semantic `<img>` markup with `srcset`, lazy loading, and fetch priority where appropriate.
+- Added `body_class` and `post_class` support and improved heading, date, list, button, and navigation semantics.
+- Optimized the tag archive to use `count.posts` instead of one API request per tag.
+- Replaced Ghost 6-incompatible `limit="all"` queries with explicit 100-item limits.
+- Updated KaTeX from 0.10.2 to 0.18.1.
+- Updated PrismJS from 1.16.0 to 1.30.0.
+- Removed the externally hosted Alibaba icon font and replaced theme icons with inline SVG partials.
+- Consolidated showcase CSS so light/dark mode uses identical geometry without bright border artifacts.
+- Updated GitHub Actions to `actions/checkout@v7` and `TryGhost/action-deploy-theme@v2`, with GScan validation before deployment.
+
 All notable changes to this customized theme fork are documented in this file.
 
 This project is based on the original **Fizzy** theme by **Yuzhang Huang**.

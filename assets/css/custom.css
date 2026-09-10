@@ -1,16 +1,5 @@
 /* ===== Customize Styles ===== */
 
-/* global */
-:root {
-  --main-color: #01581f;
-  --secondary-color: #4472e4;
-  --link-color-hover: #218f17;
-  --text-black: #333;
-  --text-dark: #7a0404;
-  --bg-color-light: #e6f5ea;
-  --shadow: rgba(1, 88, 31, 0.15);
-}
-
 /* footer */
 .site-license .cc-icons,
 .site-license .footer-badges {
@@ -135,9 +124,13 @@ figcaption,
   font-style: italic !important;
 }
 
-/* ===== v5 editorial polish ===== */
+/* ===== Fizzy MDR editorial system ===== */
 :root {
   --main-color: #176b3a;
+  --secondary-color: #4472e4;
+  --text-black: #333;
+  --text-dark: #7a0404;
+  --shadow: rgba(1, 88, 31, 0.15);
   --link-color-hover: #0f5b30;
   --bg-color-light: #edf6f0;
   --surface-page: #f5f6f4;
@@ -145,6 +138,16 @@ figcaption,
   --surface-accent: #edf6f0;
   --border-soft: rgba(25, 40, 32, 0.08);
   --text-muted: #737a75;
+  --text-primary: #2d332f;
+  --text-secondary: #474d49;
+  --surface-elevated: #ffffff;
+  --surface-subtle: #fafbf9;
+  --input-background: #ffffff;
+  --inline-code-background: #eef1ef;
+  --inline-code-border: #d7ddd9;
+  --table-stripe: #f8f9f7;
+  --table-head: #eef1ef;
+  --table-hover: rgba(23, 107, 58, 0.08);
 }
 
 /* Replace Fizzy's diagonal stripe texture with a quieter editorial canvas. */
@@ -169,7 +172,7 @@ figcaption,
 
 .navbar-start .navbar-item:hover,
 .navbar-end .navbar-item:hover,
-#search-btn:hover {
+.search-button:hover {
   background-color: var(--surface-accent) !important;
 }
 
@@ -257,21 +260,6 @@ figcaption,
   color: var(--link-color-hover);
 }
 
-/* Showcase: same surface language, slightly more compact proportions. */
-.carousel .carousel-item,
-.tf-item {
-  border: 1px solid var(--border-soft);
-  border-radius: 10px !important;
-  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
-}
-
-.carousel .carousel-item.can-scale:hover,
-.tf-item.can-scale:hover {
-  transform: translateY(-1px);
-  border-color: rgba(25, 40, 32, 0.14);
-  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
-}
-
 /* A little more breathing room before the article list. */
 #showcase {
   margin-bottom: 0.75rem;
@@ -300,7 +288,7 @@ figcaption,
   }
 }
 
-/* ===== v5.3 footer socials ===== */
+/* ===== Fizzy MDR footer socials ===== */
 .footer-socials {
   max-width: 34rem;
   margin: 1rem auto 1.25rem;
@@ -363,20 +351,7 @@ figcaption,
   }
 }
 
-/* ===== v2.1 light/dark mode ===== */
-:root {
-  --text-primary: #2d332f;
-  --text-secondary: #474d49;
-  --surface-elevated: #ffffff;
-  --surface-subtle: #fafbf9;
-  --input-background: #ffffff;
-  --inline-code-background: #eef1ef;
-  --inline-code-border: #d7ddd9;
-  --table-stripe: #f8f9f7;
-  --table-head: #eef1ef;
-  --table-hover: rgba(23, 107, 58, 0.08);
-}
-
+/* ===== Light/dark mode ===== */
 html[data-theme="dark"] {
   --main-color: #6bc189;
   --link-color-hover: #8dd7a5;
@@ -400,7 +375,8 @@ html[data-theme="dark"] {
   --table-hover: rgba(107, 193, 137, 0.11);
 }
 
-/* Top-right theme toggle */
+/* Top-right header controls */
+.search-button-wrap,
 .theme-toggle-wrap {
   padding-left: 0.3rem !important;
   padding-right: 0.3rem !important;
@@ -519,14 +495,14 @@ html[data-theme="dark"] .footer {
 html[data-theme="dark"] .navbar-brand .navbar-item a,
 html[data-theme="dark"] .navbar-item,
 html[data-theme="dark"] .navbar-link,
-html[data-theme="dark"] #search-btn {
+html[data-theme="dark"] .search-button {
   color: var(--text-secondary) !important;
 }
 
 html[data-theme="dark"] .navbar-brand .navbar-item a:hover,
 html[data-theme="dark"] .navbar-item:hover,
 html[data-theme="dark"] .navbar-link:hover,
-html[data-theme="dark"] #search-btn:hover {
+html[data-theme="dark"] .search-button:hover {
   color: var(--text-primary) !important;
 }
 
@@ -549,7 +525,6 @@ html[data-theme="dark"] .card,
 html[data-theme="dark"] .post-list-card,
 html[data-theme="dark"] .aside .post-card,
 html[data-theme="dark"] .tag-card,
-html[data-theme="dark"] .carousel .carousel-item,
 html[data-theme="dark"] .top-featured .box {
   background-color: var(--surface-card) !important;
   color: var(--text-primary);
@@ -602,17 +577,6 @@ html[data-theme="dark"] #close-btn .button {
 html[data-theme="dark"] .input::placeholder,
 html[data-theme="dark"] .textarea::placeholder {
   color: var(--text-muted);
-}
-
-html[data-theme="dark"] #search-results,
-html[data-theme="dark"] #search-results a {
-  background: var(--surface-elevated);
-  color: var(--text-primary);
-}
-
-html[data-theme="dark"] #search-results a:hover {
-  background: var(--surface-accent);
-  color: var(--text-primary);
 }
 
 html[data-theme="dark"] .post-wrap .post-content a {
@@ -753,7 +717,7 @@ html[data-theme="dark"] .site-license .cc-icons img {
   }
 }
 
-/* ===== v2.1.1 dark-mode completeness fixes ===== */
+/* ===== Dark-mode component coverage ===== */
 /* Bulma assigns heading colors directly, so article headings need an explicit
    theme-aware color rather than relying on the parent .content color. */
 html[data-theme="dark"] .post-wrap .post-content h1,
@@ -765,7 +729,7 @@ html[data-theme="dark"] .post-wrap .post-content h6 {
   color: var(--text-primary) !important;
 }
 
-/* TOCify's original stylesheet hard-codes a white panel background. */
+/* Table of contents dark surface. */
 html[data-theme="dark"] #toc,
 html[data-theme="dark"] #toc-img {
   background-color: var(--surface-card) !important;
@@ -822,144 +786,144 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 }
 
 
-/* ===== v2.1.3 dark showcase polish ===== */
-/* The showcase cards looked slightly outlined in dark mode because the shared
-   card border color was still a bit too bright at large image sizes. Tuck the
-   border back and lean more on shadow for separation. */
-html[data-theme="dark"] .carousel .carousel-item,
-html[data-theme="dark"] .tf-item,
-html[data-theme="dark"] .top-featured .box {
-  border-color: rgba(230, 238, 232, 0.05) !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28) !important;
+
+/* ===== Fizzy MDR 2.2 component consolidation ===== */
+.mdr-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  vertical-align: -0.14em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
-/* Tone down the category/tag pills in the showcase so they read as overlays
-   instead of outlined chips against the dark hero images. */
-html[data-theme="dark"] .carousel-tag a,
-html[data-theme="dark"] .tf-tag a {
-  background-color: rgba(7, 10, 8, 0.78) !important;
-  border: 0 !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-html[data-theme="dark"] .carousel-tag a:hover,
-html[data-theme="dark"] .tf-tag a:hover {
-  background-color: color-mix(in srgb, var(--surface-accent) 82%, black) !important;
-  border: 0 !important;
-  outline: none !important;
-  color: var(--text-primary) !important;
-  box-shadow: none !important;
-}
-
-
-/* ===== v2.1.4 theme-toggle hover containment ===== */
-/* The desktop toggle sits inside a .navbar-item wrapper, and that wrapper was
-   still receiving the generic rectangular navbar hover fill. Keep the wrapper
-   visually neutral so only the circular button shows a hover state. */
+.search-button-wrap,
+.search-button-wrap.navbar-item,
 .theme-toggle-wrap,
 .theme-toggle-wrap.navbar-item {
   background: transparent !important;
-  border-radius: 0 !important;
 }
 
+.search-button-wrap:hover,
+.search-button-wrap.navbar-item:hover,
+.search-button-wrap:focus-within,
 .theme-toggle-wrap:hover,
-.theme-toggle-wrap:focus-within,
 .theme-toggle-wrap.navbar-item:hover,
-.theme-toggle-wrap.navbar-item:focus-within {
+.theme-toggle-wrap:focus-within {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-
-/* ===== v2.1.6 showcase pill baseline fix ===== */
-/* The showcase tag links are inline-block elements. In some browsers the
-   baseline/descender gap under the line box can read like a thin bright
-   underline against dark hero images. Collapse the wrapper line box and align
-   the pills to the top so the artifact disappears. */
-.carousel-tag,
-.tf-tag {
-  line-height: 0;
-}
-
-.carousel-tag a,
-.tf-tag a {
-  vertical-align: top;
-  text-decoration: none;
-}
-
-html[data-theme="dark"] .carousel-tag a,
-html[data-theme="dark"] .tf-tag a,
-html[data-theme="dark"] .carousel-tag a:hover,
-html[data-theme="dark"] .tf-tag a:hover {
-  text-decoration: none !important;
-}
-
-
-/* ===== v2.1.7 dark showcase edge fix ===== */
-/* The remaining bright line was the semi-transparent card border itself.
-   Because background images paint underneath the border, the translucent
-   border picked up image color and looked like a bright colored edge. */
-html[data-theme="dark"] .carousel .carousel-item,
-html[data-theme="dark"] .tf-item,
-html[data-theme="dark"] .top-featured .box {
-  border: 0 !important;
-}
-
-html[data-theme="dark"] .carousel .carousel-item.can-scale:hover,
-html[data-theme="dark"] .tf-item.can-scale:hover {
-  border: 0 !important;
-}
-
-/* ===== v2.1.11 showcase pill geometry normalization ===== */
-/* Keep category pills identical in light and dark mode. Only their colors
-   should change between themes. */
-.carousel-tag a,
-.tf-tag a {
-  box-sizing: border-box;
-  padding: 4px 6px;
-  line-height: 1;
-  border: 0;
-  border-radius: 4px;
-  vertical-align: top;
-  text-decoration: none;
-}
-
-html[data-theme="dark"] .carousel-tag a,
-html[data-theme="dark"] .tf-tag a,
-html[data-theme="dark"] .carousel-tag a:hover,
-html[data-theme="dark"] .tf-tag a:hover {
-  padding: 4px 6px;
-  line-height: 1;
-  border: 0 !important;
-  border-radius: 4px;
-  box-shadow: none !important;
-  outline: none !important;
-  text-decoration: none !important;
-}
-
-/* ===== v2.1.13 theme-switch geometry stability ===== */
-/* Keep the 1px showcase border in both themes so card geometry never shifts.
-   In dark mode the border is painted with the page surface instead of being
-   transparent. Transparent borders let the background image paint underneath,
-   which can create a bright colored edge along the card. */
-.carousel .carousel-item,
-.tf-item,
-.top-featured .box {
-  box-sizing: border-box;
-}
-
-html[data-theme="dark"] .carousel .carousel-item,
-html[data-theme="dark"] .tf-item,
-html[data-theme="dark"] .top-featured .box,
-html[data-theme="dark"] .carousel .carousel-item.can-scale:hover,
-html[data-theme="dark"] .tf-item.can-scale:hover {
-  border: 1px solid var(--surface-page) !important;
+.search-button {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  padding: 0 !important;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  background: transparent;
   background-clip: padding-box;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1;
+  overflow: hidden;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+}
+.search-button .mdr-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.9;
+}
+.search-button:hover,
+.search-button:focus-visible {
+  border-radius: 999px;
+  background: var(--surface-accent) !important;
+  border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
+  color: var(--main-color) !important;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
+}
+.search-button:focus-visible { outline: 2px solid var(--main-color); outline-offset: 3px; }
+
+/* Semantic feature images keep the same crop as the old background-image implementation. */
+.featured-image,
+.post-hero-image-wrap {
+  overflow: hidden;
+}
+.card-feature-image,
+.post-hero-image,
+.showcase-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.post-hero-image-wrap { position: relative; }
+.post-hero-image { position: absolute; inset: 0; }
+
+@media screen and (min-width: 769px) {
+  .post-list-card .post-card > .post-list-card-image-link {
+    flex: none;
+    width: 38%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .post-list-card-image-link { width: 100%; }
 }
 
-/* Lock showcase pill dimensions and type metrics. Theme changes now affect
-   only paint (background/color), not width, height, padding, or text position. */
+/* Native carousel: only the active feature is laid out. */
+.carousel { position: relative; }
+.carousel .carousel-item { display: none; }
+.carousel .carousel-item.is-active { display: block; }
+.carousel .carousel-item,
+.tf-item {
+  position: relative;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 10px !important;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
+}
+.carousel .carousel-item.can-scale:hover,
+.tf-item.can-scale:hover {
+  border: 0 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
+}
+.showcase-image { position: absolute; inset: 0; z-index: 0; }
+.carousel-meta,
+.tf-meta {
+  z-index: 2;
+  pointer-events: none;
+}
+.carousel-meta a,
+.tf-meta a {
+  pointer-events: auto;
+}
+.carousel .link-block,
+.tf-item .link-block { z-index: 1; }
+.featured-label {
+  z-index: 3;
+  pointer-events: none;
+}
+html[data-theme="dark"] .carousel .carousel-item,
+html[data-theme="dark"] .tf-item {
+  border: 0 !important;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28) !important;
+}
+
+/* Category pills use identical geometry in both color schemes. */
+.carousel-tag,
+.tf-tag { line-height: 0; }
 .carousel-tag a,
 .tf-tag a,
 html[data-theme="dark"] .carousel-tag a,
@@ -986,4 +950,65 @@ html[data-theme="dark"] .tf-tag a:hover {
   box-shadow: none !important;
   outline: none;
 }
+html[data-theme="dark"] .carousel-tag a,
+html[data-theme="dark"] .tf-tag a {
+  background-color: rgba(7, 10, 8, 0.78) !important;
+  color: var(--text-primary) !important;
+}
+html[data-theme="dark"] .carousel-tag a:hover,
+html[data-theme="dark"] .tf-tag a:hover {
+  background-color: color-mix(in srgb, var(--surface-accent) 82%, black) !important;
+}
 
+/* Vanilla TOC replaces Tocify/jQuery UI. */
+#toc[hidden], #toc-img[hidden] { display: none !important; }
+#toc .toc-list, #toc-img .toc-list { margin: 0; }
+#toc li, #toc-img li { list-style: none; }
+#toc li > ul, #toc-img li > ul { margin-left: 10px; }
+#toc a, #toc-img a { text-decoration: none; }
+#toc .active > a, #toc-img .active > a { color: var(--text-black); font-weight: 600; }
+html[data-theme="dark"] #toc,
+html[data-theme="dark"] #toc-img {
+  background-color: var(--surface-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-soft) !important;
+}
+html[data-theme="dark"] #toc .active > a,
+html[data-theme="dark"] #toc-img .active > a { color: var(--text-primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel .carousel-item,
+  .tf-item,
+  .theme-toggle,
+  .search-button { transition: none !important; }
+}
+
+/* Related/previous/next cards share available desktop width without extra API count queries. */
+@media screen and (min-width: 1024px) {
+  .aside-grid > .aside-column {
+    flex: 1 1 0 !important;
+    width: auto !important;
+  }
+  .aside-grid > .aside-previous { order: 1; }
+  .aside-grid > .aside-related { order: 2; }
+  .aside-grid > .aside-next { order: 3; }
+}
+
+
+/* Responsive native Ghost YouTube embeds */
+.kg-embed-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+.kg-embed-card iframe[src*="youtube.com"],
+.kg-embed-card iframe[src*="youtube-nocookie.com"] {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}

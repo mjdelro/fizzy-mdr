@@ -10,7 +10,6 @@ Author URI: https://yuzhang.me
 /* ====================== import ====================== */
 /* Customized CSS ADD 2019.05.28*/
 @import "class.css";
-@import "iconfont.css"; /* ADD 2019.09.25 */
 
 /* ====================== over-write bulma default ====================== */
 /* fix "has-spaced-navbar-fixed-top" cut off the top on mobile devices 2019.04.09 */
@@ -284,66 +283,6 @@ body {
   margin-block: 0.5rem;
 }
 
-/* search form 2019.05.30*/
-.fizzy-search {
-  /* position:relative; */
-}
-#search-btn {
-  cursor: pointer;
-  border-radius: 4px;
-  color: #7a7a7a;
-}
-#search-btn:hover {
-  background-color: #f2f2f2;
-  /* color:var(--main-color); */
-}
-#search-form {
-  position: relative;
-  margin-left: 2px;
-}
-@media screen and (min-width: 1089px) {
-  #search-form {
-    margin-bottom: 0 !important;
-  }
-}
-#search-input:focus {
-  border-color: var(--main-color);
-  box-shadow: 0 0 0 0.125em var(--shadow);
-}
-#close-btn:hover button {
-  color: var(--main-color);
-  border-color: var(--link-color-hover);
-}
-#search-results {
-  z-index: 3;
-  position: absolute;
-  border-radius: 6px;
-  overflow: hidden;
-  margin-left: 2px;
-  box-shadow: 0 8px 8px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-  background-color: #fff;
-}
-@media screen and (max-width: 768px) {
-  #search-results {
-    margin: 0 1px !important;
-  }
-}
-#search-results a {
-  background: #fff;
-  border-radius: 3px;
-  color: #333;
-  word-spacing: 2.5px;
-  margin: 0.5rem !important;
-}
-#search-results a:hover {
-  font-weight: 600;
-  word-spacing: 1px;
-  background: #f7f7f7;
-  color: #333;
-}
-.fizzy-search .field:not(:last-child) {
-  margin-bottom: 0 !important;
-}
 /* ====================== component: carousel ====================== 2019.04.09 */
 .carousel {
   overflow: hidden;
@@ -783,7 +722,7 @@ body {
   line-height: 1.5rem;
   font-size: 1rem;
 }
-.single-article .meta-info li:hover .iconfont,
+.single-article .meta-info li:hover .mdr-icon,
 .single-article .meta-info li:hover span {
   color: #363636 !important;
 }

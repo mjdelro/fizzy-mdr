@@ -1,6 +1,6 @@
 {
   "name": "fizzy-mdr",
-  "version": "2.1.13",
+  "version": "2.2.4",
   "description": "A customized Ghost theme forked from Fizzy for michaeldelrosar.io, featuring accessible typography, editorial cards, persistent light/dark modes, streamlined footer socials, and a cleaner reading experience.",
   "author": {
     "name": "Yuzhang Huang",
@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "engines": {
-    "ghost": ">=3.0.0"
+    "ghost": ">=6.0.0"
   },
   "keywords": [
     "ghost",
@@ -53,6 +53,26 @@
       },
       "wide": {
         "width": 1200
+      }
+    },
+    "custom": {
+      "show_showcase": {
+        "type": "boolean",
+        "default": true,
+        "group": "homepage",
+        "description": "Show the featured editorial showcase on the homepage."
+      },
+      "show_toc": {
+        "type": "boolean",
+        "default": true,
+        "group": "post",
+        "description": "Show an automatically generated table of contents on posts."
+      },
+      "line_numbers": {
+        "type": "boolean",
+        "default": true,
+        "group": "post",
+        "description": "Show line numbers on syntax-highlighted code blocks."
       }
     }
   }

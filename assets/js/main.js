@@ -1,253 +1,169 @@
-/*
-Theme Name: Fizzy
-GitHub Repo: https://github.com/huangyuzhang/Fizzy-Theme
-Description: A tasty blogging theme for Ghost 
-Author: Yuzhang Huang
-Author URI: https://yuzhang.me
-*/
+"use strict";
 
-// header: navbar Burgers 2019.04.08
-document.addEventListener("DOMContentLoaded", () => {
-  // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0
-  );
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
 
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-    // Add a click event on each of them
-    $navbarBurgers.forEach((el) => {
-      el.addEventListener("click", () => {
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
+  // Add Prism line-number classes before Prism initializes on DOMContentLoaded.
+  if (document.body && document.body.dataset.lineNumbers === "true") {
+    document.querySelectorAll(".post-content pre").forEach(function (pre) {
+      pre.classList.add("line-numbers");
+    });
+  }
 
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle("is-active");
-        $target.classList.toggle("is-active");
+  function setupNavbar() {
+    document.querySelectorAll(".navbar-burger").forEach(function (button) {
+      button.addEventListener("click", function () {
+        var target = document.getElementById(button.dataset.target);
+        if (!target) return;
+        var active = button.classList.toggle("is-active");
+        target.classList.toggle("is-active", active);
+        button.setAttribute("aria-expanded", active ? "true" : "false");
       });
     });
   }
-});
 
-// =================================================
-// post archive: add year and month break 2019.05.28
-// =================================================
-// Year & Month Break
-var yearArray = new Array();
-var monthObj = new Object();
-$(".post-archive-item").each(function () {
-  var archivesYear = $(this).attr("year");
-  var archivesMonth = $(this).attr("month");
-  yearArray.push(archivesYear);
-  if (archivesYear in monthObj) {
-    monthObj[archivesYear].push(archivesMonth);
-  } else {
-    monthObj[archivesYear] = new Array();
-    monthObj[archivesYear].push(archivesMonth);
+  function setupArchiveGroups() {
+    var items = Array.prototype.slice.call(document.querySelectorAll(".post-archive-item"));
+    var year = null;
+    var month = null;
+    items.forEach(function (item) {
+      var nextYear = item.dataset.year;
+      var nextMonth = item.dataset.month;
+      if (nextYear !== year) {
+        var divider = document.createElement("hr");
+        var heading = document.createElement("h2");
+        heading.textContent = nextYear;
+        item.parentNode.insertBefore(divider, item);
+        item.parentNode.insertBefore(heading, item);
+        year = nextYear;
+        month = null;
+      }
+      if (nextMonth !== month) {
+        var subheading = document.createElement("h4");
+        subheading.textContent = nextMonth;
+        item.parentNode.insertBefore(subheading, item);
+        month = nextMonth;
+      }
+    });
   }
-});
-var uniqueYear = $.unique(yearArray);
-for (var i = 0; i < uniqueYear.length; i++) {
-  var html = "<hr><h2>" + uniqueYear[i] + "</h2>";
-  $("[year='" + uniqueYear[i] + "']:first").before(html);
-  var uniqueMonth = $.unique(monthObj[uniqueYear[i]]);
-  for (var m = 0; m < uniqueMonth.length; m++) {
-    var html = "<h4>" + uniqueMonth[m] + "</h4>";
-    $(
-      "[year='" + uniqueYear[i] + "'][month='" + uniqueMonth[m] + "']:first"
-    ).before(html);
-  }
-}
-// =================================================
-// search 2019.05.30
-// function: open and close search form
-// =================================================
-if (typeof show_search == "undefined") {
-  var show_search = false;
-}
-if (!show_search) {
-  $("#search-btn").hide();
-}
-// click search button event
-$("#search-btn").click(function (event) {
-  // $("#search-input").val("");
-  $("#search-form").fadeIn();
-  $("#search-btn").hide();
-  $("#search-input").focus();
-  $("#search-results").show();
-  event.stopPropagation();
-});
-// click close button event
-$("#close-btn").click(function (event) {
-  $("#search-form").hide();
-  $("#search-results").hide();
-  $("#search-btn").fadeIn();
-  // $("#search-input").val(""); //clear search field text
-  event.stopPropagation();
-});
-// click outside of search form event
-$(document).mouseup(function (e) {
-  var container = $("#search-form");
 
-  // if the target of the click isn't the container nor a descendant of the container
-  if (
-    show_search &&
-    !container.is(e.target) &&
-    container.has(e.target).length === 0
-  ) {
-    container.hide();
-    $("#search-results").hide();
-    $("#search-btn").fadeIn();
-  }
-});
-// scroll event
-$(window).scroll(function () {
-  $("#search-form").hide();
-  $("#search-results").hide();
-  if (show_search) {
-    $("#search-btn").show();
-  }
-});
+  function setupCarousel() {
+    var carousel = document.getElementById("carousel-home");
+    if (!carousel) return;
+    var slides = Array.prototype.slice.call(carousel.querySelectorAll(".carousel-item"));
+    if (slides.length < 2) return;
 
-/*----------------------------------------------------*/
-/*  Prismjs Line-numbers | 2019.07.05
-/*----------------------------------------------------*/
-if (typeof line_numbers == "undefined") {
-  var line_numbers = false;
-}
-if (line_numbers) {
-  $("pre").addClass("line-numbers");
-}
+    var index = Math.max(0, slides.findIndex(function (slide) { return slide.classList.contains("is-active"); }));
+    var timer = null;
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/*----------------------------------------------------*/
-/*  Ghost image + gallery lightbox
-/*----------------------------------------------------*/
-document.addEventListener("DOMContentLoaded", function () {
-  // Standard Ghost image cards. Preserve explicit links added by the author.
-  document.querySelectorAll("figure.kg-image-card").forEach((figure) => {
-    const image = figure.querySelector("img.kg-image");
-    const caption = figure.querySelector("figcaption");
-
-    if (!image || image.closest("a")) {
-      return;
+    function show(next) {
+      slides.forEach(function (slide, i) {
+        var active = i === next;
+        slide.classList.toggle("is-active", active);
+        slide.setAttribute("aria-hidden", active ? "false" : "true");
+      });
+      index = next;
+    }
+    function start() {
+      if (reduceMotion || timer) return;
+      timer = window.setInterval(function () { show((index + 1) % slides.length); }, 6000);
+    }
+    function stop() {
+      if (timer) window.clearInterval(timer);
+      timer = null;
     }
 
-    const link = document.createElement("a");
-    link.href = image.currentSrc || image.src;
-    link.setAttribute("data-fslightbox", "post-images");
-    link.setAttribute("aria-label", "Open image in lightbox");
-    link.appendChild(image);
-
-    figure.replaceChildren(link);
-    if (caption) {
-      figure.appendChild(caption);
-    }
-  });
-
-  // Ghost gallery cards. Wrap each unlinked image in the same lightbox gallery.
-  document.querySelectorAll(".kg-gallery-card img").forEach((image) => {
-    if (image.closest("a")) {
-      return;
-    }
-
-    const link = document.createElement("a");
-    link.href = image.currentSrc || image.src;
-    link.setAttribute("data-no-swup", "");
-    link.setAttribute("data-fslightbox", "post-images");
-    link.setAttribute("aria-label", "Open image in lightbox");
-
-    image.parentNode.insertBefore(link, image);
-    link.appendChild(image);
-  });
-
-  if (typeof refreshFsLightbox === "function") {
-    refreshFsLightbox();
-  }
-});
-
-/*----------------------------------------------------*/
-/*  Light / dark color scheme
-/*----------------------------------------------------*/
-document.addEventListener("DOMContentLoaded", function () {
-  var storageKey = "fizzy-color-scheme";
-  var root = document.documentElement;
-  var toggles = Array.prototype.slice.call(
-    document.querySelectorAll(".theme-toggle")
-  );
-  var mediaQuery = window.matchMedia
-    ? window.matchMedia("(prefers-color-scheme: dark)")
-    : null;
-  var themeColorMeta = document.getElementById("theme-color-meta");
-
-  function getTheme() {
-    return root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    show(index);
+    carousel.addEventListener("mouseenter", stop);
+    carousel.addEventListener("mouseleave", start);
+    carousel.addEventListener("focusin", stop);
+    carousel.addEventListener("focusout", start);
+    document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
+    start();
   }
 
-  function updateControls(theme) {
-    var nextTheme = theme === "dark" ? "light" : "dark";
-    var label = "Switch to " + nextTheme + " mode";
+  function setupLightbox() {
+    document.querySelectorAll("figure.kg-image-card").forEach(function (figure) {
+      var image = figure.querySelector("img.kg-image");
+      var caption = figure.querySelector("figcaption");
+      if (!image || image.closest("a")) return;
+      var link = document.createElement("a");
+      link.href = image.currentSrc || image.src;
+      link.setAttribute("data-fslightbox", "post-images");
+      link.setAttribute("aria-label", "Open image in lightbox");
+      link.appendChild(image);
+      figure.replaceChildren(link);
+      if (caption) figure.appendChild(caption);
+    });
+
+    document.querySelectorAll(".kg-gallery-card img").forEach(function (image) {
+      if (image.closest("a")) return;
+      var link = document.createElement("a");
+      link.href = image.currentSrc || image.src;
+      link.setAttribute("data-no-swup", "");
+      link.setAttribute("data-fslightbox", "post-images");
+      link.setAttribute("aria-label", "Open image in lightbox");
+      image.parentNode.insertBefore(link, image);
+      link.appendChild(image);
+    });
+
+    if (typeof refreshFsLightbox === "function") refreshFsLightbox();
+  }
+
+  function setupTheme() {
+    var storageKey = "fizzy-color-scheme";
+    var root = document.documentElement;
+    var toggles = Array.prototype.slice.call(document.querySelectorAll(".theme-toggle"));
+    var mediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+    var themeColorMeta = document.getElementById("theme-color-meta");
+
+    function currentTheme() { return root.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
+    function updateControls(theme) {
+      var nextTheme = theme === "dark" ? "light" : "dark";
+      var label = "Switch to " + nextTheme + " mode";
+      toggles.forEach(function (toggle) {
+        toggle.setAttribute("aria-label", label);
+        toggle.setAttribute("title", label);
+        toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+        var text = toggle.querySelector(".theme-toggle-text");
+        if (text) text.textContent = label;
+      });
+    }
+    function applyTheme(theme, persist) {
+      root.setAttribute("data-theme", theme);
+      root.style.colorScheme = theme;
+      if (themeColorMeta) themeColorMeta.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
+      if (persist) {
+        try { window.localStorage.setItem(storageKey, theme); } catch (error) {}
+      }
+      updateControls(theme);
+    }
 
     toggles.forEach(function (toggle) {
-      toggle.setAttribute("aria-label", label);
-      toggle.setAttribute("title", label);
-      toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-
-      var text = toggle.querySelector(".theme-toggle-text");
-      if (text) {
-        text.textContent = label;
-      }
+      toggle.addEventListener("click", function () { applyTheme(currentTheme() === "dark" ? "light" : "dark", true); });
     });
+
+    if (mediaQuery) {
+      var onSystemChange = function (event) {
+        var stored = null;
+        try { stored = window.localStorage.getItem(storageKey); } catch (error) {}
+        if (stored !== "light" && stored !== "dark") applyTheme(event.matches ? "dark" : "light", false);
+      };
+      if (mediaQuery.addEventListener) mediaQuery.addEventListener("change", onSystemChange);
+      else if (mediaQuery.addListener) mediaQuery.addListener(onSystemChange);
+    }
+    applyTheme(currentTheme(), false);
   }
 
-  function applyTheme(theme, persist) {
-    root.setAttribute("data-theme", theme);
-    root.style.colorScheme = theme;
-
-    if (themeColorMeta) {
-      themeColorMeta.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
-    }
-
-    if (persist) {
-      try {
-        window.localStorage.setItem(storageKey, theme);
-      } catch (error) {
-        // Theme still works for this page if storage is unavailable.
-      }
-    }
-
-    updateControls(theme);
-  }
-
-  toggles.forEach(function (toggle) {
-    toggle.addEventListener("click", function () {
-      applyTheme(getTheme() === "dark" ? "light" : "dark", true);
-    });
+  ready(function () {
+    setupNavbar();
+    setupArchiveGroups();
+    setupCarousel();
+    setupLightbox();
+    setupTheme();
   });
-
-  // Follow OS changes until the visitor explicitly chooses a theme.
-  if (mediaQuery) {
-    var handleSystemThemeChange = function (event) {
-      var hasStoredPreference = false;
-      try {
-        var stored = window.localStorage.getItem(storageKey);
-        hasStoredPreference = stored === "light" || stored === "dark";
-      } catch (error) {
-        hasStoredPreference = false;
-      }
-
-      if (!hasStoredPreference) {
-        applyTheme(event.matches ? "dark" : "light", false);
-      }
-    };
-
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", handleSystemThemeChange);
-    } else if (typeof mediaQuery.addListener === "function") {
-      mediaQuery.addListener(handleSystemThemeChange);
-    }
-  }
-
-  applyTheme(getTheme(), false);
-});
+}());

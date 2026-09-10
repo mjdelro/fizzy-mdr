@@ -15,19 +15,19 @@ into the {body} of the default.hbs template --}}
     <div class="container has-text-centered">
         <h1 class="title is-vmargin-2 is-capitalized has-text-white is-marginless-bottom">
             <span class="is-padding-05-15 round-border-6">
-                <i class="iconfont icon-star"></i> {{title}}
+                {{> "icons/star"}} {{title}}
             </span>
         </h1>
-        <h2 class="subtitle is-vmargin-2 has-text-white is-centered is-margin-auto" style="max-width:760px;">
+        <div class="subtitle content is-vmargin-2 has-text-white is-centered is-margin-auto" style="max-width:760px;">
             {{content}}
-        </h2>
+        </div>
     </div>
   </div>
 </section>
 {{/post}}
 
 
-{{#get "posts" include="tags,authors" filter="featured:true" limit="all" order="published_at desc"}}
+{{#get "posts" include="tags,authors" filter="featured:true" limit="100" order="published_at desc"}}
 <main class="section">
     <div class="columns">
         <div class="column is-hidden-touch is-1-desktop is-1-widescreen is-2-fullhd"></div>

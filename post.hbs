@@ -5,15 +5,16 @@
     <div class="columns">
         <div class="column is-hidden-touch is-1-desktop is-1-widescreen is-2-fullhd"></div>
         <div class="column is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
-            <article class="single-article">
+            <article class="{{post_class}} single-article">
                 {{!-- featured_image --}}
                 {{#if feature_image}}
                 <div class="box is-paddingless is-shadowless is-full-mobile is-centered">
                     <section class="featured-image">
-                        <div class="featured-image" style="background-image:url({{img_url feature_image size="wide"}});">
+                        <div class="featured-image post-hero-image-wrap">
+                            <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high">
                             {{!-- featured post label --}}
                             {{#if featured}}
-                            <span class="featured-label large is-montserrat" title="Featured Post"><i class="iconfont icon-star"></i> {{t "Featured"}}</span>
+                            <span class="featured-label large is-montserrat" title="Featured Post">{{> "icons/star"}} {{t "Featured"}}</span>
                             {{/if}}
                         </div>
                     </section>
@@ -25,7 +26,7 @@
                     <section class="post-wrap is-vpadding-15">
                         {{!-- meta --}}
                         <div class="has-2-ends is-montserrat is-uppercase is-size-7">
-                            <div class="end date">{{date format=(t "DD MMMM YYYY")}}</div>
+                            <div class="end date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></div>
                             <div class="end reading_time">{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</div>
                         </div>
 
@@ -36,8 +37,8 @@
                         {{#has tag="count:>0"}}
                         <div class="buttons tags has-text-weight-semibold">
                             <span class="button is-static is-size-7-mobile" style="padding:0 0.5em;min-width:2.5em">
-                                {{#has tag="count:1"}}<i class="iconfont icon-tag"></i>{{/has}}
-                                {{#has tag="count:>1"}}<i class="iconfont icon-tags"></i>{{/has}}
+                                {{#has tag="count:1"}}{{> "icons/tag"}}{{/has}}
+                                {{#has tag="count:>1"}}{{> "icons/tags"}}{{/has}}
                             </span>
                             {{#foreach tags}}
                             <a href="{{url}}" class="button is-light is-size-7-mobile has-text-weight-semibold">{{name}}</a>
@@ -55,14 +56,15 @@
                 </div>
             </article>
         </div>
-        <div class="column is-hidden-touch">
-            <div id="toc"></div>
-        </div>
+        {{#if @custom.show_toc}}
+        <div class="column is-hidden-touch"><div id="toc"></div></div>
+        {{else}}
+        <div class="column is-hidden-touch"></div>
+        {{/if}}
     </div>
 </section>
 
-{{!-- toc --}}
-{{> "post/post_toc"}}
+{{#if @custom.show_toc}}{{> "post/post_toc"}}{{/if}}
 
 {{!-- aside section (related post, prev & next) --}}
 {{> "post/post_aside"}}

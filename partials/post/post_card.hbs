@@ -2,9 +2,9 @@
 <article class="box is-paddingless has-shadow-mo">
     <div class="post-card">
         {{!-- featured_image --}}
-        <a class="is-paddingless-top" href="{{url}}" alt="{{title}}" title="{{title}}">
+        <a class="is-paddingless-top" href="{{url}}" title="{{title}}">
             {{#if feature_image}}
-                <div class="featured-image" style="background-image:url({{img_url feature_image size="medium"}});"></div>    
+                <div class="featured-image"><img class="card-feature-image" src="{{img_url feature_image size="medium"}}" srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w" sizes="(max-width: 768px) 100vw, 33vw" alt="{{feature_image_alt}}" loading="lazy"></div>    
             {{else}}
                 <div class="featured-image" style="text-align: center;line-height:190px;background-image: linear-gradient(to bottom right, #6c1f9c, #0e5680);"> <span class="is-montserrat is-size-3 has-text-white">NO IMAGE</span></div>    
             {{/if}}
@@ -15,9 +15,9 @@
             <div class="post-info">
                 {{#if featured}}
                     {{#if feature_image}}
-                    <span class="featured-label has-img is-montserrat" title="{{t "Featured"}}"><i class="iconfont icon-star"></i> <span>{{t "Featured"}}</span></span>
+                    <span class="featured-label has-img is-montserrat" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
                     {{else}}
-                    <span class="featured-label no-img is-montserrat" title="{{t "Featured"}}"><i class="iconfont icon-star"></i> <span>{{t "Featured"}}</span></span>
+                    <span class="featured-label no-img is-montserrat" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
                     {{/if}}
                 {{/if}}
                 <div class="level is-mobile is-montserrat is-uppercase is-margin-bottom-1">
@@ -31,7 +31,7 @@
                         </div>
                         {{/primary_tag}}
                         <div class="level-item is-size-7 ">
-                            {{date format=(t "DD MMMM YYYY")}}
+                            <time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time>
                         </div>
                     </div>
                 </div>
@@ -39,14 +39,10 @@
                 {{!-- heading & content --}}
                 <div class="meta">
                     <a href="{{url}}" class="is-montserrat has-text-black">
-                        <h1 class="title is-5 is-size-6-touch" style="line-height:1.5em;margin-top:0;">{{title}}</h1>
+                        <h3 class="title is-5 is-size-6-touch" style="line-height:1.5em;margin-top:0;">{{title}}</h3>
                     </a>
                     <p class="is-hidden is-hidden-mobile is-margin-bottom-1">
-                        {{#if meta_description}}
-                            {{excerpt words="20"}}
-                        {{else}}
-                            {{excerpt words="20"}}
-                        {{/if}}
+                        {{excerpt words="20"}}
                     </p>
                 </div>
 

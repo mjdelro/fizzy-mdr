@@ -1,82 +1,56 @@
 # Fizzy MDR
 
-A customized Ghost theme based on the original [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang.
+A customized Ghost 6 theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, built for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Built for [michaeldelrosar.io](https://michaeldelrosar.io), with a focus on typewriters, film photography, Linux, self-hosting, hardware, and technology.
-
-Current release: **2.1.13**
+Current release: **2.2.0**
 
 ## Features
 
-- Editorial homepage with showcase and article cards
+- Editorial homepage with carousel and featured cards
 - Persistent light/dark mode
-- Mobile dark-mode support
-- Atkinson Hyperlegible Next for body text
-- IBM Plex Sans for headings and UI
-- Atkinson Hyperlegible Mono for code
-- 960px article width
-- Dark-mode support for TOC, tables, attachments, bookmarks, and code
-- Footer links for GitHub, LinkedIn, Twitch, and Ko-fi
-- Comments and legacy Fizzy credit UI removed
+- Native Ghost search
+- Responsive semantic feature images
+- Atkinson Hyperlegible Next body typography
+- IBM Plex Sans headings/UI
+- Atkinson Hyperlegible Mono code
+- Vanilla JavaScript carousel and TOC; no jQuery, Slick, jQuery UI, or Tocify
+- Dark-mode support for Ghost cards, tables, code, archives, and TOC
+- Accessible navigation controls and improved semantic markup
+- Ghost 6 custom settings for showcase, TOC, and code line numbers
 
-## Homepage Showcase
+## Theme Settings
 
-Posts tagged with:
+After activation, open **Settings → Design & branding → Theme** in Ghost Admin.
 
-```text
-#carousel
+- **Show Showcase** — homepage editorial showcase
+- **Show Toc** — generated H2/H3 table of contents
+- **Line Numbers** — Prism code line numbers
+
+Legacy Code Injection variables (`show_showcase`, `show_toc`, `line_numbers`, `show_search`, `search_key`, `search_url`) are no longer required.
+
+## Internal Tags
+
+- `#carousel` — adds a post to the homepage carousel
+- `#noindex` — excludes a post from standard listing templates
+
+## Development
+
+```bash
+git status
+git diff
+git add .
+git diff --staged
+git commit -m "Describe the change"
+git push
 ```
 
-appear in the main homepage carousel.
-
-Supporting cards prefer featured posts while excluding carousel posts.
-
-## Recommended Ghost Code Injection
-
-```html
-<script>
-  var show_showcase = true;
-  var line_numbers = true;
-  var show_toc = true;
-</script>
-```
-
-Legacy variables no longer used:
-
-```text
-show_comment
-footer_text
-fizzy_credit
-```
-
-## Important Files
-
-```text
-assets/css/custom.css
-assets/js/main.js
-partials/header.hbs
-partials/showcase.hbs
-partials/footer.hbs
-default.hbs
-post.hbs
-```
-
-## Releases
-
-```text
-PATCH  2.1.13 → 2.1.14
-MINOR  2.1.13 → 2.2.0
-MAJOR  2.x → 3.0.0
-```
-
-See [CHANGELOG.md](./CHANGELOG.md) for release history.
+GitHub Actions runs GScan before deploying the theme to Ghost.
 
 ## Credits
 
-Original theme: [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang.
-
+Original theme: [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang.  
 Customized and maintained by [Michael del Rosario](https://michaeldelrosar.io).
 
 ## License
 
-MIT License. See [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).

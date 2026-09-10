@@ -5,86 +5,53 @@
             <div class="navbar-brand">
                 {{#if @site.logo}}
                 <div class="navbar-item logo">
-                    <a href="{{@site.url}}">
-                        <img src="{{@site.logo}}" alt="{{@site.title}}" title="{{@site.title}} - {{@site.description}}" width="auto" height="28">
+                    <a href="{{@site.url}}" aria-label="{{@site.title}} home">
+                        <img src="{{@site.logo}}" alt="{{@site.title}}" title="{{@site.title}} - {{@site.description}}" height="28">
                     </a>
                 </div>
                 {{else}}
-                    <div class="navbar-item text-logo">
-                        <a class="align-vcentered" href="{{@site.url}}" alt="{{@site.title}}" title="{{@site.title}} - {{@site.description}}">
-                            {{#if @site.icon}}
-                                <img src="{{@site.icon}}">
-                            {{/if}}
-                            {{@site.title}}
-                        </a>
-                    </div>
+                <div class="navbar-item text-logo">
+                    <a class="align-vcentered" href="{{@site.url}}" title="{{@site.title}} - {{@site.description}}">
+                        {{#if @site.icon}}
+                        <img src="{{@site.icon}}" alt="" width="48" height="48">
+                        {{/if}}
+                        {{@site.title}}
+                    </a>
+                </div>
                 {{/if}}
 
-                {{!-- Color-scheme toggle stays visible beside the burger on touch devices. --}}
                 <button class="theme-toggle theme-toggle-mobile navbar-item is-hidden-desktop" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        <path d="M20.7 14.1A8.2 8.2 0 0 1 9.9 3.3 9 9 0 1 0 20.7 14.1Z"></path>
-                    </svg>
-                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        <circle cx="12" cy="12" r="4"></circle>
-                        <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
-                    </svg>
+                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 14.1A8.2 8.2 0 0 1 9.9 3.3 9 9 0 1 0 20.7 14.1Z"></path></svg>
+                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
                     <span class="is-sr-only theme-toggle-text">Switch to dark mode</span>
                 </button>
 
-                {{!-- burger in mobile devices --}}
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarPrimary">
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                </a>
-
+                <button type="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" aria-controls="navbarPrimary" data-target="navbarPrimary">
+                    <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+                </button>
             </div>
 
             <div id="navbarPrimary" class="navbar-menu">
-
-                {{!-- Site Navigation. The navigation helper may render nothing when no links are configured,
-                     so persistent controls live directly in the header rather than inside navigation.hbs. --}}
                 <div class="navbar-end">
-                    {{#if @site.navigation}}
-                        {{navigation}}
-                    {{/if}}
+                    {{#if @site.navigation}}{{navigation}}{{/if}}
 
-                    <div class="navbar-item" id="search-btn">
-                        <i class="iconfont icon-search"></i>
+                    <div class="navbar-item search-button-wrap">
+                        <button class="search-button" type="button" data-ghost-search aria-label="{{t "Search"}}" title="{{t "Search"}}">
+                            {{> "icons/search"}}
+                            <span class="is-sr-only">{{t "Search"}}</span>
+                        </button>
                     </div>
 
                     <div class="navbar-item theme-toggle-wrap is-hidden-touch">
                         <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-                            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <path d="M20.7 14.1A8.2 8.2 0 0 1 9.9 3.3 9 9 0 1 0 20.7 14.1Z"></path>
-                            </svg>
-                            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                <circle cx="12" cy="12" r="4"></circle>
-                                <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path>
-                            </svg>
+                            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 14.1A8.2 8.2 0 0 1 9.9 3.3 9 9 0 1 0 20.7 14.1Z"></path></svg>
+                            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
                             <span class="is-sr-only theme-toggle-text">Switch to dark mode</span>
                         </button>
                     </div>
                 </div>
-
-                <div class="fizzy-search">
-                    <div class="field has-addons" style="display:none" id="search-form">
-                        <div class="control has-icons-left">
-                            <input id="search-input" class="input" placeholder="{{t "Search"}}">
-                            <span class="icon is-left">
-                                <i class="iconfont icon-search"></i>
-                            </span>
-                        </div>
-                        <div class="control" id="close-btn">
-                            <button type="submit" class="button"><i class="iconfont icon-cross"></i></button>
-                        </div>
-                    </div>
-                    <div id="search-results"></div>
-                </div>
             </div>
         </div>
-
-        <div class="column is-hidden-touch" style="padding: .5rem"></div>
+        <div class="column is-hidden-touch" style="padding:.5rem"></div>
     </nav>
 </header>
