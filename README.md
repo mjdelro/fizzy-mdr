@@ -1,40 +1,37 @@
 # Fizzy MDR
 
-A customized Ghost theme forked from [Fizzy](https://github.com/huangyuzhang/Fizzy-Theme) and tailored for [michaeldelrosar.io](https://michaeldelrosar.io).
+A customized Ghost theme based on the original [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang.
 
-This version keeps Fizzy's magazine-style structure, but updates the theme with a cleaner editorial aesthetic, better reading typography, improved code presentation, simplified footer behavior, and built-in footer social links.
+Built for [michaeldelrosar.io](https://michaeldelrosar.io), with a focus on typewriters, film photography, Linux, self-hosting, hardware, and technology.
 
-## Highlights
+Current release: **2.1.13**
 
-- Editorial homepage layout with showcase plus horizontal post cards
-- Accessible typography tuned for long-form reading
-  - **Body:** Atkinson Hyperlegible Next
-  - **Headings/UI:** IBM Plex Sans
-  - **Code:** Atkinson Hyperlegible Mono
-- Wider single-post content column (**960px**)
-- Cleaner homepage card styling and warmer background
-- Built-in custom footer and social links section
-- Persistent light/dark color scheme with a top-right toggle
-- Comments removed
-- KaTeX and Prism styles loaded only where needed
-- Streamlined code injection requirements
-- Distinct package metadata for this customized fork
+## Features
 
-## Version
+- Editorial homepage with showcase and article cards
+- Persistent light/dark mode
+- Mobile dark-mode support
+- Atkinson Hyperlegible Next for body text
+- IBM Plex Sans for headings and UI
+- Atkinson Hyperlegible Mono for code
+- 960px article width
+- Dark-mode support for TOC, tables, attachments, bookmarks, and code
+- Footer links for GitHub, LinkedIn, Twitch, and Ko-fi
+- Comments and legacy Fizzy credit UI removed
 
-Current customized release: **2.1.13**
+## Homepage Showcase
 
-## Installation
+Posts tagged with:
 
-1. Download the theme ZIP.
-2. In Ghost Admin, go to **Settings → Design**.
-3. Upload the ZIP as a custom theme.
-4. Activate the theme.
+```text
+#carousel
+```
+
+appear in the main homepage carousel.
+
+Supporting cards prefer featured posts while excluding carousel posts.
 
 ## Recommended Ghost Code Injection
-
-This fork still supports the useful display toggles from Fizzy.
-In **Ghost Admin → Settings → Code Injection → Site Header**, you can use:
 
 ```html
 <script>
@@ -44,96 +41,53 @@ In **Ghost Admin → Settings → Code Injection → Site Header**, you can use:
 </script>
 ```
 
-### Variables no longer used
+Legacy variables no longer used:
 
-Do **not** keep these old variables around:
+```text
+show_comment
+footer_text
+fizzy_credit
+```
 
-- `show_comment`
-- `footer_text`
-- `fizzy_credit`
+## Important Files
 
-Any old Gitalk or Disqus code injection can also be removed.
+```text
+assets/css/custom.css
+assets/js/main.js
+partials/header.hbs
+partials/showcase.hbs
+partials/footer.hbs
+default.hbs
+post.hbs
+```
 
-## Light and dark mode
+## Development
 
-The top-right sun/moon button switches between light and dark color schemes.
+```bash
+git status
+git diff
+git add .
+git diff --staged
+git commit -m "Describe the change"
+git push
+```
 
-- On a visitor's first visit, the theme follows the operating-system `prefers-color-scheme` setting.
-- A manual choice is stored in `localStorage` under `fizzy-color-scheme`.
-- The saved choice is applied in the document head before the stylesheets paint, minimizing theme flash during page load.
-- On mobile, the same toggle remains visible beside the navigation burger.
-- Search and the desktop theme toggle remain available even when Ghost has no primary navigation links configured.
-- The desktop theme toggle and search control remain available even when no Ghost navigation links are configured.
-- The mobile navigation burger also follows the active light/dark color scheme.
+## Releases
 
-## Theme behavior
+```text
+PATCH  2.1.13 → 2.1.14
+MINOR  2.1.13 → 2.2.0
+MAJOR  2.x → 3.0.0
+```
 
-### Homepage showcase
+See [CHANGELOG.md](./CHANGELOG.md) for release history.
 
-- The large left showcase item is populated from posts tagged with the internal tag **`#carousel`**.
-- The two right-side showcase cards exclude `#carousel` posts.
-- Featured posts are preferred on the right; newer posts can fill remaining slots.
+## Credits
 
-### Internal tags
+Original theme: [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang.
 
-This fork still uses Fizzy's internal tag behavior:
+Customized and maintained by [Michael del Rosario](https://michaeldelrosar.io).
 
-- `#carousel` / `hash-carousel` → adds posts to the homepage showcase carousel
-- `#noindex` / `hash-noindex` → excludes posts from the home listing
+## License
 
-### Social links
-
-This fork includes a dedicated footer social section with large icons for:
-
-- GitHub
-- LinkedIn
-- Twitch
-- Ko-fi
-
-The current links are hardcoded for the customized site build:
-
-- GitHub: `https://github.com/mjdelro`
-- LinkedIn: `https://www.linkedin.com/in/michaeljdelrosario`
-- Twitch: `https://www.twitch.tv/mikey_247`
-- Ko-fi: `https://ko-fi.com/mikey_247`
-
-## What's different from upstream Fizzy
-
-This fork intentionally changes several parts of the original theme:
-
-- Removed comment integrations from post templates
-- Removed the Fizzy credit UI
-- Replaced the JavaScript-driven footer text approach with a theme-rendered footer
-- Cleaned up old/unused assets and duplicate font loading
-- Refined homepage cards, showcase behavior, spacing, and hover states
-- Reworked typography for accessibility and technical-content readability
-- Added custom footer social icons and tightened footer spacing
-- Updated package metadata and documentation for this fork
-
-## Customization notes
-
-Most visual overrides for this customized build live in:
-
-- `assets/css/custom.css`
-
-Core templates most likely to be edited further:
-
-- `default.hbs`
-- `index.hbs`
-- `post.hbs`
-- `partials/footer.hbs`
-- `partials/navigation.hbs`
-
-## License and credit
-
-- Original theme: **Fizzy** by **Yuzhang Huang**
-- Customization and maintained fork: **Michael del Rosario**
-- License: **MIT**
-
-If you publish or share this fork, retain the upstream attribution and MIT license.
-
-## Related docs
-
-- [Upstream Fizzy repository](https://github.com/huangyuzhang/Fizzy-Theme)
-- [Customization notes](./CLEANUP-NOTES.md)
-- [Changelog](./CHANGELOG.md)
+MIT License. See [LICENSE](./LICENSE).
