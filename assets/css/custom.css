@@ -530,12 +530,18 @@ html[data-theme="dark"] #search-btn:hover {
   color: var(--text-primary) !important;
 }
 
-html[data-theme="dark"] .navbar-burger {
-  color: var(--text-primary);
+/* Bulma's `.navbar.is-white .navbar-burger` selector is more specific than a
+   plain `.navbar-burger` override, so explicitly override the white-navbar
+   burger in dark mode. */
+html[data-theme="dark"] .navbar.is-white .navbar-burger,
+html[data-theme="dark"] .navbar .navbar-burger {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
 }
 
-html[data-theme="dark"] .navbar-burger span {
-  background-color: currentColor;
+html[data-theme="dark"] .navbar.is-white .navbar-burger span,
+html[data-theme="dark"] .navbar .navbar-burger span {
+  background-color: var(--text-primary) !important;
 }
 
 html[data-theme="dark"] .box,
@@ -904,3 +910,80 @@ html[data-theme="dark"] .carousel .carousel-item.can-scale:hover,
 html[data-theme="dark"] .tf-item.can-scale:hover {
   border: 0 !important;
 }
+
+/* ===== v2.1.11 showcase pill geometry normalization ===== */
+/* Keep category pills identical in light and dark mode. Only their colors
+   should change between themes. */
+.carousel-tag a,
+.tf-tag a {
+  box-sizing: border-box;
+  padding: 4px 6px;
+  line-height: 1;
+  border: 0;
+  border-radius: 4px;
+  vertical-align: top;
+  text-decoration: none;
+}
+
+html[data-theme="dark"] .carousel-tag a,
+html[data-theme="dark"] .tf-tag a,
+html[data-theme="dark"] .carousel-tag a:hover,
+html[data-theme="dark"] .tf-tag a:hover {
+  padding: 4px 6px;
+  line-height: 1;
+  border: 0 !important;
+  border-radius: 4px;
+  box-shadow: none !important;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+/* ===== v2.1.13 theme-switch geometry stability ===== */
+/* Keep the 1px showcase border in both themes so card geometry never shifts.
+   In dark mode the border is painted with the page surface instead of being
+   transparent. Transparent borders let the background image paint underneath,
+   which can create a bright colored edge along the card. */
+.carousel .carousel-item,
+.tf-item,
+.top-featured .box {
+  box-sizing: border-box;
+}
+
+html[data-theme="dark"] .carousel .carousel-item,
+html[data-theme="dark"] .tf-item,
+html[data-theme="dark"] .top-featured .box,
+html[data-theme="dark"] .carousel .carousel-item.can-scale:hover,
+html[data-theme="dark"] .tf-item.can-scale:hover {
+  border: 1px solid var(--surface-page) !important;
+  background-clip: padding-box;
+}
+
+/* Lock showcase pill dimensions and type metrics. Theme changes now affect
+   only paint (background/color), not width, height, padding, or text position. */
+.carousel-tag a,
+.tf-tag a,
+html[data-theme="dark"] .carousel-tag a,
+html[data-theme="dark"] .tf-tag a,
+html[data-theme="dark"] .carousel-tag a:hover,
+html[data-theme="dark"] .tf-tag a:hover {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 1.5rem;
+  padding: 0 0.375rem !important;
+  margin: 0;
+  border: 0 !important;
+  border-radius: 4px;
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  vertical-align: top;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  outline: none;
+}
+

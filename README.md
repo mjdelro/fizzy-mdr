@@ -22,7 +22,7 @@ This version keeps Fizzy's magazine-style structure, but updates the theme with 
 
 ## Version
 
-Current customized release: **2.1.7**
+Current customized release: **2.1.13**
 
 ## Installation
 
@@ -62,6 +62,9 @@ The top-right sun/moon button switches between light and dark color schemes.
 - A manual choice is stored in `localStorage` under `fizzy-color-scheme`.
 - The saved choice is applied in the document head before the stylesheets paint, minimizing theme flash during page load.
 - On mobile, the same toggle remains visible beside the navigation burger.
+- Search and the desktop theme toggle remain available even when Ghost has no primary navigation links configured.
+- The desktop theme toggle and search control remain available even when no Ghost navigation links are configured.
+- The mobile navigation burger also follows the active light/dark color scheme.
 
 ## Theme behavior
 

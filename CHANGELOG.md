@@ -5,6 +5,42 @@ All notable changes to this customized theme fork are documented in this file.
 This project is based on the original **Fizzy** theme by **Yuzhang Huang**.
 Legacy upstream history is not reproduced in full here; this changelog tracks the maintained customized fork.
 
+## [2.1.13] - 2026-09-10
+
+### Fixed
+- Removed the bright dark-mode showcase edge reintroduced by the transparent geometry-preserving border.
+- Kept light/dark showcase geometry identical by using a 1px border painted with the dark page surface and clipping background images to the padding box.
+
+## [2.1.12] - 2026-09-10
+
+### Fixed
+- Kept showcase card geometry identical between light and dark modes by replacing the removed dark-mode border with a fully transparent 1px border.
+- Locked showcase category-pill dimensions, padding, font metrics, and alignment so switching color schemes no longer causes visible width or text-position shifts.
+
+## [2.1.11] - 2026-09-10
+
+### Changed
+- Normalized homepage showcase category-pill geometry across light and dark modes.
+- Standardized pill padding to `4px 6px`, `line-height: 1`, `border-radius: 4px`, and borderless box sizing so both color schemes use identical dimensions.
+
+## [2.1.10] - 2026-09-08
+
+### Fixed
+- Fixed the desktop light/dark toggle disappearing when all Ghost navigation links are removed.
+- Moved persistent header controls (search and desktop theme toggle) out of the Ghost `navigation` partial so they render independently of navigation configuration.
+
+## [2.1.9] - 2026-09-08
+
+### Fixed
+- Kept the desktop light/dark toggle and search control visible when all Ghost navigation links are removed.
+- The navigation partial now renders unconditionally because it owns persistent header controls in addition to user-configured links.
+
+## [2.1.8] - 2026-09-08
+
+### Fixed
+- Fixed the mobile hamburger icon remaining in its light-mode color after switching to dark mode.
+- Added a higher-specificity override for Bulma's `.navbar.is-white .navbar-burger` rule so all three burger bars follow the active theme.
+
 ## [2.1.7] - 2026-09-04
 
 ### Fixed

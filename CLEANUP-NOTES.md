@@ -4,13 +4,22 @@ These notes describe the current structure and cleanup decisions for the maintai
 
 ## Current baseline
 
-This theme should now be treated as **version 2.1.7** of the customized fork.
+This theme should now be treated as **version 2.1.8** of the customized fork.
 It is no longer documented as a sequence of ad hoc patch zips. The package metadata, README, and changelog should stay aligned with the current release version.
 
 ## Recent fixes
 
+- Dark-mode showcase cards keep their 1px geometry-preserving border, but it now matches the page surface and background images are clipped to the padding box so no colored edge bleeds through.
+
+- Showcase cards keep a transparent 1px border in dark mode so their geometry matches light mode without reintroducing the old bright-edge artifact.
+- Showcase pills use fixed shared metrics in both themes, preventing width or baseline shifts during toggling.
+
+- Homepage showcase category-pill geometry is explicitly normalized across light and dark modes (`4px 6px` padding, consistent line height, radius, and box sizing).
+- Search and the desktop theme toggle now live directly in `partials/header.hbs`, so they remain visible even when Ghost primary navigation is empty.
+- Desktop search and theme-toggle controls are no longer conditional on Ghost navigation entries.
 - Dark-mode showcase tag pills no longer use a faint border or bright edge treatment.
 - The desktop theme toggle no longer inherits a rectangular navbar hover surface.
+- The mobile navigation burger now explicitly overrides Bulma's white-navbar color rule so its bars switch correctly in dark mode.
 - The showcase pill wrappers no longer produce a thin baseline gap that can look like a bright underline in dark mode.
 - Dark-mode showcase cards no longer use a translucent border; separation is handled by shadow to avoid image-colored edge artifacts.
 
