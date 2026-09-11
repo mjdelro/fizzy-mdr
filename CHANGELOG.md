@@ -1,5 +1,97 @@
 # Changelog
 
+## 2.3.2
+
+- Restored the known-good 5-second left-to-right homepage carousel animation after the 2.3 cleanup pass suppressed it on systems reporting reduced motion.
+- Kept the Web Animations API slide transition used by the stable 2.2.13 implementation.
+
+## 2.3.1
+
+- Removed the square navbar hover surface behind the desktop search and light/dark controls.
+- Preserved the existing circular hover, border, and focus treatment on both controls.
+
+## 2.3.0
+
+### Changed
+- Standardized theme CSS around shared color, typography, radius, and header-control tokens.
+- Removed unused legacy Fizzy utilities/styles, obsolete browser prefixes, and unused icon partials.
+- Consolidated repeated post-list and article-body markup into reusable partials.
+- Standardized header, footer, showcase, archive, author, tag, post, and pagination templates.
+- Replaced static inline presentation rules with reusable theme classes where practical.
+- Refactored the main theme JavaScript and generated TOC code for clearer state/lifecycle handling.
+- Simplified the native Ghost search iframe stylesheet using light/dark design variables.
+- Reduced search MutationObserver scope after the Sodo Search root is available.
+- Added an actual reduced-motion fallback to the carousel transition.
+- Corrected a Portuguese locale key mismatch and minor legacy CSS issues.
+- Preserved the stable 5-second left-to-right carousel and frosted theme-aware Ghost search behavior from 2.2.x.
+
+### Fixed
+- Corrected a legacy `width` typo and consolidated duplicate bookmark/tag-hover declarations.
+- Improved icon-only author-profile link labels and pagination semantics.
+
+> 2.3.0 is a cleanup/refactor release with no intentional visual redesign.
+
+## 2.2.14
+
+- Restyled native Ghost search as a frosted modal that keeps the publication visible underneath.
+- Added a 10px backdrop blur with theme-aware light and dark dimming.
+- Added light/dark search panel, input, result, border, hover, and highlight colors that follow Fizzy MDR's palette.
+- Added live theme synchronization for Ghost's Sodo Search iframe.
+
+## 2.2.13
+
+- Reverted the experimental page-turn/page-peel carousel transitions to the proven transform-based slide animation.
+- Carousel posts now advance left-to-right: the current post exits to the right while the next post enters from the left.
+- Retained the 5-second autoplay, focus/visibility pause behavior, and reduced-motion fallback.
+
+## 2.2.12
+
+- Replaced the unreliable clip-path page-peel with a transform-only right-to-left page-turn effect.
+- The outgoing carousel card now folds toward its left edge using scale/skew, shadow, brightness, and opacity while the next post is revealed underneath.
+- Avoided animated `clip-path` and `preserve-3d` so the transition remains reliable in Firefox as well as Chromium.
+
+## 2.2.11
+
+- Replaced the unreliable 3D carousel flip with a Firefox-safe right-to-left page-peel animation.
+- Added an angled clipping edge and moving fold shadow so the next carousel post is revealed like a turning page.
+- Preserved the 5-second autoplay and reduced-motion behavior.
+
+## 2.2.10
+
+- Replaced the diagonal carousel transition with a 3D right-to-left page-turn animation.
+- The current featured post now pivots from its left edge to reveal the next post underneath, with a moving fold shadow for depth.
+- Added a reduced-motion fallback that switches posts without the 3D animation.
+
+## 2.2.9
+
+- Changed carousel advance motion to a diagonal right-to-left transition, with the incoming post sliding in from the upper-right while the outgoing post subtly recedes underneath.
+- Added fluid homepage excerpt sizing that remains 16px at typical desktop widths and scales gradually up to 18px on large displays such as 2560×1440.
+
+## 2.2.8
+
+- Rebuilt the carousel slide transition with the Web Animations API so theme CSS and hover transforms cannot suppress the motion.
+- Carousel advances now visibly swipe from left to right over 600ms while retaining the 5-second autoplay interval.
+- Replaced interval-based autoplay with a self-rescheduling timeout to avoid transition overlap and stale timers.
+
+## 2.2.7
+
+- Fixed the homepage carousel swipe animation by keeping all transitioning slides in the same absolute-positioned layer.
+- Removed the carousel hover translation that could interfere with the horizontal slide transform.
+- Preserved the left-to-right 520ms transition, 5-second autoplay, and reduced-motion fallback.
+
+## 2.2.6
+
+- Added a smooth horizontal left-to-right swipe animation when the homepage carousel advances.
+- Kept the 5-second autoplay timing and existing carousel accessibility behavior.
+- Disabled the swipe animation for visitors who prefer reduced motion.
+
+## 2.2.5
+
+- Fixed the native homepage carousel so `#carousel` posts advance reliably again.
+- Restored automatic rotation at a 5-second interval.
+- Removed pointer-hover pausing, which could make the carousel appear stuck while being viewed.
+- Kept rotation paused while keyboard focus is inside the carousel and while the page is hidden.
+
 ## 2.2.4
 
 - Fixed homepage showcase cards so clicking anywhere on the featured image opens the post.

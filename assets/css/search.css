@@ -1,0 +1,112 @@
+/* Fizzy MDR color bridge for Ghost's native Sodo Search iframe. */
+:root {
+  --search-bg: #fff;
+  --search-text: #2d332f;
+  --search-muted: #737a75;
+  --search-accent: #176b3a;
+  --search-hover: #edf6f0;
+  --search-border: rgba(25, 40, 32, 0.1);
+  --search-shadow: 0 20px 55px rgba(24, 39, 31, 0.18);
+  --search-focus: rgba(23, 107, 58, 0.2);
+}
+
+html[data-mdr-theme="dark"] {
+  color-scheme: dark;
+  --search-bg: #181d1a;
+  --search-text: #ecf2ed;
+  --search-muted: #929d95;
+  --search-accent: #8dd7a5;
+  --search-hover: #202a23;
+  --search-border: rgba(230, 238, 232, 0.12);
+  --search-shadow: 0 22px 62px rgba(0, 0, 0, 0.46);
+  --search-focus: rgba(107, 193, 137, 0.3);
+}
+
+html,
+body {
+  background: transparent !important;
+}
+
+/* The host page provides blur and dimming; Sodo's own backdrop stays clear. */
+body > div[class*="backdrop-blur"] {
+  background: transparent !important;
+  background-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.ghost-display {
+  color: var(--search-text);
+}
+
+.ghost-display > div {
+  overflow: hidden;
+  background: var(--search-bg) !important;
+  border: 1px solid var(--search-border);
+  border-radius: 12px !important;
+  box-shadow: var(--search-shadow) !important;
+}
+
+.ghost-display .bg-white,
+.ghost-display > div > div:first-child {
+  background-color: var(--search-bg) !important;
+}
+
+.ghost-display > div > div:first-child {
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+
+.ghost-display > div > div:first-child:focus-within {
+  box-shadow: inset 0 0 0 2px var(--search-focus) !important;
+}
+
+.ghost-display input {
+  background: transparent !important;
+  color: var(--search-text) !important;
+  caret-color: var(--search-accent);
+}
+
+.ghost-display input::placeholder {
+  color: var(--search-muted) !important;
+}
+
+.ghost-display .text-neutral-900,
+.ghost-display .text-neutral-800,
+.ghost-display .hover\:text-black:hover {
+  color: var(--search-text) !important;
+}
+
+.ghost-display .text-neutral-500,
+.ghost-display .text-neutral-400 {
+  color: var(--search-muted) !important;
+}
+
+.ghost-display .border-neutral-200,
+.ghost-display .border-gray-200 {
+  border-color: var(--search-border) !important;
+}
+
+.ghost-display .bg-neutral-100,
+.ghost-display [class*="cursor-pointer"]:hover {
+  background-color: var(--search-hover) !important;
+}
+
+.ghost-display span.font-bold {
+  color: var(--search-accent) !important;
+}
+
+.ghost-display button {
+  color: var(--search-muted);
+}
+
+.ghost-display button:hover {
+  color: var(--search-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-display > div,
+  .ghost-display > div > div:first-child {
+    animation: none !important;
+    transition: none !important;
+  }
+}

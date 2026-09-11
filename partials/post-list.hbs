@@ -1,0 +1,8 @@
+{{#foreach posts}}
+    {{#has tag="#noindex"}}
+    {{else}}
+        {{> "list_card"}}
+    {{/has}}
+{{else}}
+    <p>{{t "There is no post yet."}}</p>
+{{/foreach}}

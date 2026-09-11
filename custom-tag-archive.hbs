@@ -1,41 +1,36 @@
-{{!-- template: tag-archive | 2019.04.14--}}
-
 {{!< default}}
 
-{{!-- title & content --}}
 {{#post}}
 <section class="section is-paddingless-bottom">
     <div class="container">
-        <h1 class="title tag-archive-title has-text-centered is-montserrat">{{> "icons/tags"}} {{title}}</h1>
-        <div class="content post-content is-size-6-mobile is-georgia">{{content}}</div>      
+        <h1 class="title tag-archive-title has-text-centered is-ui-font">{{> "icons/tags"}} {{title}}</h1>
+        <div class="content post-content is-size-6-mobile is-body-font">{{content}}</div>
     </div>
 </section>
 {{/post}}
 
-{{!-- tag cards --}}
 {{#get "tags" limit="100" include="count.posts" filter="slug:-getting-started" order="count.posts desc"}}
 <section class="section">
     <div class="container">
         <div class="columns is-mobile is-multiline">
             {{#foreach tags}}
-            <div class="column tag-archive-item is-3-desktop is-4-tablet is-6-mobile can-scale">
-                <a href="{{url}}" title="{{description}}">
-                <div class="tag-card has-text-centered">
-                    {{#if feature_image}}
-                    <div class="tag-image" style="background-image:url({{img_url feature_image size="medium"}});"><div class="mask"></div></div>
-                    {{else}}
-                    <div class="tag-image noimg"><div class="mask"></div></div>
-                    {{/if}}
-                    <div class="tag-info">
-                        <h2 class="tag-name">{{name}}</h2>
-                        <div class="post-count">{{plural count.posts empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}</div>
-                    </div>
+                <div class="column tag-archive-item is-3-desktop is-4-tablet is-6-mobile can-scale">
+                    <a href="{{url}}" title="{{description}}">
+                        <div class="tag-card has-text-centered">
+                            {{#if feature_image}}
+                                <div class="tag-image" style="background-image: url({{img_url feature_image size="medium"}});"><div class="mask"></div></div>
+                            {{else}}
+                                <div class="tag-image noimg"><div class="mask"></div></div>
+                            {{/if}}
+                            <div class="tag-info">
+                                <h2 class="tag-name">{{name}}</h2>
+                                <div class="post-count">{{plural count.posts empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}</div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-                </a>
-            </div>
             {{/foreach}}
         </div>
     </div>
 </section>
 {{/get}}
-

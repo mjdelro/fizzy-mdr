@@ -7,21 +7,16 @@
         <div class="column is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
             <article class="{{post_class}} single-article">
                 <div class="box is-paddingless is-shadowless is-full-mobile is-centered is-clipped">
-
-                    {{!-- featured_image --}}
                     {{#if feature_image}}
-                    <section class="featured-image">
-                        <div class="featured-image post-hero-image-wrap"><img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high"></div>
-                    </section>
+                        <section class="featured-image post-hero-image-wrap">
+                            <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high">
+                        </section>
                     {{/if}}
-                    
+
                     <section class="post-wrap is-vpadding-15">
                         <div class="spacing-15 is-hidden-mobile"></div>
-                        {{!-- title --}}
-                        <h1 class="title is-2 is-size-4-mobile is-montserrat">{{title}}</h1>
-
-                        {{!-- content --}}
-                        <div class="content post-content is-size-6-mobile is-georgia">{{content}}</div>
+                        <h1 class="title is-2 is-size-4-mobile is-ui-font">{{title}}</h1>
+                        <div class="content post-content is-size-6-mobile is-body-font">{{content}}</div>
                         <div class="spacing-1 is-hidden-mobile"></div>
                     </section>
                 </div>
@@ -31,5 +26,3 @@
     </div>
 </section>
 {{/post}}
-
-

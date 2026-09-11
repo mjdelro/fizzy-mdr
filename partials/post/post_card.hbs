@@ -1,75 +1,54 @@
-{{!-- post_card: single post aside section --}}
 <article class="box is-paddingless has-shadow-mo">
     <div class="post-card">
-        {{!-- featured_image --}}
         <a class="is-paddingless-top" href="{{url}}" title="{{title}}">
             {{#if feature_image}}
-                <div class="featured-image"><img class="card-feature-image" src="{{img_url feature_image size="medium"}}" srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w" sizes="(max-width: 768px) 100vw, 33vw" alt="{{feature_image_alt}}" loading="lazy"></div>    
+                <div class="featured-image">
+                    <img class="card-feature-image" src="{{img_url feature_image size="medium"}}" srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w" sizes="(max-width: 768px) 100vw, 33vw" alt="{{feature_image_alt}}" loading="lazy">
+                </div>
             {{else}}
-                <div class="featured-image" style="text-align: center;line-height:190px;background-image: linear-gradient(to bottom right, #6c1f9c, #0e5680);"> <span class="is-montserrat is-size-3 has-text-white">NO IMAGE</span></div>    
+                <div class="featured-image post-card-placeholder"><span class="is-ui-font is-size-3 has-text-white">NO IMAGE</span></div>
             {{/if}}
         </a>
 
-        {{!-- post info --}}
         <div class="content">
             <div class="post-info">
                 {{#if featured}}
-                    {{#if feature_image}}
-                    <span class="featured-label has-img is-montserrat" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
-                    {{else}}
-                    <span class="featured-label no-img is-montserrat" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
-                    {{/if}}
+                    <span class="featured-label {{#if feature_image}}has-img{{else}}no-img{{/if}} is-ui-font" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
                 {{/if}}
-                <div class="level is-mobile is-montserrat is-uppercase is-margin-bottom-1">
+
+                <div class="level is-mobile is-ui-font is-uppercase is-margin-bottom-1">
                     <div class="level-left">
                         {{#primary_tag}}
-                        <div class="level-item">
-                            {{!-- display one tag --}}
-                            <div class="buttons are-small">
-                                <a href="{{url}}" class="button is-light has-text-weight-semibold">{{name}}</a>
-                            </div>
-                        </div>
+                            <div class="level-item"><div class="buttons are-small"><a href="{{url}}" class="button is-light has-text-weight-semibold">{{name}}</a></div></div>
                         {{/primary_tag}}
-                        <div class="level-item is-size-7 ">
-                            <time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time>
-                        </div>
+                        <div class="level-item is-size-7"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></div>
                     </div>
                 </div>
 
-                {{!-- heading & content --}}
                 <div class="meta">
-                    <a href="{{url}}" class="is-montserrat has-text-black">
-                        <h3 class="title is-5 is-size-6-touch" style="line-height:1.5em;margin-top:0;">{{title}}</h3>
-                    </a>
-                    <p class="is-hidden is-hidden-mobile is-margin-bottom-1">
-                        {{excerpt words="20"}}
-                    </p>
+                    <a href="{{url}}" class="is-ui-font has-text-black"><h3 class="title is-5 is-size-6-touch post-card-title">{{title}}</h3></a>
+                    <p class="is-hidden is-hidden-mobile is-margin-bottom-1">{{excerpt words="20"}}</p>
                 </div>
 
-                {{!-- author--}}
                 <div class="media is-hidden-mobile">
                     <div class="media-left">
                         <div class="columns is-vcentered is-1">
                             <div class="column is-narrow">
                                 {{#primary_author}}
-                                    {{#if profile_image}} 
-                                    <a href="{{url}}">
-                                        <figure class="image is-32x32 is-marginless">
-                                        <img class="image-squared is-rounded" src="{{img_url profile_image size="icon"}}" alt="{{name}}" title="{{name}}">
-                                        </figure>
-                                    </a>
+                                    {{#if profile_image}}
+                                        <a href="{{url}}">
+                                            <figure class="image is-32x32 is-marginless"><img class="image-squared is-rounded" src="{{img_url profile_image size="icon"}}" alt="{{name}}" title="{{name}}"></figure>
+                                        </a>
                                     {{/if}}
                                 {{/primary_author}}
                             </div>
-                            <div class="column is-narrow is-size-7-touch has-text-weight-bold" style="padding-left:0px;">
-                                {{#primary_author}}  
-                                    <a href="{{url}}" class="has-text-grey-dark">{{name}}</a>
-                                {{/primary_author}}
+                            <div class="column is-narrow is-size-7-touch has-text-weight-bold post-card-author-name">
+                                {{#primary_author}}<a href="{{url}}" class="has-text-grey-dark">{{name}}</a>{{/primary_author}}
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 </article>

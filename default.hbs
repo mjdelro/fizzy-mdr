@@ -2,15 +2,16 @@
 <html lang="{{@site.locale}}" class="has-spaced-navbar-fixed-top">
 <head>
     <meta charset="utf-8">
-    <title>{{meta_title}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" id="theme-color-meta" content="#f5f6f4">
+    <title>{{meta_title}}</title>
 
     <script>
         (function () {
             var storageKey = "fizzy-color-scheme";
             var theme = "light";
+
             try {
                 var savedTheme = window.localStorage.getItem(storageKey);
                 if (savedTheme === "light" || savedTheme === "dark") {
@@ -23,37 +24,37 @@
                     theme = "dark";
                 }
             }
+
             document.documentElement.setAttribute("data-theme", theme);
             document.documentElement.style.colorScheme = theme;
+            document.getElementById("theme-color-meta").setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
         }());
     </script>
 
     {{ghost_head}}
 
-    <link rel="stylesheet" type="text/css" href="{{asset 'css/main.css'}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@400;600;700&family=Special+Elite&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@400;600;700&family=Special+Elite&display=swap">
+    <link rel="stylesheet" href="{{asset 'css/main.css'}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
 
     {{#is "post"}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css" integrity="sha384-1vdNCNel6Tx/NQa8IR1mGOGKsbGreCkOPfbtPPnUURJ5Tu2PRVfQ/7KLZC+Pi1p1" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{asset 'css/prism.css'}}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css" integrity="sha384-1vdNCNel6Tx/NQa8IR1mGOGKsbGreCkOPfbtPPnUURJ5Tu2PRVfQ/7KLZC+Pi1p1" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{asset 'css/prism.css'}}">
     {{/is}}
 
-    <link rel="stylesheet" type="text/css" href="{{asset 'css/custom.css'}}">
+    <link rel="stylesheet" href="{{asset 'css/custom.css'}}">
 </head>
-<body class="{{body_class}} has-background-light-line" data-line-numbers="{{@custom.line_numbers}}">
-    {{> header}}
+<body class="{{body_class}} has-background-light-line" data-line-numbers="{{@custom.line_numbers}}" data-search-style-url="{{asset 'css/search.css'}}">
+    {{> "header"}}
     {{{body}}}
-    {{> footer}}
+    {{> "footer"}}
 
     {{ghost_foot}}
 
-    <script src="{{asset 'js/fslightbox.js'}}"></script>
+    {{#is "post, page"}}<script src="{{asset 'js/fslightbox.js'}}"></script>{{/is}}
     <script src="{{asset 'js/main.js'}}"></script>
-    {{#is "post"}}
-    <script src="{{asset 'js/prism.js'}}"></script>
-    {{/is}}
+    {{#is "post"}}<script src="{{asset 'js/prism.js'}}"></script>{{/is}}
 </body>
 </html>

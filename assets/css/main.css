@@ -1,15 +1,186 @@
 /*
-Theme Name: Fizzy
-GitHub Repo: https://github.com/huangyuzhang/Fizzy-Theme
-Version: 1.3.2
-Description: A tasty blogging theme for Ghost 
-Author: Yuzhang Huang
-Author URI: https://yuzhang.me
+Fizzy MDR base styles
+Derived from Fizzy Theme by Yuzhang Huang
+https://github.com/huangyuzhang/Fizzy-Theme
+
+Theme-specific overrides and design tokens live in custom.css.
 */
 
-/* ====================== import ====================== */
-/* Customized CSS ADD 2019.05.28*/
-@import "class.css";
+/* ====================== utilities ====================== */
+/* Fizzy utility classes retained by Fizzy MDR. */
+
+/* Padding */
+.has-padding-05 {
+  padding: 0.5rem;
+}
+
+.is-paddingless-top {
+  padding-top: 0 !important;
+}
+
+.is-paddingless-bottom {
+  padding-bottom: 0 !important;
+}
+
+.is-vpadding-15 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.is-vpadding-2 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.is-padding-top-05 {
+  padding-top: 0.5rem !important;
+}
+
+.is-padding-05-15 {
+  padding: 0.5rem 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .is-mobile-paddingless {
+    padding: 0 !important;
+  }
+}
+
+/* Margin */
+.is-vmargin-2 {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.only-margin-top-1 {
+  margin: 1rem 0 0 !important;
+}
+
+.margin-bottom-25:not(:last-child) {
+  margin-bottom: 2.5rem !important;
+}
+
+.margin-bottom-25:last-child {
+  margin-bottom: 0 !important;
+}
+
+.is-margin-bottom-05 {
+  margin-bottom: 0.5rem;
+}
+
+.is-margin-bottom-1 {
+  margin-bottom: 1rem !important;
+}
+
+.is-margin-auto {
+  margin: auto;
+}
+
+.is-marginless {
+  margin: 0 !important;
+}
+
+.is-marginless-bottom {
+  margin-bottom: 0 !important;
+}
+
+/* Shadows */
+.has-shadow-thin {
+  box-shadow: 0 0 1px #bbb;
+}
+
+.has-shadow-mo {
+  box-shadow: 0 20px 40px rgba(12, 12, 94, 0.1) !important;
+}
+
+.has-shadow-lift {
+  box-shadow: 0 3px 6px rgba(12, 12, 94, 0.1) !important;
+}
+
+.has-shadow-lift:hover {
+  box-shadow: 0 20px 40px rgba(12, 12, 94, 0.1) !important;
+}
+
+/* Borders */
+.round-border-6 {
+  border-radius: 6px;
+}
+
+.round-border-2rem {
+  border-radius: 2rem;
+}
+
+/* Layout */
+.has-2-ends {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.align-vcentered {
+  display: flex;
+  align-items: center !important;
+}
+
+.has-2-ends .end {
+  display: flex;
+}
+
+/* Backgrounds */
+.has-background-light-line {
+  background-image: repeating-linear-gradient(45deg, #f7f7f7, #f7f7f7 2px, #eee 2px, #eee 3px);
+}
+
+.bg-cover-center {
+  background-position: center;
+  background-size: cover;
+}
+
+.has-dark-modal {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.has-darker-modal {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.link-block {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-grad-b {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+}
+
+/* Spacing */
+.spacing-1 {
+  padding: 1rem;
+}
+
+.spacing-15 {
+  padding: 1.5rem;
+}
+
+.spacing-25 {
+  padding: 2.5rem;
+}
+
+/* Text */
+.has-text-shadow-black {
+  text-shadow: 0 2px 2px rgba(7, 17, 27, 0.4);
+}
+
+/* Images */
+.image-squared {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
 
 /* ====================== over-write bulma default ====================== */
 /* fix "has-spaced-navbar-fixed-top" cut off the top on mobile devices 2019.04.09 */
@@ -46,11 +217,9 @@ h3 code {
   margin: 0 0.15em !important;
   padding: 0.15em 0.3em !important;
   font-size: 0.85em !important;
-  /* box-shadow: 0 0 1px #000; */
   border: 1px solid #ccc;
   border-radius: 3px !important;
   font-style: normal;
-  /* white-space: nowrap; */
 }
 @media screen and (max-width: 768px) {
   table code {
@@ -92,12 +261,12 @@ pre[class*="language-"].line-numbers {
 }
 .navbar-start .navbar-item:hover {
   background-color: #f5f5f5 !important;
-  box-shadow: 0 0px 1px 0 #ccc;
+  box-shadow: 0 0 1px #ccc;
 }
 .navbar-start .nav-current {
   background-color: #eee;
   font-weight: 600;
-  box-shadow: 0 0px 1px 0 #ccc;
+  box-shadow: 0 0 1px #ccc;
 }
 /* button */
 .button {
@@ -108,34 +277,6 @@ strong {
   color: inherit !important;
 }
 
-/* fizzy credit button */
-.btn-fizzy {
-  background: linear-gradient(60deg, #fd5d5c, #7504dc);
-  border-radius: 6px;
-}
-.btn-fizzy-inner {
-  background-color: #fff;
-  margin: 1px;
-  padding: 5px 12px;
-  border-radius: 5px;
-}
-.btn-fizzy-inner:hover {
-  background-color: transparent;
-  margin: 1px;
-  padding: 5px 12px;
-  border-radius: 5px;
-}
-.btn-fizzy-inner .btn-fizzy-text {
-  background: -webkit-linear-gradient(60deg, #fd5d5c, #7504dc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 600;
-}
-.btn-fizzy-inner:hover .btn-fizzy-text {
-  background: #fff;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 .navbar-dropdown .navbar-item {
   margin: 0 0.5rem;
 }
@@ -158,7 +299,6 @@ strong {
 /* ====================== components ====================== */
 .featured-label {
   position: absolute;
-  /* background: linear-gradient(181deg, #fb3b3b,#e12828); */
   background: #fb3b3b;
   color: #fff;
   font-size: 0.875rem;
@@ -176,77 +316,12 @@ strong {
     font-size: 1rem;
   }
 }
-.badge {
-  display: inline-block;
-  padding: 2px 3px 3px;
-  border: 1px solid;
-  font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica,
-    Arial, sans-serif;
-  font-size: 14px !important;
-  line-height: 1em !important;
-  font-weight: 600 !important;
-  text-align: center;
-  vertical-align: middle;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
-  white-space: nowrap;
-  user-select: none;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
-  margin-left: 5px;
-}
-.badge.red {
-  border-color: #ab2929;
-  color: #fff;
-  background: linear-gradient(#e34242, #ab2929);
-}
-.badge.yellow {
-  border-color: #d5b70a;
-  color: #fff;
-  background: linear-gradient(#faf05e, #d5b70a);
-}
-.badge.green {
-  border-color: #84a731;
-  color: #fff;
-  background: linear-gradient(#a4d037, #84a731);
-}
-.badge.blue {
-  border-color: #3777bc;
-  color: #fff;
-  background: linear-gradient(#37a2d0, #3773bc);
-}
-.badge.purple {
-  border-color: #721fae;
-  color: #fff;
-  background: linear-gradient(#c042e3, #721fae);
-}
 .can-scale {
   transition: all 0.3s;
 }
 .can-scale:hover {
   transform: scale(1.01);
   transition: all 0.5s ease;
-}
-.img-bg {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-/* ====================== fonts ====================== */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.is-montserrat {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "PingFang SC",
-    "Heiti SC", "STXihei", "Microsoft YaHei", sans-serif;
-}
-.is-georgia {
-  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", "PingFang SC", "Microsoft YaHei", "Heiti SC", "STXihei",
-    sans-serif !important;
 }
 /* ====================== body ====================== 2019.04.11 */
 html {
@@ -294,7 +369,7 @@ body {
   position: relative;
   height: 22.5rem;
   padding: 0 !important;
-  background-color: #fff !important; /* added background color as placeholder*/
+  background-color: #fff !important;
 }
 @media screen and (max-width: 768px) {
   .carousel {
@@ -336,10 +411,6 @@ body {
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
 }
-.carousel-author {
-  width: 32px;
-  height: 32px;
-}
 .top-featured {
   height: 360px;
 }
@@ -352,7 +423,7 @@ body {
   height: 10.5rem;
   margin-bottom: 1.5rem;
   padding: 0 !important;
-  background-color: #fff !important; /* added background color as placeholder*/
+  background-color: #fff !important;
 }
 .tf-item:last-child {
   margin-bottom: 0;
@@ -373,17 +444,16 @@ body {
 }
 /* index: featured-image 2019.04.10 */
 .featured-image {
+  position: relative;
   height: 100%;
-  /* border-radius: 8px 0 0 8px; */
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #e9f0f3; /* added background color as placeholder*/
+  background-color: #e9f0f3;
 }
 @media screen and (max-width: 768px) {
   .featured-image {
     min-height: 140px;
-    /* border-radius: 6px 6px 0 0; */
   }
 }
 
@@ -443,7 +513,7 @@ body {
 
 /* showcase 2019.05.30 */
 .showcase {
-  padding-bottom: 0rem !important;
+  padding-bottom: 0 !important;
 }
 @media screen and (max-width: 768px) {
   .showcase {
@@ -471,10 +541,7 @@ body {
     border-radius: 0;
   }
 }
-/* for featured-label 2019.05.10 */
-.featured-image {
-  position: relative;
-}
+/* featured-label placement */
 .featured-image .featured-label {
   bottom: 10px;
   right: 10px;
@@ -558,21 +625,17 @@ body {
   line-height: 1.5em;
   font-size: 0.875rem !important;
   font-weight: 400;
-  /* padding-bottom: 1.2em; */
 }
 
 /* image layout (temporary solution, may have some bugs 2019.04.14) */
 /* fixed wide layout bug, but need a better way in the future */
 .single-article .post-content figure {
-  margin-left: 0rem; /* overwrite default 2rem */
-  margin-right: 0rem; /* overwrite default 2rem */
+  margin-left: 0; /* overwrite default 2rem */
+  margin-right: 0; /* overwrite default 2rem */
 }
 .single-article .post-content .kg-embed-card {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 2rem;
 }
@@ -655,9 +718,6 @@ body {
   left: 0 !important;
   right: 0 !important;
 }
-.kg-gallery-card figcaption {
-  /* margin-top:1rem; */
-}
 @media screen and (max-width: 768px) {
   .kg-gallery-card {
     width: 100%;
@@ -666,17 +726,12 @@ body {
 }
 .single-article .post-content .kg-gallery-container {
   max-width: 100%;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 .single-article .post-content .kg-gallery-row {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-pack: center;
   justify-content: center;
 }
 .single-article .post-content .kg-gallery-image img {
@@ -1046,8 +1101,6 @@ table tr td:last-child {
   height: 100%;
   position: relative;
   z-index: 50;
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
   flex-grow: 1;
   font-size: 1.7rem;
 }
@@ -1058,7 +1111,6 @@ table tr td:last-child {
   line-height: 1.25em;
   font-weight: 200;
   letter-spacing: -0.5px;
-  /* box-shadow: #aaa 0 -1px 0 inset; */
 }
 .aside .tag-list-content a {
   display: block;
@@ -1067,13 +1119,10 @@ table tr td:last-child {
   color: #fff;
   font-weight: 500;
   vertical-align: top;
-  -webkit-transition: opacity 0.3s ease;
   transition: opacity 0.3s ease;
 }
 .aside .tag-list-content a:hover {
   border-bottom: 1px solid #fff;
-}
-.aside .tag-list-content a:hover > li {
   font-weight: 600;
 }
 .aside .tag-list-footer {
@@ -1107,21 +1156,18 @@ table tr td:last-child {
   overflow: hidden;
 }
 .tag-card.no-image {
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   align-items: center;
 }
 .tag-card.no-image .tag-info {
   width: 100%;
 }
 .tag-card .tag-image {
-  /* height: 144px; */
   height: calc(90px + 3vw);
   border-radius: 8px 8px 0 0;
   background-size: cover;
   background-position: center center;
-  box-shadow: 0px 1px 0px #ddd;
+  box-shadow: 0 1px 0 #ddd;
   background-color: #e9f0f3;
 }
 .tag-card .tag-image.noimg {
@@ -1129,7 +1175,7 @@ table tr td:last-child {
 }
 .tag-card .tag-image .mask {
   height: 100%;
-  widows: 100%;
+  width: 100%;
   background-color: rgba(0, 0, 0, 0.3);
 }
 .tag-card:hover .tag-image .mask {
@@ -1141,13 +1187,11 @@ table tr td:last-child {
 }
 .tag-card .tag-info .tag-name {
   margin-bottom: 0.5rem;
+  color: #222;
   font-size: 1.5rem;
   font-weight: 600;
-}
-.tag-card .tag-info .tag-name {
   text-transform: capitalize;
-  color: #222;
-  transition: all 0.25s;
+  transition: color 0.25s ease;
 }
 .tag-card:hover .tag-info .tag-name {
   color: #fb3c3b;
@@ -1234,7 +1278,6 @@ ul.post-archive {
   padding: 0 24px;
   border-radius: 8px;
   margin-bottom: 32px;
-  display: -ms-inline-flexbox;
   display: inline-flex;
 }
 .error-wrap .error-message {
@@ -1338,9 +1381,6 @@ ul.post-archive {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
   border-radius: 0 3px 3px 0;
 }
 .kg-bookmark-icon {

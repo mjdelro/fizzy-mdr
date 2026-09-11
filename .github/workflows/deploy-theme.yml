@@ -3,17 +3,24 @@ name: Validate and Deploy Theme
 on:
   push:
     branches:
-      - master
       - main
+      - master
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v7
+      - name: Check out theme
+        uses: actions/checkout@v7
+
       - name: Validate theme with GScan
-        run: npx --yes gscan@latest .
-      - name: Deploy Ghost Theme
+        run: npm test
+
+      - name: Deploy Ghost theme
         uses: TryGhost/action-deploy-theme@v2
         with:
           api-url: ${{ secrets.GHOST_ADMIN_API_URL }}

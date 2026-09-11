@@ -1,6 +1,37 @@
-/* ===== Customize Styles ===== */
+/* Fizzy MDR theme overrides and components. */
 
-/* footer */
+/* ===== Design tokens ===== */
+:root {
+  --font-body: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-ui: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "Atkinson Hyperlegible Mono", "SFMono-Regular", Consolas, monospace;
+  --font-quote: "Special Elite", "Atkinson Hyperlegible Next", sans-serif;
+  --main-color: #176b3a;
+  --text-black: #333;
+  --text-primary: #2d332f;
+  --text-secondary: #474d49;
+  --text-muted: #737a75;
+  --link-color-hover: #0f5b30;
+  --bg-color-light: #edf6f0;
+  --surface-page: #f5f6f4;
+  --surface-card: #fff;
+  --surface-elevated: #fff;
+  --surface-subtle: #fafbf9;
+  --surface-accent: #edf6f0;
+  --input-background: #fff;
+  --inline-code-background: #eef1ef;
+  --inline-code-border: #d7ddd9;
+  --table-stripe: #f8f9f7;
+  --table-head: #eef1ef;
+  --table-hover: rgba(23, 107, 58, 0.08);
+  --border-soft: rgba(25, 40, 32, 0.08);
+  --search-overlay: rgba(245, 246, 244, 0.34);
+  --radius-card: 10px;
+  --radius-control: 999px;
+  --header-control-size: 40px;
+}
+
+/* ===== General layout ===== */
 .site-license .cc-icons,
 .site-license .footer-badges {
   display: flex;
@@ -52,7 +83,7 @@
 
 /* ===== Typography ===== */
 body {
-  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
 }
 
 /* Keep the original Fizzy class name for template compatibility. */
@@ -62,25 +93,27 @@ h3,
 h4,
 h5,
 h6,
+.is-ui-font,
 .is-montserrat {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-ui);
 }
 
-/* Article copy */
+/* Article copy. Legacy upstream font classes remain as compatibility aliases. */
+.is-body-font,
 .is-georgia,
 .post-content,
 figcaption {
-  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family: var(--font-body) !important;
 }
 
 /* Tags and compact article UI use the heading/UI family. */
 .single-article .tags .button {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-ui);
 }
 
 /* Stronger, slightly tighter display typography for post titles. */
 .single-article .post-wrap > .title {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-ui);
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.08;
@@ -93,7 +126,7 @@ kbd,
 samp,
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: "Atkinson Hyperlegible Mono", "SFMono-Regular", Consolas, monospace !important;
+  font-family: var(--font-mono) !important;
 }
 
 p code,
@@ -115,39 +148,13 @@ h3 code {
 /* Keep the typewriter accent only where it reads as an intentional quote style. */
 .single-article .post-wrap .post-content blockquote,
 blockquote.kg-blockquote-alt {
-  font-family: "Special Elite", "Atkinson Hyperlegible Next", sans-serif !important;
+  font-family: var(--font-quote) !important;
 }
 
 figcaption,
 .content figure figcaption {
   font-size: 0.875rem !important;
   font-style: italic !important;
-}
-
-/* ===== Fizzy MDR editorial system ===== */
-:root {
-  --main-color: #176b3a;
-  --secondary-color: #4472e4;
-  --text-black: #333;
-  --text-dark: #7a0404;
-  --shadow: rgba(1, 88, 31, 0.15);
-  --link-color-hover: #0f5b30;
-  --bg-color-light: #edf6f0;
-  --surface-page: #f5f6f4;
-  --surface-card: #ffffff;
-  --surface-accent: #edf6f0;
-  --border-soft: rgba(25, 40, 32, 0.08);
-  --text-muted: #737a75;
-  --text-primary: #2d332f;
-  --text-secondary: #474d49;
-  --surface-elevated: #ffffff;
-  --surface-subtle: #fafbf9;
-  --input-background: #ffffff;
-  --inline-code-background: #eef1ef;
-  --inline-code-border: #d7ddd9;
-  --table-stripe: #f8f9f7;
-  --table-head: #eef1ef;
-  --table-hover: rgba(23, 107, 58, 0.08);
 }
 
 /* Replace Fizzy's diagonal stripe texture with a quieter editorial canvas. */
@@ -167,17 +174,18 @@ figcaption,
   padding-right: 0.85rem;
   font-size: 0.92rem;
   font-weight: 400;
-  color: #3f4742;
+  color: var(--text-secondary);
 }
 
 .navbar-start .navbar-item:hover,
-.navbar-end .navbar-item:hover,
-.search-button:hover {
+.navbar-end .navbar-item:not(.search-button-wrap):not(.theme-toggle-wrap):hover {
   background-color: var(--surface-accent) !important;
 }
 
 /* Featured markers stay quiet until the card is engaged. */
 .featured-label {
+  z-index: 3;
+  pointer-events: none;
   background: rgba(40, 48, 43, 0.78) !important;
   transition: background-color 160ms ease, opacity 160ms ease;
 }
@@ -187,12 +195,11 @@ figcaption,
   background: var(--main-color) !important;
 }
 
-
 /* Homepage/index article cards: subtle border, restrained lift, softer radius. */
 .post-list-card {
   background: var(--surface-card);
   border: 1px solid var(--border-soft);
-  border-radius: 10px !important;
+  border-radius: var(--radius-card) !important;
   box-shadow: 0 2px 8px rgba(24, 39, 31, 0.045) !important;
 }
 
@@ -220,13 +227,17 @@ figcaption,
 }
 
 .post-list-card .post-card-excerpt {
-  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-body);
+  /* Stay at 16px on typical desktop widths, then scale gently on large
+     displays so excerpts do not look undersized inside the wider cards. */
+  font-size: clamp(1rem, calc(0.72rem + 0.25vw), 1.125rem);
   line-height: 1.6;
-  color: #474d49;
+  color: var(--text-secondary);
   margin-bottom: 0 !important;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   overflow: hidden;
 }
 
@@ -244,7 +255,7 @@ figcaption,
 }
 
 .post-list-card .level-item.is-size-7 {
-  color: #5d665f;
+  color: var(--text-muted);
 }
 
 .post-list-card .level .button.is-light {
@@ -282,13 +293,7 @@ figcaption,
   line-height: 1.68;
 }
 
-@media screen and (max-width: 768px) {
-  .post-list-card {
-    border-radius: 10px !important;
-  }
-}
-
-/* ===== Fizzy MDR footer socials ===== */
+/* ===== Footer ===== */
 .footer-socials {
   max-width: 34rem;
   margin: 1rem auto 1.25rem;
@@ -296,7 +301,6 @@ figcaption,
   border-top: 1px solid var(--border-soft);
   border-bottom: 1px solid var(--border-soft);
 }
-
 
 .footer-social-links {
   display: flex;
@@ -313,8 +317,8 @@ figcaption,
   gap: 0.42rem;
   min-width: 3.75rem;
   padding: 0.25rem;
-  color: #39423c;
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1.2;
@@ -351,7 +355,7 @@ figcaption,
   }
 }
 
-/* ===== Light/dark mode ===== */
+/* ===== Color scheme ===== */
 html[data-theme="dark"] {
   --main-color: #6bc189;
   --link-color-hover: #8dd7a5;
@@ -366,35 +370,49 @@ html[data-theme="dark"] {
   --surface-subtle: #151a17;
   --surface-accent: #183323;
   --border-soft: rgba(230, 238, 232, 0.11);
-  --shadow: rgba(0, 0, 0, 0.32);
   --input-background: #1b211d;
   --inline-code-background: #202722;
   --inline-code-border: #354039;
   --table-stripe: #171d19;
   --table-head: #202722;
   --table-hover: rgba(107, 193, 137, 0.11);
+  --search-overlay: rgba(7, 10, 8, 0.42);
+  background-color: var(--surface-page);
 }
 
-/* Top-right header controls */
+/* ===== Header controls ===== */
 .search-button-wrap,
 .theme-toggle-wrap {
-  padding-left: 0.3rem !important;
-  padding-right: 0.3rem !important;
+  padding-inline: 0.3rem !important;
+  background: transparent !important;
 }
 
-.theme-toggle {
+.navbar-end .search-button-wrap:hover,
+.navbar-end .search-button-wrap:focus-within,
+.navbar-end .theme-toggle-wrap:hover,
+.navbar-end .theme-toggle-wrap:focus-within,
+.search-button-wrap:hover,
+.search-button-wrap:focus-within,
+.theme-toggle-wrap:hover,
+.theme-toggle-wrap:focus-within {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.theme-toggle,
+.search-button {
   appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
+  width: var(--header-control-size);
+  min-width: var(--header-control-size);
+  max-width: var(--header-control-size);
+  height: var(--header-control-size);
+  flex: 0 0 var(--header-control-size);
   padding: 0 !important;
   border: 1px solid var(--border-soft);
-  border-radius: 999px;
+  border-radius: var(--radius-control);
   background: transparent;
   background-clip: padding-box;
   color: var(--text-secondary);
@@ -405,15 +423,15 @@ html[data-theme="dark"] {
 }
 
 .theme-toggle:hover,
-.theme-toggle.navbar-item:hover {
-  border-radius: 999px;
-  background: var(--surface-accent);
+.search-button:hover {
+  background: var(--surface-accent) !important;
   border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
-  color: var(--main-color);
+  color: var(--main-color) !important;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
 }
 
-.theme-toggle:focus-visible {
+.theme-toggle:focus-visible,
+.search-button:focus-visible {
   outline: 2px solid var(--main-color);
   outline-offset: 3px;
 }
@@ -426,6 +444,12 @@ html[data-theme="dark"] {
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.search-button .mdr-icon {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.9;
 }
 
 .theme-icon-sun {
@@ -452,8 +476,7 @@ html[data-theme="dark"] .theme-icon-sun {
 
 @media screen and (max-width: 1023px) {
   .theme-toggle-mobile {
-    margin-top: 0.35rem;
-    margin-bottom: 0.35rem;
+    margin-block: 0.35rem;
   }
 }
 
@@ -494,16 +517,19 @@ html[data-theme="dark"] .footer {
 
 html[data-theme="dark"] .navbar-brand .navbar-item a,
 html[data-theme="dark"] .navbar-item,
-html[data-theme="dark"] .navbar-link,
-html[data-theme="dark"] .search-button {
+html[data-theme="dark"] .navbar-link {
   color: var(--text-secondary) !important;
 }
 
 html[data-theme="dark"] .navbar-brand .navbar-item a:hover,
 html[data-theme="dark"] .navbar-item:hover,
-html[data-theme="dark"] .navbar-link:hover,
-html[data-theme="dark"] .search-button:hover {
+html[data-theme="dark"] .navbar-link:hover {
   color: var(--text-primary) !important;
+}
+
+html[data-theme="dark"] .theme-toggle:hover,
+html[data-theme="dark"] .search-button:hover {
+  color: var(--main-color) !important;
 }
 
 /* Bulma's `.navbar.is-white .navbar-burger` selector is more specific than a
@@ -692,10 +718,6 @@ html[data-theme="dark"] .footer {
   box-shadow: 0 -1px 0 var(--border-soft);
 }
 
-html[data-theme="dark"] {
-  background-color: var(--surface-page);
-}
-
 html[data-theme="dark"] .post-wrap .post-content hr {
   background: linear-gradient(90deg, var(--text-muted) 0%, var(--main-color) 50%, var(--main-color) 100%);
 }
@@ -706,15 +728,6 @@ html[data-theme="dark"] .site-license .cc-icons img {
 
 .tag-card:hover .tag-info .tag-name {
   color: var(--main-color);
-}
-
-/* Avoid animated theme changes for visitors who request reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  .theme-toggle,
-  .post-list-card,
-  .footer-social-link {
-    transition: none !important;
-  }
 }
 
 /* ===== Dark-mode component coverage ===== */
@@ -747,7 +760,7 @@ html[data-theme="dark"] #toc-img {
 .post-wrap .post-content a.kg-file-card-container {
   background-color: var(--surface-elevated) !important;
   border: 1px solid var(--border-soft) !important;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   text-decoration: none;
   transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
@@ -785,9 +798,76 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   color: var(--text-primary) !important;
 }
 
+/* ===== Theme utilities ===== */
+.site-navbar {
+  z-index: 999;
+}
 
+.navbar-end-spacer {
+  padding: 0.5rem;
+}
 
-/* ===== Fizzy MDR 2.2 component consolidation ===== */
+.content-measure {
+  max-width: 760px;
+}
+
+.author-hero-fallback {
+  background-image: linear-gradient(to bottom right, #3f0fff, #fc3b3b);
+}
+
+.tag-hero-fallback {
+  background-image: linear-gradient(to bottom right, #acffc5, #078ddb);
+}
+
+.position-relative {
+  position: relative;
+}
+
+.tag-icon-button {
+  min-width: 2.5em;
+  padding-inline: 0.5em !important;
+}
+
+.full-width-featured-label-wrap {
+  position: relative;
+  height: inherit;
+}
+
+.featured-label-corner {
+  top: 5px;
+  right: 5px;
+  padding-inline: 3px;
+}
+
+.archive-featured-marker {
+  color: var(--main-color);
+}
+
+.aside-tag-list {
+  background-image: url("../images/dark-cover.jpg");
+}
+
+.post-card-placeholder {
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  background-image: linear-gradient(to bottom right, #6c1f9c, #0e5680);
+}
+
+.post-card-title {
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+.post-card-author-name {
+  padding-left: 0 !important;
+}
+
+.footer {
+  padding-bottom: 3rem;
+}
+
+/* ===== Components ===== */
 .mdr-icon {
   display: inline-block;
   width: 1em;
@@ -800,59 +880,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-
-.search-button-wrap,
-.search-button-wrap.navbar-item,
-.theme-toggle-wrap,
-.theme-toggle-wrap.navbar-item {
-  background: transparent !important;
-}
-
-.search-button-wrap:hover,
-.search-button-wrap.navbar-item:hover,
-.search-button-wrap:focus-within,
-.theme-toggle-wrap:hover,
-.theme-toggle-wrap.navbar-item:hover,
-.theme-toggle-wrap:focus-within {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.search-button {
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
-  flex: 0 0 40px;
-  padding: 0 !important;
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-  background: transparent;
-  background-clip: padding-box;
-  color: var(--text-secondary);
-  cursor: pointer;
-  line-height: 1;
-  overflow: hidden;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
-}
-.search-button .mdr-icon {
-  width: 18px;
-  height: 18px;
-  stroke-width: 1.9;
-}
-.search-button:hover,
-.search-button:focus-visible {
-  border-radius: 999px;
-  background: var(--surface-accent) !important;
-  border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
-  color: var(--main-color) !important;
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
-}
-.search-button:focus-visible { outline: 2px solid var(--main-color); outline-offset: 3px; }
 
 /* Semantic feature images keep the same crop as the old background-image implementation. */
 .featured-image,
@@ -867,8 +894,13 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   height: 100%;
   object-fit: cover;
 }
-.post-hero-image-wrap { position: relative; }
-.post-hero-image { position: absolute; inset: 0; }
+.post-hero-image-wrap {
+  position: relative;
+}
+.post-hero-image {
+  position: absolute;
+  inset: 0;
+}
 
 @media screen and (min-width: 769px) {
   .post-list-card .post-card > .post-list-card-image-link {
@@ -877,29 +909,70 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   }
 }
 @media screen and (max-width: 768px) {
-  .post-list-card-image-link { width: 100%; }
+  .post-list-card-image-link {
+    width: 100%;
+  }
 }
 
-/* Native carousel: only the active feature is laid out. */
-.carousel { position: relative; }
-.carousel .carousel-item { display: none; }
-.carousel .carousel-item.is-active { display: block; }
-.carousel .carousel-item,
+/* Native carousel with a horizontal left-to-right swipe transition. */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+}
+
+/* All slides share the same physical layer. JavaScript drives the horizontal
+   transform directly via the Web Animations API. */
+.carousel .carousel-item {
+  display: none;
+  position: absolute !important;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 !important;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: var(--radius-card) !important;
+  box-sizing: border-box;
+  background-color: var(--surface-card) !important;
+  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
+  transform: translateX(0);
+  will-change: transform;
+}
+
+.carousel .carousel-item.is-active,
+.carousel .carousel-item.is-transitioning {
+  display: block;
+}
+
+/* Keep the carousel transform reserved for slide motion. A hover translate on
+   the active slide can fight the animation and cause a visible jump. */
+.carousel .carousel-item.can-scale:hover {
+  border: 0 !important;
+  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
+}
+
 .tf-item {
   position: relative;
   overflow: hidden;
   border: 0 !important;
-  border-radius: 10px !important;
+  border-radius: var(--radius-card) !important;
   box-sizing: border-box;
   box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
 }
-.carousel .carousel-item.can-scale:hover,
+
 .tf-item.can-scale:hover {
   border: 0 !important;
   transform: translateY(-1px);
   box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
 }
-.showcase-image { position: absolute; inset: 0; z-index: 0; }
+
+.showcase-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
 .carousel-meta,
 .tf-meta {
   z-index: 2;
@@ -910,10 +983,8 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   pointer-events: auto;
 }
 .carousel .link-block,
-.tf-item .link-block { z-index: 1; }
-.featured-label {
-  z-index: 3;
-  pointer-events: none;
+.tf-item .link-block {
+  z-index: 1;
 }
 html[data-theme="dark"] .carousel .carousel-item,
 html[data-theme="dark"] .tf-item {
@@ -923,7 +994,9 @@ html[data-theme="dark"] .tf-item {
 
 /* Category pills use identical geometry in both color schemes. */
 .carousel-tag,
-.tf-tag { line-height: 0; }
+.tf-tag {
+  line-height: 0;
+}
 .carousel-tag a,
 .tf-tag a,
 html[data-theme="dark"] .carousel-tag a,
@@ -938,7 +1011,7 @@ html[data-theme="dark"] .tf-tag a:hover {
   margin: 0;
   border: 0 !important;
   border-radius: 4px;
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-family: var(--font-ui) !important;
   font-size: 1rem;
   font-weight: 400;
   font-style: normal;
@@ -948,7 +1021,12 @@ html[data-theme="dark"] .tf-tag a:hover {
   vertical-align: top;
   text-decoration: none !important;
   box-shadow: none !important;
-  outline: none;
+}
+
+.carousel-tag a:focus-visible,
+.tf-tag a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 html[data-theme="dark"] .carousel-tag a,
 html[data-theme="dark"] .tf-tag a {
@@ -960,27 +1038,35 @@ html[data-theme="dark"] .tf-tag a:hover {
   background-color: color-mix(in srgb, var(--surface-accent) 82%, black) !important;
 }
 
-/* Vanilla TOC replaces Tocify/jQuery UI. */
-#toc[hidden], #toc-img[hidden] { display: none !important; }
-#toc .toc-list, #toc-img .toc-list { margin: 0; }
-#toc li, #toc-img li { list-style: none; }
-#toc li > ul, #toc-img li > ul { margin-left: 10px; }
-#toc a, #toc-img a { text-decoration: none; }
-#toc .active > a, #toc-img .active > a { color: var(--text-black); font-weight: 600; }
-html[data-theme="dark"] #toc,
-html[data-theme="dark"] #toc-img {
-  background-color: var(--surface-card) !important;
-  color: var(--text-primary) !important;
-  border-color: var(--border-soft) !important;
+/* Generated table of contents. */
+#toc[hidden],
+#toc-img[hidden] {
+  display: none !important;
+}
+#toc .toc-list,
+#toc-img .toc-list {
+  margin: 0;
+}
+#toc li,
+#toc-img li {
+  list-style: none;
+}
+#toc li > ul,
+#toc-img li > ul {
+  margin-left: 10px;
+}
+#toc a,
+#toc-img a {
+  text-decoration: none;
+}
+#toc .active > a,
+#toc-img .active > a {
+  color: var(--text-black);
+  font-weight: 600;
 }
 html[data-theme="dark"] #toc .active > a,
-html[data-theme="dark"] #toc-img .active > a { color: var(--text-primary); }
-
-@media (prefers-reduced-motion: reduce) {
-  .carousel .carousel-item,
-  .tf-item,
-  .theme-toggle,
-  .search-button { transition: none !important; }
+html[data-theme="dark"] #toc-img .active > a {
+  color: var(--text-primary);
 }
 
 /* Related/previous/next cards share available desktop width without extra API count queries. */
@@ -989,11 +1075,16 @@ html[data-theme="dark"] #toc-img .active > a { color: var(--text-primary); }
     flex: 1 1 0 !important;
     width: auto !important;
   }
-  .aside-grid > .aside-previous { order: 1; }
-  .aside-grid > .aside-related { order: 2; }
-  .aside-grid > .aside-next { order: 3; }
+  .aside-grid > .aside-previous {
+    order: 1;
+  }
+  .aside-grid > .aside-related {
+    order: 2;
+  }
+  .aside-grid > .aside-next {
+    order: 3;
+  }
 }
-
 
 /* Responsive native Ghost YouTube embeds */
 .kg-embed-card {
@@ -1009,6 +1100,45 @@ html[data-theme="dark"] #toc-img .active > a { color: var(--text-primary); }
   height: auto !important;
   aspect-ratio: 16 / 9;
   border: 0;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   overflow: hidden;
+}
+
+/* Keep Ghost native search over the publication instead of visually replacing it. */
+#sodo-search-root .gh-root-frame,
+#sodo-search-root .gh-root-frame iframe {
+  background: transparent !important;
+}
+
+/* The search iframe stays sharp above this host-document frosted layer. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 3999998;
+  pointer-events: none;
+  opacity: 0;
+  background: rgba(245, 246, 244, 0);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  transition: opacity 160ms ease, background-color 160ms ease, backdrop-filter 160ms ease;
+}
+
+html.mdr-search-open body::after {
+  opacity: 1;
+  background: var(--search-overlay);
+  -webkit-backdrop-filter: blur(10px) saturate(0.92);
+  backdrop-filter: blur(10px) saturate(0.92);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-list-card,
+  .tf-item,
+  .theme-toggle,
+  .search-button,
+  .footer-social-link,
+  body::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }

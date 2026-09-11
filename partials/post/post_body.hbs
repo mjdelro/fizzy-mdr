@@ -1,0 +1,22 @@
+<div class="has-2-ends is-ui-font is-uppercase is-size-7">
+    <div class="end date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></div>
+    <div class="end reading_time">{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</div>
+</div>
+
+<h1 class="title is-ui-font">{{title}}</h1>
+
+{{#has tag="count:>0"}}
+    <div class="buttons tags has-text-weight-semibold">
+        <span class="button is-static is-size-7-mobile tag-icon-button">
+            {{#has tag="count:1"}}{{> "icons/tag"}}{{/has}}
+            {{#has tag="count:>1"}}{{> "icons/tags"}}{{/has}}
+        </span>
+        {{#foreach tags}}
+            <a href="{{url}}" class="button is-light is-size-7-mobile has-text-weight-semibold">{{name}}</a>
+        {{/foreach}}
+    </div>
+{{/has}}
+
+<div class="content post-content is-size-6-mobile is-body-font">{{content}}</div>
+
+{{> "post/post_author"}}

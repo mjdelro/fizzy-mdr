@@ -1,169 +1,312 @@
 "use strict";
 
-(function () {
-  function ready(fn) {
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
-    else fn();
-  }
+(() => {
+  const THEME_STORAGE_KEY = "fizzy-color-scheme";
 
-  // Add Prism line-number classes before Prism initializes on DOMContentLoaded.
-  if (document.body && document.body.dataset.lineNumbers === "true") {
-    document.querySelectorAll(".post-content pre").forEach(function (pre) {
-      pre.classList.add("line-numbers");
-    });
+  const onReady = (callback) => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+    } else {
+      callback();
+    }
+  };
+
+  const getTheme = () => document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+
+  // Prism reads the line-number class during its own initialization.
+  if (document.body?.dataset.lineNumbers === "true") {
+    document.querySelectorAll(".post-content pre").forEach((pre) => pre.classList.add("line-numbers"));
   }
 
   function setupNavbar() {
-    document.querySelectorAll(".navbar-burger").forEach(function (button) {
-      button.addEventListener("click", function () {
-        var target = document.getElementById(button.dataset.target);
+    document.querySelectorAll(".navbar-burger").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = document.getElementById(button.dataset.target);
         if (!target) return;
-        var active = button.classList.toggle("is-active");
+
+        const active = button.classList.toggle("is-active");
         target.classList.toggle("is-active", active);
-        button.setAttribute("aria-expanded", active ? "true" : "false");
+        button.setAttribute("aria-expanded", String(active));
       });
     });
   }
 
   function setupArchiveGroups() {
-    var items = Array.prototype.slice.call(document.querySelectorAll(".post-archive-item"));
-    var year = null;
-    var month = null;
-    items.forEach(function (item) {
-      var nextYear = item.dataset.year;
-      var nextMonth = item.dataset.month;
+    const items = Array.from(document.querySelectorAll(".post-archive-item"));
+    let year = null;
+    let month = null;
+
+    items.forEach((item) => {
+      const nextYear = item.dataset.year;
+      const nextMonth = item.dataset.month;
+
       if (nextYear !== year) {
-        var divider = document.createElement("hr");
-        var heading = document.createElement("h2");
+        const divider = document.createElement("hr");
+        const heading = document.createElement("h2");
         heading.textContent = nextYear;
-        item.parentNode.insertBefore(divider, item);
-        item.parentNode.insertBefore(heading, item);
+        item.before(divider, heading);
         year = nextYear;
         month = null;
       }
+
       if (nextMonth !== month) {
-        var subheading = document.createElement("h4");
+        const subheading = document.createElement("h4");
         subheading.textContent = nextMonth;
-        item.parentNode.insertBefore(subheading, item);
+        item.before(subheading);
         month = nextMonth;
       }
     });
   }
 
   function setupCarousel() {
-    var carousel = document.getElementById("carousel-home");
+    const carousel = document.getElementById("carousel-home");
     if (!carousel) return;
-    var slides = Array.prototype.slice.call(carousel.querySelectorAll(".carousel-item"));
+
+    const slides = Array.from(carousel.querySelectorAll(".carousel-item"));
     if (slides.length < 2) return;
 
-    var index = Math.max(0, slides.findIndex(function (slide) { return slide.classList.contains("is-active"); }));
-    var timer = null;
-    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const intervalMs = 5000;
+    const transitionMs = 600;
+    let index = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+    let timer = null;
+    let animating = false;
 
-    function show(next) {
-      slides.forEach(function (slide, i) {
-        var active = i === next;
+    const setActive = (next) => {
+      slides.forEach((slide, slideIndex) => {
+        const active = slideIndex === next;
         slide.classList.toggle("is-active", active);
-        slide.setAttribute("aria-hidden", active ? "false" : "true");
+        slide.classList.remove("is-transitioning");
+        slide.setAttribute("aria-hidden", String(!active));
+        slide.style.removeProperty("z-index");
       });
       index = next;
-    }
-    function start() {
-      if (reduceMotion || timer) return;
-      timer = window.setInterval(function () { show((index + 1) % slides.length); }, 6000);
-    }
-    function stop() {
-      if (timer) window.clearInterval(timer);
-      timer = null;
-    }
+      animating = false;
+    };
 
-    show(index);
-    carousel.addEventListener("mouseenter", stop);
-    carousel.addEventListener("mouseleave", start);
+    const show = (next, animate = true) => {
+      if (next === index || animating) return;
+
+      const current = slides[index];
+      const incoming = slides[next];
+      const shouldAnimate = animate && typeof incoming.animate === "function";
+
+      if (!shouldAnimate) {
+        setActive(next);
+        return;
+      }
+
+      animating = true;
+      incoming.classList.add("is-transitioning");
+      incoming.setAttribute("aria-hidden", "false");
+      incoming.style.zIndex = "2";
+      current.style.zIndex = "1";
+
+      const timing = {
+        duration: transitionMs,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        fill: "both"
+      };
+
+      const outgoingAnimation = current.animate([
+        { transform: "translateX(0%)" },
+        { transform: "translateX(100%)" }
+      ], timing);
+
+      const incomingAnimation = incoming.animate([
+        { transform: "translateX(-100%)" },
+        { transform: "translateX(0%)" }
+      ], timing);
+
+      Promise.allSettled([outgoingAnimation.finished, incomingAnimation.finished]).then(() => {
+        setActive(next);
+        outgoingAnimation.cancel();
+        incomingAnimation.cancel();
+      });
+    };
+
+    const stop = () => {
+      if (timer !== null) window.clearTimeout(timer);
+      timer = null;
+    };
+
+    const schedule = () => {
+      stop();
+      if (document.hidden) return;
+
+      timer = window.setTimeout(() => {
+        show((index + 1) % slides.length);
+        schedule();
+      }, intervalMs);
+    };
+
+    setActive(index);
+
     carousel.addEventListener("focusin", stop);
-    carousel.addEventListener("focusout", start);
-    document.addEventListener("visibilitychange", function () { document.hidden ? stop() : start(); });
-    start();
+    carousel.addEventListener("focusout", (event) => {
+      if (!carousel.contains(event.relatedTarget)) schedule();
+    });
+    document.addEventListener("visibilitychange", () => document.hidden ? stop() : schedule());
+    window.addEventListener("pageshow", schedule);
+    schedule();
   }
 
   function setupLightbox() {
-    document.querySelectorAll("figure.kg-image-card").forEach(function (figure) {
-      var image = figure.querySelector("img.kg-image");
-      var caption = figure.querySelector("figcaption");
+    document.querySelectorAll("figure.kg-image-card").forEach((figure) => {
+      const image = figure.querySelector("img.kg-image");
+      const caption = figure.querySelector("figcaption");
       if (!image || image.closest("a")) return;
-      var link = document.createElement("a");
+
+      const link = document.createElement("a");
       link.href = image.currentSrc || image.src;
-      link.setAttribute("data-fslightbox", "post-images");
+      link.dataset.fslightbox = "post-images";
       link.setAttribute("aria-label", "Open image in lightbox");
       link.appendChild(image);
       figure.replaceChildren(link);
       if (caption) figure.appendChild(caption);
     });
 
-    document.querySelectorAll(".kg-gallery-card img").forEach(function (image) {
+    document.querySelectorAll(".kg-gallery-card img").forEach((image) => {
       if (image.closest("a")) return;
-      var link = document.createElement("a");
+
+      const link = document.createElement("a");
       link.href = image.currentSrc || image.src;
-      link.setAttribute("data-no-swup", "");
-      link.setAttribute("data-fslightbox", "post-images");
+      link.dataset.noSwup = "";
+      link.dataset.fslightbox = "post-images";
       link.setAttribute("aria-label", "Open image in lightbox");
-      image.parentNode.insertBefore(link, image);
+      image.before(link);
       link.appendChild(image);
     });
 
     if (typeof refreshFsLightbox === "function") refreshFsLightbox();
   }
 
-  function setupTheme() {
-    var storageKey = "fizzy-color-scheme";
-    var root = document.documentElement;
-    var toggles = Array.prototype.slice.call(document.querySelectorAll(".theme-toggle"));
-    var mediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
-    var themeColorMeta = document.getElementById("theme-color-meta");
+  function syncGhostSearchTheme(theme = getTheme()) {
+    const styleUrl = document.body?.dataset.searchStyleUrl || "";
 
-    function currentTheme() { return root.getAttribute("data-theme") === "dark" ? "dark" : "light"; }
-    function updateControls(theme) {
-      var nextTheme = theme === "dark" ? "light" : "dark";
-      var label = "Switch to " + nextTheme + " mode";
-      toggles.forEach(function (toggle) {
-        toggle.setAttribute("aria-label", label);
-        toggle.setAttribute("title", label);
-        toggle.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
-        var text = toggle.querySelector(".theme-toggle-text");
-        if (text) text.textContent = label;
-      });
-    }
-    function applyTheme(theme, persist) {
-      root.setAttribute("data-theme", theme);
-      root.style.colorScheme = theme;
-      if (themeColorMeta) themeColorMeta.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
-      if (persist) {
-        try { window.localStorage.setItem(storageKey, theme); } catch (error) {}
+    document.querySelectorAll("#sodo-search-root iframe").forEach((frame) => {
+      try {
+        const frameDocument = frame.contentDocument;
+        if (!frameDocument?.documentElement || !frameDocument.head) return;
+
+        frameDocument.documentElement.setAttribute("data-mdr-theme", theme);
+        frameDocument.documentElement.style.colorScheme = theme;
+
+        if (styleUrl && !frameDocument.getElementById("fizzy-mdr-search-theme")) {
+          const link = frameDocument.createElement("link");
+          link.id = "fizzy-mdr-search-theme";
+          link.rel = "stylesheet";
+          link.href = styleUrl;
+          frameDocument.head.appendChild(link);
+        }
+      } catch {
+        // Ignore inaccessible frames; native search remains usable without the bridge.
       }
-      updateControls(theme);
-    }
-
-    toggles.forEach(function (toggle) {
-      toggle.addEventListener("click", function () { applyTheme(currentTheme() === "dark" ? "light" : "dark", true); });
     });
-
-    if (mediaQuery) {
-      var onSystemChange = function (event) {
-        var stored = null;
-        try { stored = window.localStorage.getItem(storageKey); } catch (error) {}
-        if (stored !== "light" && stored !== "dark") applyTheme(event.matches ? "dark" : "light", false);
-      };
-      if (mediaQuery.addEventListener) mediaQuery.addEventListener("change", onSystemChange);
-      else if (mediaQuery.addListener) mediaQuery.addListener(onSystemChange);
-    }
-    applyTheme(currentTheme(), false);
   }
 
-  ready(function () {
+  function setupGhostSearchStyling() {
+    let searchObserver = null;
+    let discoveryObserver = null;
+
+    const styleSearch = () => {
+      const root = document.getElementById("sodo-search-root");
+      document.documentElement.classList.toggle("mdr-search-open", Boolean(root?.querySelector(".gh-root-frame")));
+
+      root?.querySelectorAll("iframe").forEach((frame) => {
+        if (frame.dataset.mdrSearchBound === "true") return;
+        frame.dataset.mdrSearchBound = "true";
+        frame.addEventListener("load", () => syncGhostSearchTheme(), { passive: true });
+      });
+
+      syncGhostSearchTheme();
+    };
+
+    const observeSearchRoot = (root) => {
+      if (searchObserver) searchObserver.disconnect();
+      searchObserver = new MutationObserver(styleSearch);
+      searchObserver.observe(root, { childList: true, subtree: true });
+      styleSearch();
+    };
+
+    const existingRoot = document.getElementById("sodo-search-root");
+    if (existingRoot) {
+      observeSearchRoot(existingRoot);
+      return;
+    }
+
+    discoveryObserver = new MutationObserver(() => {
+      const root = document.getElementById("sodo-search-root");
+      if (!root) return;
+      discoveryObserver.disconnect();
+      observeSearchRoot(root);
+    });
+    discoveryObserver.observe(document.body, { childList: true, subtree: true });
+  }
+
+  function setupTheme() {
+    const root = document.documentElement;
+    const toggles = Array.from(document.querySelectorAll(".theme-toggle"));
+    const systemTheme = window.matchMedia?.("(prefers-color-scheme: dark)");
+    const themeColorMeta = document.getElementById("theme-color-meta");
+
+    const updateControls = (theme) => {
+      const nextTheme = theme === "dark" ? "light" : "dark";
+      const label = `Switch to ${nextTheme} mode`;
+
+      toggles.forEach((toggle) => {
+        toggle.setAttribute("aria-label", label);
+        toggle.setAttribute("title", label);
+        toggle.setAttribute("aria-pressed", String(theme === "dark"));
+        const text = toggle.querySelector(".theme-toggle-text");
+        if (text) text.textContent = label;
+      });
+    };
+
+    const applyTheme = (theme, persist = false) => {
+      root.setAttribute("data-theme", theme);
+      root.style.colorScheme = theme;
+      themeColorMeta?.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
+
+      if (persist) {
+        try {
+          window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+        } catch {
+          // Theme still applies for the current page if storage is unavailable.
+        }
+      }
+
+      updateControls(theme);
+      syncGhostSearchTheme(theme);
+    };
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => applyTheme(getTheme() === "dark" ? "light" : "dark", true));
+    });
+
+    if (systemTheme) {
+      const onSystemChange = (event) => {
+        let storedTheme = null;
+        try {
+          storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+        } catch {
+          // Treat unavailable storage as no explicit preference.
+        }
+        if (storedTheme !== "light" && storedTheme !== "dark") applyTheme(event.matches ? "dark" : "light");
+      };
+
+      if (systemTheme.addEventListener) systemTheme.addEventListener("change", onSystemChange);
+      else if (systemTheme.addListener) systemTheme.addListener(onSystemChange);
+    }
+
+    applyTheme(getTheme());
+  }
+
+  onReady(() => {
     setupNavbar();
     setupArchiveGroups();
     setupCarousel();
     setupLightbox();
+    setupGhostSearchStyling();
     setupTheme();
   });
-}());
+})();

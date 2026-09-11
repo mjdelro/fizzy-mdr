@@ -1,23 +1,21 @@
 <header>
-    <nav id="navbar" class="navbar is-white is-spaced has-shadow-thin is-montserrat is-fixed-top" style="z-index:999;" role="navigation" aria-label="main navigation">
+    <nav id="navbar" class="navbar is-white is-spaced has-shadow-thin is-ui-font is-fixed-top site-navbar" role="navigation" aria-label="Main navigation">
         <div class="column is-hidden-touch is-1-desktop is-1-widescreen is-2-fullhd"></div>
         <div class="nav-container column is-paddingless is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
             <div class="navbar-brand">
                 {{#if @site.logo}}
-                <div class="navbar-item logo">
-                    <a href="{{@site.url}}" aria-label="{{@site.title}} home">
-                        <img src="{{@site.logo}}" alt="{{@site.title}}" title="{{@site.title}} - {{@site.description}}" height="28">
-                    </a>
-                </div>
+                    <div class="navbar-item logo">
+                        <a href="{{@site.url}}" aria-label="{{@site.title}} home">
+                            <img src="{{@site.logo}}" alt="{{@site.title}}" title="{{@site.title}} - {{@site.description}}" height="28">
+                        </a>
+                    </div>
                 {{else}}
-                <div class="navbar-item text-logo">
-                    <a class="align-vcentered" href="{{@site.url}}" title="{{@site.title}} - {{@site.description}}">
-                        {{#if @site.icon}}
-                        <img src="{{@site.icon}}" alt="" width="48" height="48">
-                        {{/if}}
-                        {{@site.title}}
-                    </a>
-                </div>
+                    <div class="navbar-item text-logo">
+                        <a class="align-vcentered" href="{{@site.url}}" title="{{@site.title}} - {{@site.description}}">
+                            {{#if @site.icon}}<img src="{{@site.icon}}" alt="" width="48" height="48">{{/if}}
+                            {{@site.title}}
+                        </a>
+                    </div>
                 {{/if}}
 
                 <button class="theme-toggle theme-toggle-mobile navbar-item is-hidden-desktop" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
@@ -26,8 +24,10 @@
                     <span class="is-sr-only theme-toggle-text">Switch to dark mode</span>
                 </button>
 
-                <button type="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" aria-controls="navbarPrimary" data-target="navbarPrimary">
-                    <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+                <button class="navbar-burger burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="navbarPrimary" data-target="navbarPrimary">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
                 </button>
             </div>
 
@@ -52,6 +52,6 @@
                 </div>
             </div>
         </div>
-        <div class="column is-hidden-touch" style="padding:.5rem"></div>
+        <div class="column is-hidden-touch navbar-end-spacer"></div>
     </nav>
 </header>

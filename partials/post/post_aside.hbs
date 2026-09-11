@@ -5,40 +5,40 @@
             <div class="columns is-multiline aside-grid">
                 <div class="column card-frame aside-column aside-previous is-6-tablet">
                     {{#prev_post}}
-                    <span class="nav-label left is-montserrat has-shadow-lift">{{t "Previous Post"}}</span>
-                    {{> "post/post_card"}}
+                        <span class="nav-label left is-ui-font has-shadow-lift">{{t "Previous Post"}}</span>
+                        {{> "post/post_card"}}
                     {{/prev_post}}
                 </div>
 
                 <div class="column card-frame aside-column aside-next is-6-tablet">
                     {{#next_post}}
-                    <span class="nav-label right is-montserrat has-shadow-lift">{{t "Next Post"}}</span>
-                    {{> "post/post_card"}}
+                        <span class="nav-label right is-ui-font has-shadow-lift">{{t "Next Post"}}</span>
+                        {{> "post/post_card"}}
                     {{/next_post}}
                 </div>
 
                 {{#if primary_tag}}
-                {{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="3" as |related_posts|}}
-                {{#if related_posts}}
-                <div class="column aside-column aside-related is-full-tablet">
-                    <article class="box tag-list is-vpadding-2 has-text-centered has-text-light" style="background-image:url({{asset 'images/dark-cover.jpg'}})">
-                        <header class="tag-list-header">
-                            <small class="tag-list-header-topic">&mdash; {{t "TOPIC"}} &mdash;</small>
-                            {{#../primary_tag}}<h3 class="title is-4 has-text-light"><a class="has-text-light" href="{{url}}" title="See all posts from {{name}}">{{name}}</a></h3>{{/../primary_tag}}
-                        </header>
-                        <div class="is-divider only-margin-top-1"></div>
-                        <div class="tag-list-content">
-                            <ul>
-                                {{#foreach related_posts}}<li class="has-text-light"><a href="{{url}}">{{title}}</a></li>{{/foreach}}
-                            </ul>
-                        </div>
-                        <footer class="tag-list-footer">
-                            <a href="{{#../primary_tag}}{{url}}{{/../primary_tag}}"><span>{{plural meta.pagination.total empty=(t "No posts") singular=(t "1 post") plural=(t "See all % posts")}} →</span></a>
-                        </footer>
-                    </article>
-                </div>
-                {{/if}}
-                {{/get}}
+                    {{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="3" as |related_posts|}}
+                        {{#if related_posts}}
+                            <div class="column aside-column aside-related is-full-tablet">
+                                <article class="box tag-list is-vpadding-2 has-text-centered has-text-light aside-tag-list">
+                                    <header class="tag-list-header">
+                                        <small class="tag-list-header-topic">&mdash; {{t "TOPIC"}} &mdash;</small>
+                                        {{#../primary_tag}}<h3 class="title is-4 has-text-light"><a class="has-text-light" href="{{url}}" title="See all posts from {{name}}">{{name}}</a></h3>{{/../primary_tag}}
+                                    </header>
+                                    <div class="is-divider only-margin-top-1"></div>
+                                    <div class="tag-list-content">
+                                        <ul>
+                                            {{#foreach related_posts}}<li class="has-text-light"><a href="{{url}}">{{title}}</a></li>{{/foreach}}
+                                        </ul>
+                                    </div>
+                                    <footer class="tag-list-footer">
+                                        <a href="{{#../primary_tag}}{{url}}{{/../primary_tag}}"><span>{{plural meta.pagination.total empty=(t "No posts") singular=(t "1 post") plural=(t "See all % posts")}} →</span></a>
+                                    </footer>
+                                </article>
+                            </div>
+                        {{/if}}
+                    {{/get}}
                 {{/if}}
             </div>
         </div>

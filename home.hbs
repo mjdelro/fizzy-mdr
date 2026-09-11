@@ -1,18 +1,17 @@
 {{!< default}}
-{{> showcase}}
+
+{{> "showcase"}}
 
 <main class="section">
     <div class="columns">
         <div class="column is-hidden-touch is-1-desktop is-1-widescreen is-2-fullhd"></div>
         <div class="column is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
-            {{#foreach posts}}
-                {{#has tag="#noindex"}}{{else}}{{> list_card}}{{/has}}
-            {{else}}
-                {{t "There is no post yet."}}
-            {{/foreach}}
+            {{> "post-list" posts=posts}}
         </div>
         <div class="column is-hidden-touch"></div>
     </div>
 </main>
 
-<section class="section is-padding-top-05"><div class="container">{{pagination}}</div></section>
+<section class="section is-padding-top-05">
+    <div class="container">{{pagination}}</div>
+</section>
