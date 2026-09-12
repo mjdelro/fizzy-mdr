@@ -109,11 +109,11 @@
 
       const outgoingAnimation = current.animate([
         { transform: "translateX(0%)" },
-        { transform: "translateX(100%)" }
+        { transform: "translateX(-100%)" }
       ], timing);
 
       const incomingAnimation = incoming.animate([
-        { transform: "translateX(-100%)" },
+        { transform: "translateX(100%)" },
         { transform: "translateX(0%)" }
       ], timing);
 

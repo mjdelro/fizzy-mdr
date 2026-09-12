@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.3
+
+- Reversed the homepage carousel transition direction.
+- The current post now exits to the left while the next post enters from the right, producing a right-to-left slide.
+- Preserved the existing 5-second autoplay and stable Web Animations API implementation.
+
 ## 2.3.2
 
 - Restored the known-good 5-second left-to-right homepage carousel animation after the 2.3 cleanup pass suppressed it on systems reporting reduced motion.

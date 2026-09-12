@@ -2,7 +2,7 @@
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.3.2**
+Current release: **2.3.3**
 
 ## Features
 
@@ -34,7 +34,7 @@ Version **2.3.0** was a broad maintenance and refactor release focused on making
 - Cleaned locale inconsistencies and miscellaneous HTML/CSS issues
 - Standardized package scripts and GitHub Actions validation around GScan
 
-The **2.3.1** and **2.3.2** patches preserve that cleanup while fixing header-control hover geometry and restoring the stable 5-second left-to-right carousel animation.
+The **2.3.1–2.3.3** patches preserve that cleanup while fixing header-control hover geometry, restoring the stable 5-second carousel animation, and changing its travel direction to right-to-left.
 
 ## Theme Settings
 
