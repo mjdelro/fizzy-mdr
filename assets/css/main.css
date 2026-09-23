@@ -317,11 +317,10 @@ strong {
   }
 }
 .can-scale {
-  transition: all 0.3s;
+  transition: box-shadow 150ms ease;
 }
 .can-scale:hover {
-  box-shadow: var(--hover-accent-ring);
-  transition: all 0.5s ease;
+  box-shadow: var(--card-shadow-hover);
 }
 /* ====================== body ====================== 2019.04.11 */
 html {
@@ -492,9 +491,6 @@ body {
 }
 .featured-label span {
   display: none;
-}
-.featured-label:hover span {
-  display: inline-block;
 }
 @media screen and (max-width: 768px) {
   .post-info .featured-label.has-img {
@@ -942,8 +938,6 @@ table tr td:last-child {
 
 #toc a:hover,
 #toc-img a:hover {
-  padding: 0;
-  border: none;
   color: #333;
 }
 
@@ -1036,7 +1030,7 @@ table tr td:last-child {
 }
 .aside .post-card:hover {
   box-shadow: var(--card-shadow-hover);
-  transition: all 0.3s ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
   border-color: var(--hover-accent-border);
 }
 .aside .featured-image {

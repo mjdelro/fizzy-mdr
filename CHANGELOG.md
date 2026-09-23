@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.4.2
+
+- Add a left-aligned green H2 underline that fades to transparent halfway across the article heading.
+
+- Remove the legacy ToC hover padding reset so row text and indentation stay stationary.
+
+- Tighten card hover highlights to a 2px accent ring at 25% opacity while preserving the soft base shadow.
+- Keep featured badges on a green background with white text and filled stars, no glow, and no card-hover color change.
+- Highlight the full width of hovered or keyboard-focused ToC rows in green, preserving nested text indentation.
+- Use 150ms card feedback and explicit keyboard focus outlines.
+
 ## 2.4.1
 
 - Match both table-of-contents panels to the soft image shadow and rounded corners, without the old left border.

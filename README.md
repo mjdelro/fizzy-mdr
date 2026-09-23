@@ -2,7 +2,7 @@
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.4.1**
+Current release: **2.4.2**
 
 ## Features
 

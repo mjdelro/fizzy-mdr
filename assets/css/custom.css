@@ -38,7 +38,7 @@
   --media-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
   --hover-accent-ring: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
   --hover-accent-border: color-mix(in srgb, var(--main-color) 35%, transparent);
-  --card-shadow-hover: var(--hover-accent-ring), var(--card-shadow);
+  --card-shadow-hover: 0 0 0 2px color-mix(in srgb, var(--main-color) 25%, transparent), var(--card-shadow);
 
   --pill-height: 1.75rem;
   --pill-padding-x: 0.75rem;
@@ -122,6 +122,16 @@ h6,
 .post-content,
 figcaption {
   font-family: var(--font-body) !important;
+}
+
+/* Left-aligned H2 accent fades completely at the heading's midpoint. */
+.post-content > h2::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 2px;
+  margin: 0.35em 0 0;
+  background: linear-gradient(to right, var(--main-color), transparent);
 }
 
 /* Stronger, slightly tighter display typography for post titles. */
@@ -209,12 +219,13 @@ figcaption,
   background-color: var(--surface-accent) !important;
 }
 
-/* Featured markers stay quiet until the card is engaged. */
+/* Featured markers stay steady so the card alone signals hover. */
 .featured-label {
   z-index: 3;
   pointer-events: none;
-  background: rgba(40, 48, 43, 0.78) !important;
-  transition: background-color 160ms ease, opacity 160ms ease;
+  background: #176b3a !important;
+  color: #fff;
+  box-shadow: none;
 }
 
 .featured-label:not(.large) {
@@ -228,22 +239,16 @@ figcaption,
   border-radius: var(--pill-radius);
 }
 
-.post-list-card:hover .featured-label,
-.tf-item:hover .featured-label {
-  background: var(--main-color) !important;
-}
-
 /* Stationary accent feedback; slide motion belongs exclusively to the carousel. */
 .interactive-card {
   transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
 
-/* Wider accent framing for article and featured showcase cards. */
-.post-list-card,
-.tf-item,
-.carousel .carousel-item,
-.aside .post-card {
-  --card-shadow-hover: 0 0 0 6px color-mix(in srgb, var(--main-color) 12%, transparent), var(--card-shadow);
+/* Keyboard focus remains stronger than the subtle hover ring. */
+:is(.interactive-card, .aside .post-card, .tag-card):focus-visible,
+:is(.interactive-card, .aside .post-card, .tag-card):has(:focus-visible) {
+  outline: 2px solid var(--main-color);
+  outline-offset: 3px;
 }
 
 /* Homepage/index article cards. */
@@ -429,7 +434,7 @@ html[data-theme="dark"] {
   --search-overlay: rgba(0, 0, 0, 0.42);
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
   --media-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --card-shadow-hover: var(--hover-accent-ring), var(--card-shadow);
+  --card-shadow-hover: 0 0 0 2px color-mix(in srgb, var(--main-color) 25%, transparent), var(--card-shadow);
   --pill-surface-hover: #2a2a2a;
   background-color: var(--surface-page);
 }
@@ -610,15 +615,6 @@ html[data-theme="dark"] .top-featured .box {
 /* Keep the same accent feedback in dark mode. */
 html[data-theme="dark"] .post-list-card.interactive-card:hover {
   border-color: var(--hover-accent-border);
-}
-
-html[data-theme="dark"] .featured-label {
-  background: rgba(28, 28, 28, 0.82) !important;
-}
-
-html[data-theme="dark"] .post-list-card:hover .featured-label,
-html[data-theme="dark"] .tf-item:hover .featured-label {
-  background: var(--main-color) !important;
 }
 
 html[data-theme="dark"] .has-text-black,
@@ -1178,13 +1174,36 @@ html[data-theme="dark"] .button.category-pill--surface:focus-visible {
 #toc-img li {
   list-style: none;
 }
+/* Put indentation inside each full-width clickable row. */
+#toc,
+#toc-img {
+  padding-inline: 0;
+}
+#toc ul,
+#toc-img ul {
+  padding-inline: 0;
+}
 #toc li > ul,
 #toc-img li > ul {
-  margin-left: 10px;
+  margin-left: 0;
+}
+#toc li > a,
+#toc-img li > a {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 10px;
+  border: 0;
+}
+#toc li li > a,
+#toc-img li li > a {
+  padding-left: 20px;
 }
 #toc a,
 #toc-img a {
   text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 150ms ease, color 150ms ease;
 }
 #toc .active > a,
 #toc-img .active > a {
@@ -1194,6 +1213,21 @@ html[data-theme="dark"] .button.category-pill--surface:focus-visible {
 html[data-theme="dark"] #toc .active > a,
 html[data-theme="dark"] #toc-img .active > a {
   color: var(--text-primary);
+}
+
+/* Highlight the entire clickable row without highlighting nested rows. */
+#toc li > a:is(:hover, :focus-visible),
+#toc-img li > a:is(:hover, :focus-visible),
+html[data-theme="dark"] #toc li > a:is(:hover, :focus-visible),
+html[data-theme="dark"] #toc-img li > a:is(:hover, :focus-visible) {
+  background-color: color-mix(in srgb, var(--main-color) 12%, transparent);
+  color: var(--main-color);
+}
+
+#toc li > a:focus-visible,
+#toc-img li > a:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 2px;
 }
 
 /* Related/previous/next cards share available desktop width without extra API count queries. */
