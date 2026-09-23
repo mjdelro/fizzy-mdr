@@ -1,5 +1,74 @@
 # Changelog
 
+## 2.4.0
+
+- Replaced deprecated social URL helpers with Ghost’s `social_url` helper.
+- Enabled Ghost card assets explicitly and added Ghost font settings with theme font fallbacks.
+- Added support for the page title and feature-image visibility setting.
+
+- Refactored theme-owned presentation styles around shared component tokens instead of accumulated one-off overrides.
+- Unified search and light/dark buttons under one circular `header-control` component and removed the old wrapper-specific hover selectors.
+- Standardized category/tag pills with explicit surface, overlay, and icon variants; aligned compact featured markers to the same sizing system.
+- Centralized the 300px desktop card/showcase height, 38% feature-image split, showcase stack gap, card shadows, and card radii.
+- Replaced the top-right showcase height calculation with a two-row grid and removed duplicate list-card width rules.
+- Replaced legacy `can-scale`/`has-shadow-lift` dependencies on theme-owned homepage cards with a shared `interactive-card` motion rule, keeping carousel transforms reserved for slide animation.
+- Kept card, hero, and showcase feature images explicitly center-cropped.
+- Removed stale helper classes and corrected the outdated carousel-direction comment to match the current right-to-left animation.
+- Fixed an old undefined CSS variable reference in the base stylesheet.
+- Synchronized native hash `scroll-margin-top` with the same computed navbar/line offset used by TOC click navigation.
+- Preserved all established 2.3.x behavior: neutral dark mode, 5-second carousel timing, Ghost search treatment, caption `\n` handling, and responsive TOC highlighting.
+
+## 2.3.11
+
+- Replaced the TOC IntersectionObserver highlight logic with a requestAnimationFrame scroll spy keyed to the actual heading position beneath the fixed navbar.
+- TOC clicks now highlight the destination immediately and keep it selected during smooth scrolling, eliminating the visible lag where the previous section could remain bold.
+- Added a short click-target lock with scroll-end/timer release so rapid back-and-forth TOC navigation stays synchronized while normal manual scrolling updates continuously.
+
+## 2.3.10
+
+- Adjusted table-of-contents navigation so clicking a section scrolls to the heading with the fixed navbar plus roughly one line of breathing room above it.
+- Added a matching CSS scroll margin so direct hash navigation also keeps section headings visible instead of hiding them beneath the fixed header.
+
+## 2.3.9
+
+- Reduced desktop homepage/index article cards to a consistent 300px height so short Ghost excerpts no longer leave a large empty area beneath the text.
+- Made the feature-image column fill the compact card height while retaining centered `object-fit: cover` cropping.
+- Kept mobile cards content-driven so smaller screens are not forced into a fixed-height layout.
+
+## 2.3.8
+
+- Standardized category/tag pill height, horizontal padding, corner radius, font size, and weight across post cards, article tags, and homepage showcase cards.
+- Kept pill widths content-driven so longer category names remain readable while all pills share the same visual height and spacing.
+- Explicitly centered feature-image crops with `object-position: 50% 50%` for post cards, article heroes, and showcase images.
+
+## 2.3.7
+
+- Added an explicit `\n` caption-break marker for Ghost image and gallery captions.
+- On the published frontend, literal `\n` sequences inside captions are converted to real `<br>` elements while preserving inline emphasis, links, and other caption markup.
+- Kept the existing caption whitespace rule as a fallback for any native newline characters Ghost may preserve.
+
+## 2.3.6
+
+- Preserve intentional line breaks in Ghost image and gallery captions on the frontend.
+- Use `white-space: pre-line` so caption newlines survive while ordinary whitespace still wraps naturally.
+
+## 2.3.5
+
+- Reworked dark mode around neutral blacks and charcoals so film stills, photography, screenshots, and typewriter images sit against color-neutral surfaces.
+- Removed the green cast from dark page, card, elevated, subtle, input, inline-code, table, border, and native search surfaces.
+- Neutralized dark-mode text grays, card shadows, featured-label overlays, carousel tag overlays, and search hover colors.
+- Kept Fizzy MDR green for intentional accents such as links, active states, focus treatment, and highlighted controls.
+- Updated the browser theme color to match the new neutral dark page background.
+
+## 2.3.4
+
+- Standardized reusable interface SVG partials around Lucide and moved the header sun/moon icons out of inline template markup.
+- Moved footer social marks into reusable brand-icon partials.
+- Standardized GitHub, Facebook, Twitch, Ko-fi, and X on Simple Icons, with LinkedIn sourced from Bootstrap Icons.
+- Replaced the old Twitter-style partial with the X brand mark while preserving Ghost's existing `twitter` profile field support.
+- Added shared `brand-icon` styling and documented vendored icon sources/licenses.
+- Kept all icon SVGs local to the theme: no icon framework, CDN, or runtime JavaScript dependency was added.
+
 ## 2.3.3
 
 - Reversed the homepage carousel transition direction.

@@ -150,6 +150,34 @@
     schedule();
   }
 
+  function setupCaptionBreaks() {
+    const captions = document.querySelectorAll(
+      ".kg-image-card figcaption, .kg-gallery-card figcaption"
+    );
+
+    captions.forEach((caption) => {
+      const walker = document.createTreeWalker(caption, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        if (node.nodeValue?.includes("\\n")) textNodes.push(node);
+      }
+
+      textNodes.forEach((node) => {
+        const parts = node.nodeValue.split("\\n");
+        const fragment = document.createDocumentFragment();
+
+        parts.forEach((part, partIndex) => {
+          if (partIndex > 0) fragment.appendChild(document.createElement("br"));
+          if (part) fragment.appendChild(document.createTextNode(part));
+        });
+
+        node.replaceWith(fragment);
+      });
+    });
+  }
+
   function setupLightbox() {
     document.querySelectorAll("figure.kg-image-card").forEach((figure) => {
       const image = figure.querySelector("img.kg-image");
@@ -265,7 +293,7 @@
     const applyTheme = (theme, persist = false) => {
       root.setAttribute("data-theme", theme);
       root.style.colorScheme = theme;
-      themeColorMeta?.setAttribute("content", theme === "dark" ? "#111512" : "#f5f6f4");
+      themeColorMeta?.setAttribute("content", theme === "dark" ? "#111111" : "#f5f6f4");
 
       if (persist) {
         try {
@@ -305,6 +333,7 @@
     setupNavbar();
     setupArchiveGroups();
     setupCarousel();
+    setupCaptionBreaks();
     setupLightbox();
     setupGhostSearchStyling();
     setupTheme();

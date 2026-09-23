@@ -20,8 +20,8 @@
                     <ul class="meta-info is-size-6">
                         <li class="has-text-weight-bold">{{plural ../pagination.total empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}</li>
                         <li aria-hidden="true">|</li>
-                        {{#if twitter}}<li><a href="{{twitter_url}}" class="has-text-white" target="_blank" rel="noopener noreferrer" aria-label="{{name}} on X">{{> "icons/twitter"}}</a></li>{{/if}}
-                        {{#if facebook}}<li><a href="{{facebook_url}}" class="has-text-white" target="_blank" rel="noopener noreferrer" aria-label="{{name}} on Facebook">{{> "icons/facebook"}}</a></li>{{/if}}
+                        {{#if twitter}}<li><a href="{{social_url type="twitter"}}" class="has-text-white" target="_blank" rel="noopener noreferrer" aria-label="{{name}} on X">{{> "icons/x"}}</a></li>{{/if}}
+                        {{#if facebook}}<li><a href="{{social_url type="facebook"}}" class="has-text-white" target="_blank" rel="noopener noreferrer" aria-label="{{name}} on Facebook">{{> "icons/facebook"}}</a></li>{{/if}}
                         {{#if website}}<li><a href="{{website}}" class="has-text-white" target="_blank" rel="noopener noreferrer" aria-label="{{name}} website">{{> "icons/link"}}</a></li>{{/if}}
                         {{#if location}}<li>{{> "icons/location"}} {{location}}</li>{{/if}}
                     </ul>

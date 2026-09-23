@@ -1,4 +1,4 @@
-<article class="{{post_class}} box post-list-card is-paddingless is-clipped has-shadow-lift margin-bottom-25 can-scale">
+<article class="{{post_class}} box post-list-card is-paddingless is-clipped margin-bottom-25 interactive-card">
     <div class="columns post-card is-marginless">
         {{#if feature_image}}
         <a class="column is-paddingless post-list-card-image-link" href="{{url}}" title="{{title}}">
@@ -19,7 +19,7 @@
 
                 <div class="level is-mobile is-ui-font is-uppercase is-margin-bottom-1">
                     <div class="level-left">
-                        {{#primary_tag}}<div class="level-item"><div class="buttons are-small"><a href="{{url}}" class="button is-light has-text-weight-semibold">{{name}}</a></div></div>{{/primary_tag}}
+                        {{#primary_tag}}<div class="level-item"><div class="buttons are-small"><a href="{{url}}" class="button category-pill category-pill--surface">{{name}}</a></div></div>{{/primary_tag}}
                         <div class="level-item is-size-7"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></div>
                     </div>
                 </div>

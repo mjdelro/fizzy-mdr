@@ -12,12 +12,12 @@
 
 html[data-mdr-theme="dark"] {
   color-scheme: dark;
-  --search-bg: #181d1a;
-  --search-text: #ecf2ed;
-  --search-muted: #929d95;
+  --search-bg: #181818;
+  --search-text: #eee;
+  --search-muted: #999;
   --search-accent: #8dd7a5;
-  --search-hover: #202a23;
-  --search-border: rgba(230, 238, 232, 0.12);
+  --search-hover: #232323;
+  --search-border: rgba(255, 255, 255, 0.12);
   --search-shadow: 0 22px 62px rgba(0, 0, 0, 0.46);
   --search-focus: rgba(107, 193, 137, 0.3);
 }

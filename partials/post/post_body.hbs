@@ -7,12 +7,12 @@
 
 {{#has tag="count:>0"}}
     <div class="buttons tags has-text-weight-semibold">
-        <span class="button is-static is-size-7-mobile tag-icon-button">
+        <span class="button category-pill category-pill--icon category-pill--surface">
             {{#has tag="count:1"}}{{> "icons/tag"}}{{/has}}
             {{#has tag="count:>1"}}{{> "icons/tags"}}{{/has}}
         </span>
         {{#foreach tags}}
-            <a href="{{url}}" class="button is-light is-size-7-mobile has-text-weight-semibold">{{name}}</a>
+            <a href="{{url}}" class="button category-pill category-pill--surface">{{name}}</a>
         {{/foreach}}
     </div>
 {{/has}}

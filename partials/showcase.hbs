@@ -8,7 +8,7 @@
                     <div id="carousel-home" class="carousel" aria-label="Featured posts">
                         {{#get "posts" limit="6" include="tags" filter="tags:[hash-carousel]" as |carousel_posts|}}
                             {{#foreach carousel_posts}}
-                                <article class="carousel-item box has-shadow-lift can-scale{{#has number="1"}} is-active{{/has}}">
+                                <article class="carousel-item box interactive-card{{#has number="1"}} is-active{{/has}}">
                                     {{#if feature_image}}
                                         <img class="showcase-image"
                                              src="{{img_url feature_image size="large"}}"
@@ -19,7 +19,7 @@
                                     {{/if}}
                                     <a class="link-block" href="{{url}}" rel="bookmark" tabindex="-1" aria-hidden="true"></a>
                                     <div class="carousel-meta bg-grad-b">
-                                        {{#primary_tag}}<div class="carousel-tag"><a class="is-ui-font" href="{{url}}">{{name}}</a></div>{{/primary_tag}}
+                                        {{#primary_tag}}<div class="carousel-tag"><a class="category-pill category-pill--overlay" href="{{url}}">{{name}}</a></div>{{/primary_tag}}
                                         <a href="{{url}}"><h2 class="is-size-4 is-size-5-mobile is-margin-bottom-05 has-text-white has-text-weight-semibold has-text-shadow-black">{{title}}</h2></a>
                                     </div>
                                 </article>
@@ -32,7 +32,7 @@
                     {{#get "posts" limit="2" include="tags" filter="tags:-hash-carousel" order="featured desc,published_at desc" as |featured_posts|}}
                         <div class="top-featured">
                             {{#foreach featured_posts}}
-                                <article class="tf-item box has-shadow-lift can-scale">
+                                <article class="tf-item box interactive-card">
                                     {{#if feature_image}}
                                         <img class="showcase-image"
                                              src="{{img_url feature_image size="medium"}}"
@@ -44,7 +44,7 @@
                                     {{#if featured}}<span class="featured-label featured-label-corner is-ui-font" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>{{/if}}
                                     <a class="link-block" href="{{url}}" rel="bookmark" tabindex="-1" aria-hidden="true"></a>
                                     <div class="tf-meta bg-grad-b">
-                                        {{#primary_tag}}<div class="tf-tag"><a class="is-ui-font" href="{{url}}">{{name}}</a></div>{{/primary_tag}}
+                                        {{#primary_tag}}<div class="tf-tag"><a class="category-pill category-pill--overlay" href="{{url}}">{{name}}</a></div>{{/primary_tag}}
                                         <a href="{{url}}"><h2 class="is-size-5 has-text-white has-text-weight-semibold has-text-shadow-black">{{title}}</h2></a>
                                     </div>
                                 </article>

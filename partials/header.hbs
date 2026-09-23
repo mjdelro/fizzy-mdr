@@ -18,9 +18,9 @@
                     </div>
                 {{/if}}
 
-                <button class="theme-toggle theme-toggle-mobile navbar-item is-hidden-desktop" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-                    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 14.1A8.2 8.2 0 0 1 9.9 3.3 9 9 0 1 0 20.7 14.1Z"></path></svg>
-                    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+                <button class="header-control theme-toggle theme-toggle-mobile navbar-item is-hidden-desktop" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+                    {{> "icons/moon"}}
+                    {{> "icons/sun"}}
                     <span class="is-sr-only theme-toggle-text">Switch to dark mode</span>
                 </button>
 
@@ -35,17 +35,17 @@
                 <div class="navbar-end">
                     {{#if @site.navigation}}{{navigation}}{{/if}}
 
-                    <div class="navbar-item search-button-wrap">
-                        <button class="search-button" type="button" data-ghost-search aria-label="{{t "Search"}}" title="{{t "Search"}}">
+                    <div class="navbar-item header-control-wrap">
+                        <button class="header-control search-button" type="button" data-ghost-search aria-label="{{t "Search"}}" title="{{t "Search"}}">
                             {{> "icons/search"}}
                             <span class="is-sr-only">{{t "Search"}}</span>
                         </button>
                     </div>
 
-                    <div class="navbar-item theme-toggle-wrap is-hidden-touch">
-                        <button class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
-                            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20.7 14.1A8.2 8.2 0 0 1 9.9 3.3 9 9 0 1 0 20.7 14.1Z"></path></svg>
-                            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg>
+                    <div class="navbar-item header-control-wrap is-hidden-touch">
+                        <button class="header-control theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode">
+                            {{> "icons/moon"}}
+                            {{> "icons/sun"}}
                             <span class="is-sr-only theme-toggle-text">Switch to dark mode</span>
                         </button>
                     </div>

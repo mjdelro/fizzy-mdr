@@ -48,6 +48,30 @@
     container.replaceChildren(root);
   }
 
+  function getHeadingOffset(content) {
+    const navbar = document.getElementById("navbar");
+    const navbarHeight = navbar ? navbar.getBoundingClientRect().height : 0;
+    const contentStyles = window.getComputedStyle(content);
+    const lineHeight = parseFloat(contentStyles.lineHeight) || 24;
+    return navbarHeight + lineHeight;
+  }
+
+  function scrollToHeading(event, heading, content) {
+    event.preventDefault();
+
+    const targetTop = window.scrollY + heading.getBoundingClientRect().top - getHeadingOffset(content);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: reduceMotion ? "auto" : "smooth"
+    });
+
+    if (window.location.hash !== `#${heading.id}`) {
+      window.history.pushState(null, "", `#${heading.id}`);
+    }
+  }
+
   function initToc() {
     const content = document.querySelector(".post-content");
     const containers = [document.getElementById("toc"), document.getElementById("toc-img")].filter(Boolean);
@@ -67,30 +91,121 @@
 
     containers.forEach((container) => buildToc(container, headings));
 
+    const syncHeadingOffset = () => {
+      document.documentElement.style.setProperty("--toc-scroll-offset", `${getHeadingOffset(content)}px`);
+    };
+    syncHeadingOffset();
+
     const items = Array.from(document.querySelectorAll("#toc li[data-toc-target], #toc-img li[data-toc-target]"));
     const activate = (id) => {
       items.forEach((item) => item.classList.toggle("active", item.dataset.tocTarget === id));
     };
 
-    if ("IntersectionObserver" in window) {
-      const visible = new Map();
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          visible.set(entry.target.id, entry.isIntersecting ? entry.boundingClientRect.top : null);
+    // Keep a clicked TOC item active while smooth scrolling so the scroll spy
+    // cannot briefly jump back to the section we are leaving.
+    let pendingTargetId = null;
+    let pendingTargetTimer = null;
+
+    const clearPendingTarget = () => {
+      pendingTargetId = null;
+      if (pendingTargetTimer) {
+        window.clearTimeout(pendingTargetTimer);
+        pendingTargetTimer = null;
+      }
+    };
+
+    let spyTicking = false;
+    const updateActiveFromScroll = () => {
+      const offset = getHeadingOffset(content);
+
+      if (pendingTargetId) {
+        const pendingHeading = document.getElementById(pendingTargetId);
+        if (pendingHeading && Math.abs(pendingHeading.getBoundingClientRect().top - offset) <= 6) {
+          const reachedId = pendingTargetId;
+          clearPendingTarget();
+          activate(reachedId);
+        }
+
+        if (pendingTargetId) {
+          spyTicking = false;
+          return;
+        }
+      }
+
+      let activeId = headings[0].id;
+      const marker = offset + 2;
+
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= marker) activeId = heading.id;
+        else break;
+      }
+
+      // Ensure the final short section can become active even when it cannot
+      // scroll all the way up to the marker before the document ends.
+      const root = document.documentElement;
+      if (window.scrollY + window.innerHeight >= root.scrollHeight - 2) {
+        activeId = headings[headings.length - 1].id;
+      }
+
+      activate(activeId);
+      spyTicking = false;
+    };
+
+    const requestSpyUpdate = () => {
+      if (spyTicking) return;
+      spyTicking = true;
+      window.requestAnimationFrame(updateActiveFromScroll);
+    };
+
+    containers.forEach((container) => {
+      container.querySelectorAll("a[href^='#']").forEach((link) => {
+        const id = link.getAttribute("href").slice(1);
+        const heading = document.getElementById(id);
+        if (!heading) return;
+
+        link.addEventListener("click", (event) => {
+          pendingTargetId = id;
+          activate(id);
+
+          if (pendingTargetTimer) window.clearTimeout(pendingTargetTimer);
+          pendingTargetTimer = window.setTimeout(() => {
+            clearPendingTarget();
+            requestSpyUpdate();
+          }, 2000);
+
+          scrollToHeading(event, heading, content);
         });
-
-        const candidates = headings.filter((heading) => visible.get(heading.id) !== null && visible.get(heading.id) !== undefined);
-        if (candidates.length === 0) return;
-
-        candidates.sort((a, b) => Math.abs(visible.get(a.id)) - Math.abs(visible.get(b.id)));
-        activate(candidates[0].id);
-      }, {
-        rootMargin: "-15% 0px -70% 0px",
-        threshold: 0
       });
+    });
 
-      headings.forEach((heading) => observer.observe(heading));
+    window.addEventListener("scroll", requestSpyUpdate, { passive: true });
+    window.addEventListener("resize", () => {
+      syncHeadingOffset();
+      requestSpyUpdate();
+    }, { passive: true });
+
+    if ("onscrollend" in window) {
+      window.addEventListener("scrollend", () => {
+        clearPendingTarget();
+        requestSpyUpdate();
+      }, { passive: true });
     }
+
+    // User-initiated scrolling should immediately hand control back to the spy.
+    const releaseOnUserScroll = () => {
+      if (!pendingTargetId) return;
+      clearPendingTarget();
+      requestSpyUpdate();
+    };
+    window.addEventListener("wheel", releaseOnUserScroll, { passive: true });
+    window.addEventListener("touchstart", releaseOnUserScroll, { passive: true });
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) {
+        releaseOnUserScroll();
+      }
+    });
+
+    updateActiveFromScroll();
 
     const imageToc = document.getElementById("toc-img");
     if (imageToc) {

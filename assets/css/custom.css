@@ -2,8 +2,8 @@
 
 /* ===== Design tokens ===== */
 :root {
-  --font-body: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-ui: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: var(--gh-font-body, "Atkinson Hyperlegible Next"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-ui: var(--gh-font-heading, "IBM Plex Sans"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Atkinson Hyperlegible Mono", "SFMono-Regular", Consolas, monospace;
   --font-quote: "Special Elite", "Atkinson Hyperlegible Next", sans-serif;
   --main-color: #176b3a;
@@ -27,8 +27,23 @@
   --border-soft: rgba(25, 40, 32, 0.08);
   --search-overlay: rgba(245, 246, 244, 0.34);
   --radius-card: 10px;
-  --radius-control: 999px;
+  --radius-control: 50%;
   --header-control-size: 40px;
+  --toc-scroll-offset: 6rem;
+
+  --card-height-desktop: 300px;
+  --card-image-width: 38%;
+  --card-stack-gap: 1.5rem;
+  --card-shadow: 0 2px 8px rgba(24, 39, 31, 0.045);
+  --card-shadow-hover: 0 7px 18px rgba(24, 39, 31, 0.07);
+
+  --pill-height: 1.75rem;
+  --pill-padding-x: 0.75rem;
+  --pill-font-size: 0.75rem;
+  --pill-radius: 4px;
+  --pill-surface-hover: #e0f0e5;
+  --pill-overlay-background: rgba(0, 0, 0, 0.72);
+  --pill-overlay-hover: rgba(0, 0, 0, 0.86);
 }
 
 /* ===== General layout ===== */
@@ -106,11 +121,6 @@ figcaption {
   font-family: var(--font-body) !important;
 }
 
-/* Tags and compact article UI use the heading/UI family. */
-.single-article .tags .button {
-  font-family: var(--font-ui);
-}
-
 /* Stronger, slightly tighter display typography for post titles. */
 .single-article .post-wrap > .title {
   font-family: var(--font-ui);
@@ -157,6 +167,12 @@ figcaption,
   font-style: italic !important;
 }
 
+/* Preserve intentional line breaks entered in Ghost image and gallery captions. */
+.kg-image-card figcaption,
+.kg-gallery-card figcaption {
+  white-space: pre-line;
+}
+
 /* Replace Fizzy's diagonal stripe texture with a quieter editorial canvas. */
 .has-background-light-line {
   background-image: none !important;
@@ -178,7 +194,7 @@ figcaption,
 }
 
 .navbar-start .navbar-item:hover,
-.navbar-end .navbar-item:not(.search-button-wrap):not(.theme-toggle-wrap):hover {
+.navbar-end .navbar-item:not(.header-control-wrap):hover {
   background-color: var(--surface-accent) !important;
 }
 
@@ -190,46 +206,44 @@ figcaption,
   transition: background-color 160ms ease, opacity 160ms ease;
 }
 
+.featured-label:not(.large) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--pill-height) !important;
+  min-height: var(--pill-height);
+  line-height: 1 !important;
+  padding-inline: 0.45rem;
+  border-radius: var(--pill-radius);
+}
+
 .post-list-card:hover .featured-label,
 .tf-item:hover .featured-label {
   background: var(--main-color) !important;
 }
 
-/* Homepage/index article cards: subtle border, restrained lift, softer radius. */
+/* Theme-owned interactive cards use one restrained motion model instead of
+   the legacy scale/shadow utility combination. */
+.interactive-card {
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+/* Homepage/index article cards. */
 .post-list-card {
   background: var(--surface-card);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-card) !important;
-  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.045) !important;
+  box-shadow: var(--card-shadow) !important;
 }
 
-.post-list-card.can-scale:hover {
+.post-list-card.interactive-card:hover {
   transform: translateY(-1px);
   border-color: rgba(25, 40, 32, 0.14);
-  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.07) !important;
-}
-
-@media screen and (min-width: 769px) {
-  /* Give the writing a little more room than the image on list cards. */
-  .post-list-card .post-card > a.column:first-child {
-    flex: none;
-    width: 38%;
-  }
-
-  .post-list-card .post-card > .column.is-7 {
-    flex: none;
-    width: 62%;
-  }
-
-  .post-list-card .post-info {
-    padding: 2.25rem 2.5rem;
-  }
+  box-shadow: var(--card-shadow-hover) !important;
 }
 
 .post-list-card .post-card-excerpt {
   font-family: var(--font-body);
-  /* Stay at 16px on typical desktop widths, then scale gently on large
-     displays so excerpts do not look undersized inside the wider cards. */
   font-size: clamp(1rem, calc(0.72rem + 0.25vw), 1.125rem);
   line-height: 1.6;
   color: var(--text-secondary);
@@ -258,33 +272,52 @@ figcaption,
   color: var(--text-muted);
 }
 
-.post-list-card .level .button.is-light {
-  background-color: var(--surface-accent);
-  border-color: transparent;
-  color: var(--main-color);
-  font-size: 0.68rem;
-  letter-spacing: 0.04em;
-}
-
-.post-list-card .level .button.is-light:hover {
-  background-color: #e0f0e5;
-  color: var(--link-color-hover);
-}
-
 /* A little more breathing room before the article list. */
 #showcase {
   margin-bottom: 0.75rem;
 }
 
 @media screen and (min-width: 769px) {
+  .post-list-card .post-card,
   .carousel,
   .carousel .carousel-item,
   .top-featured {
-    height: 300px;
+    height: var(--card-height-desktop);
+  }
+
+  .post-list-card .post-card {
+    min-height: 0;
+  }
+
+  .post-list-card .post-list-card-image-link {
+    flex: none;
+    width: var(--card-image-width);
+    height: 100%;
+  }
+
+  .post-list-card .post-card > .column.is-7 {
+    flex: none;
+    width: calc(100% - var(--card-image-width));
+  }
+
+  .post-list-card .featured-image {
+    height: 100%;
+  }
+
+  .post-list-card .post-info {
+    padding: 2.25rem 2.5rem;
+  }
+
+  .top-featured {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: var(--card-stack-gap);
   }
 
   .top-featured .tf-item {
-    height: calc((300px - 1.5rem) / 2);
+    height: auto;
+    min-height: 0;
+    margin-bottom: 0;
   }
 }
 
@@ -357,51 +390,50 @@ figcaption,
 
 /* ===== Color scheme ===== */
 html[data-theme="dark"] {
+  /* Neutral media-first dark palette: green is reserved for accents, not surfaces. */
   --main-color: #6bc189;
   --link-color-hover: #8dd7a5;
-  --text-black: #edf1ee;
-  --text-primary: #e7ece8;
-  --text-secondary: #c2cac4;
-  --text-muted: #929d95;
-  --bg-color-light: #173222;
-  --surface-page: #111512;
-  --surface-card: #181d1a;
-  --surface-elevated: #202622;
-  --surface-subtle: #151a17;
-  --surface-accent: #183323;
-  --border-soft: rgba(230, 238, 232, 0.11);
-  --input-background: #1b211d;
-  --inline-code-background: #202722;
-  --inline-code-border: #354039;
-  --table-stripe: #171d19;
-  --table-head: #202722;
-  --table-hover: rgba(107, 193, 137, 0.11);
-  --search-overlay: rgba(7, 10, 8, 0.42);
+  --text-black: #f0f0f0;
+  --text-primary: #e8e8e8;
+  --text-secondary: #c7c7c7;
+  --text-muted: #999;
+  --bg-color-light: #202020;
+  --surface-page: #111;
+  --surface-card: #181818;
+  --surface-elevated: #202020;
+  --surface-subtle: #151515;
+  --surface-accent: #232323;
+  --border-soft: rgba(255, 255, 255, 0.1);
+  --input-background: #1c1c1c;
+  --inline-code-background: #202020;
+  --inline-code-border: #383838;
+  --table-stripe: #171717;
+  --table-head: #202020;
+  --table-hover: rgba(255, 255, 255, 0.05);
+  --search-overlay: rgba(0, 0, 0, 0.42);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
+  --card-shadow-hover: 0 7px 18px rgba(0, 0, 0, 0.32);
+  --pill-surface-hover: #2a2a2a;
   background-color: var(--surface-page);
 }
 
 /* ===== Header controls ===== */
-.search-button-wrap,
-.theme-toggle-wrap {
+.header-control-wrap {
   padding-inline: 0.3rem !important;
   background: transparent !important;
 }
 
-.navbar-end .search-button-wrap:hover,
-.navbar-end .search-button-wrap:focus-within,
-.navbar-end .theme-toggle-wrap:hover,
-.navbar-end .theme-toggle-wrap:focus-within,
-.search-button-wrap:hover,
-.search-button-wrap:focus-within,
-.theme-toggle-wrap:hover,
-.theme-toggle-wrap:focus-within {
+.navbar-end .header-control-wrap:hover,
+.navbar-end .header-control-wrap:focus-within,
+.header-control-wrap:hover,
+.header-control-wrap:focus-within {
   background: transparent !important;
   box-shadow: none !important;
 }
 
-.theme-toggle,
-.search-button {
+.header-control {
   appearance: none;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -412,26 +444,28 @@ html[data-theme="dark"] {
   flex: 0 0 var(--header-control-size);
   padding: 0 !important;
   border: 1px solid var(--border-soft);
-  border-radius: var(--radius-control);
+  border-radius: var(--radius-control) !important;
   background: transparent;
   background-clip: padding-box;
   color: var(--text-secondary);
   cursor: pointer;
   line-height: 1;
   overflow: hidden;
-  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
 }
 
-.theme-toggle:hover,
-.search-button:hover {
+.header-control:hover {
   background: var(--surface-accent) !important;
   border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
   color: var(--main-color) !important;
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
 }
 
-.theme-toggle:focus-visible,
-.search-button:focus-visible {
+.header-control:focus-visible {
   outline: 2px solid var(--main-color);
   outline-offset: 3px;
 }
@@ -527,8 +561,7 @@ html[data-theme="dark"] .navbar-link:hover {
   color: var(--text-primary) !important;
 }
 
-html[data-theme="dark"] .theme-toggle:hover,
-html[data-theme="dark"] .search-button:hover {
+html[data-theme="dark"] .header-control:hover {
   color: var(--main-color) !important;
 }
 
@@ -555,6 +588,20 @@ html[data-theme="dark"] .top-featured .box {
   background-color: var(--surface-card) !important;
   color: var(--text-primary);
   border-color: var(--border-soft);
+}
+
+/* Keep framing around photography and screenshots chromatically neutral. */
+html[data-theme="dark"] .post-list-card.interactive-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="dark"] .featured-label {
+  background: rgba(28, 28, 28, 0.82) !important;
+}
+
+html[data-theme="dark"] .post-list-card:hover .featured-label,
+html[data-theme="dark"] .tf-item:hover .featured-label {
+  background: var(--main-color) !important;
 }
 
 html[data-theme="dark"] .has-text-black,
@@ -823,11 +870,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   position: relative;
 }
 
-.tag-icon-button {
-  min-width: 2.5em;
-  padding-inline: 0.5em !important;
-}
-
 .full-width-featured-label-wrap {
   position: relative;
   height: inherit;
@@ -836,7 +878,10 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 .featured-label-corner {
   top: 5px;
   right: 5px;
-  padding-inline: 3px;
+  width: var(--pill-height);
+  min-width: var(--pill-height);
+  height: var(--pill-height) !important;
+  padding: 0 !important;
 }
 
 .archive-featured-marker {
@@ -881,10 +926,21 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   stroke-linejoin: round;
 }
 
+.brand-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  vertical-align: -0.14em;
+  fill: currentColor;
+  stroke: none;
+}
+
 /* Semantic feature images keep the same crop as the old background-image implementation. */
 .featured-image,
 .post-hero-image-wrap {
   overflow: hidden;
+  background-position: 50% 50%;
 }
 .card-feature-image,
 .post-hero-image,
@@ -893,6 +949,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 50%;
 }
 .post-hero-image-wrap {
   position: relative;
@@ -902,19 +959,13 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   inset: 0;
 }
 
-@media screen and (min-width: 769px) {
-  .post-list-card .post-card > .post-list-card-image-link {
-    flex: none;
-    width: 38%;
-  }
-}
 @media screen and (max-width: 768px) {
   .post-list-card-image-link {
     width: 100%;
   }
 }
 
-/* Native carousel with a horizontal left-to-right swipe transition. */
+/* Native carousel with a horizontal right-to-left swipe transition. */
 .carousel {
   position: relative;
   overflow: hidden;
@@ -936,7 +987,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border-radius: var(--radius-card) !important;
   box-sizing: border-box;
   background-color: var(--surface-card) !important;
-  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
+  box-shadow: var(--card-shadow) !important;
   transform: translateX(0);
   will-change: transform;
 }
@@ -948,9 +999,10 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 
 /* Keep the carousel transform reserved for slide motion. A hover translate on
    the active slide can fight the animation and cause a visible jump. */
-.carousel .carousel-item.can-scale:hover {
+.carousel .carousel-item.interactive-card:hover {
   border: 0 !important;
-  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
+  transform: none !important;
+  box-shadow: var(--card-shadow-hover) !important;
 }
 
 .tf-item {
@@ -959,13 +1011,13 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border: 0 !important;
   border-radius: var(--radius-card) !important;
   box-sizing: border-box;
-  box-shadow: 0 2px 8px rgba(24, 39, 31, 0.05) !important;
+  box-shadow: var(--card-shadow) !important;
 }
 
-.tf-item.can-scale:hover {
+.tf-item.interactive-card:hover {
   border: 0 !important;
   transform: translateY(-1px);
-  box-shadow: 0 7px 18px rgba(24, 39, 31, 0.075) !important;
+  box-shadow: var(--card-shadow-hover) !important;
 }
 
 .showcase-image {
@@ -986,56 +1038,101 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 .tf-item .link-block {
   z-index: 1;
 }
-html[data-theme="dark"] .carousel .carousel-item,
-html[data-theme="dark"] .tf-item {
-  border: 0 !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28) !important;
+/* Reusable card geometry across theme-owned card surfaces. */
+.aside .post-card,
+.tag-card {
+  box-sizing: border-box;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  box-shadow: var(--card-shadow);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-/* Category pills use identical geometry in both color schemes. */
-.carousel-tag,
-.tf-tag {
-  line-height: 0;
+.aside .post-card:hover,
+.tag-card:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--card-shadow-hover);
 }
-.carousel-tag a,
-.tf-tag a,
-html[data-theme="dark"] .carousel-tag a,
-html[data-theme="dark"] .tf-tag a,
-html[data-theme="dark"] .carousel-tag a:hover,
-html[data-theme="dark"] .tf-tag a:hover {
-  display: inline-flex;
+
+.tag-card .tag-image {
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
+}
+
+/* Category/tag pills share one geometry everywhere; width remains content-driven. */
+.category-pill {
+  display: inline-flex !important;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
-  height: 1.5rem;
-  padding: 0 0.375rem !important;
+  height: var(--pill-height) !important;
+  min-height: var(--pill-height) !important;
+  padding: 0 var(--pill-padding-x) !important;
   margin: 0;
   border: 0 !important;
-  border-radius: 4px;
+  border-radius: var(--pill-radius) !important;
   font-family: var(--font-ui) !important;
-  font-size: 1rem;
-  font-weight: 400;
+  font-size: var(--pill-font-size) !important;
+  font-weight: 600 !important;
   font-style: normal;
-  line-height: 1;
-  letter-spacing: 0;
+  line-height: 1 !important;
+  letter-spacing: 0.03em;
   white-space: nowrap;
   vertical-align: top;
   text-decoration: none !important;
   box-shadow: none !important;
 }
 
-.carousel-tag a:focus-visible,
-.tf-tag a:focus-visible {
-  outline: 2px solid #fff;
+.category-pill--surface {
+  background-color: var(--surface-accent) !important;
+  color: var(--main-color) !important;
+}
+
+.category-pill--surface:hover,
+.category-pill--surface:focus-visible {
+  background-color: var(--pill-surface-hover) !important;
+  color: var(--link-color-hover) !important;
+}
+
+html[data-theme="dark"] .button.category-pill--surface {
+  background-color: var(--surface-accent) !important;
+  color: var(--main-color) !important;
+}
+
+html[data-theme="dark"] .button.category-pill--surface:hover,
+html[data-theme="dark"] .button.category-pill--surface:focus-visible {
+  background-color: var(--pill-surface-hover) !important;
+  color: var(--link-color-hover) !important;
+}
+
+.category-pill--icon {
+  width: var(--pill-height);
+  min-width: var(--pill-height);
+  padding: 0 !important;
+}
+
+.category-pill--overlay {
+  background-color: var(--pill-overlay-background) !important;
+  color: #fff !important;
+}
+
+.category-pill--overlay:hover {
+  background-color: var(--pill-overlay-hover) !important;
+  color: #fff !important;
+}
+
+.category-pill:focus-visible {
+  outline: 2px solid var(--main-color);
   outline-offset: 2px;
 }
-html[data-theme="dark"] .carousel-tag a,
-html[data-theme="dark"] .tf-tag a {
-  background-color: rgba(7, 10, 8, 0.78) !important;
-  color: var(--text-primary) !important;
+
+.carousel-tag,
+.tf-tag {
+  line-height: 0;
 }
-html[data-theme="dark"] .carousel-tag a:hover,
-html[data-theme="dark"] .tf-tag a:hover {
-  background-color: color-mix(in srgb, var(--surface-accent) 82%, black) !important;
+
+.carousel-tag .category-pill:focus-visible,
+.tf-tag .category-pill:focus-visible {
+  outline-color: #fff;
 }
 
 /* Generated table of contents. */
@@ -1134,11 +1231,16 @@ html.mdr-search-open body::after {
 @media (prefers-reduced-motion: reduce) {
   .post-list-card,
   .tf-item,
-  .theme-toggle,
-  .search-button,
+  .header-control,
   .footer-social-link,
   body::after {
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* Keep TOC/hash targets clear of the fixed navbar with one line of breathing room. */
+.post-content h2[id],
+.post-content h3[id] {
+  scroll-margin-top: var(--toc-scroll-offset);
 }

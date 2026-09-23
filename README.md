@@ -2,7 +2,7 @@
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.3.3**
+Current release: **2.4.0**
 
 ## Features
 
@@ -16,6 +16,25 @@ Current release: **2.3.3**
 - Dark-mode coverage for Ghost cards, tables, code, archives, and TOC
 - Ghost Admin settings for showcase, TOC, and code line numbers
 - GScan validation in the GitHub Actions deployment workflow
+- Vendored, reusable SVG icon partials with no runtime icon-library dependency
+
+## 2.4 Consistency Refactor
+
+Version **2.4.0** consolidates the presentation tweaks added throughout 2.3.x into a smaller set of shared component rules and design tokens.
+
+- Header search and light/dark controls now share one `header-control` component, with a guaranteed circular hover/focus shape and transparent navbar wrappers.
+- Category/tag pills now share one geometry plus explicit surface and image-overlay variants, so size, typography, colors, and focus treatment no longer depend on incidental Bulma classes.
+- Featured markers use the same compact vertical rhythm as other pills; the corner star marker is a consistent square.
+- Desktop list cards and the homepage showcase share a single 300px presentation-height token.
+- The list-card image/text split uses one image-width token instead of duplicated 38/62 rules.
+- Top-right showcase cards use a two-row grid with the same shared gap token rather than separate height calculations.
+- Homepage cards use one theme-owned interaction rule instead of stacked legacy scale/shadow utilities, preventing hover transforms from competing with carousel animation.
+- Card radius and shadow values are centralized and reused across list cards, showcase cards, related cards, and tag cards.
+- Feature-image centering is defined once for card, showcase, and hero images.
+- Removed stale component selectors and an obsolete icon-button utility.
+- Fixed an old undefined CSS `--shadow` reference in the upstream stylesheet.
+- Native hash scrolling and TOC clicks now share the same computed header offset.
+- Preserved the right-to-left 5-second carousel, neutral dark mode, caption `\n` support, and responsive TOC behavior.
 
 ## 2.3 Cleanup & Standardization
 
@@ -34,7 +53,21 @@ Version **2.3.0** was a broad maintenance and refactor release focused on making
 - Cleaned locale inconsistencies and miscellaneous HTML/CSS issues
 - Standardized package scripts and GitHub Actions validation around GScan
 
-The **2.3.1–2.3.3** patches preserve that cleanup while fixing header-control hover geometry, restoring the stable 5-second carousel animation, and changing its travel direction to right-to-left.
+The **2.3.1–2.3.11** patches preserved that cleanup while fixing header-control hover geometry, restoring the stable 5-second carousel animation, changing its travel direction to right-to-left, standardizing the theme icon system, moving dark-mode surfaces to neutral charcoal so photography and screenshots are framed without a green cast, adding reliable frontend caption breaks, standardizing category/tag pill geometry, explicitly centering feature-image crops, and making desktop article cards more compact so short excerpts do not leave large empty text areas, and making TOC highlighting track clicks and scrolling immediately.
+
+## Icon System
+
+Fizzy MDR keeps icons as local Handlebars partials under `partials/icons/`, so pages do not load an icon framework or icon JavaScript at runtime. Interface icons are standardized on Lucide; GitHub, Facebook, Twitch, Ko-fi, and X brand marks use Simple Icons; LinkedIn uses Bootstrap Icons because it is not distributed by current Simple Icons releases. See [ICON-SOURCES.md](./ICON-SOURCES.md) for source and license details.
+
+## Caption Line Breaks
+
+Ghost can flatten `Shift+Enter` soft breaks in image and gallery captions before the theme receives the published HTML. To force a frontend line break, type a literal `\n` in the caption:
+
+```text
+First line\nSecond line
+```
+
+Fizzy MDR converts that marker to a real `<br>` only inside Ghost image and gallery captions.
 
 ## Theme Settings
 
