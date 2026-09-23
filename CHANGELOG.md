@@ -6,6 +6,7 @@
 - Derive light and dark hover surfaces, readable link shades, rings, and subtle backgrounds from the selected accent color.
 - Use Ghost's contrast helper for readable featured-badge text on arbitrary accent colors.
 - Preserve neutral page, card, media, code, and dark-mode surfaces where color is structural rather than an accent.
+- Standardize category tags across the featured showcase, carousel, post cards, and articles: lowercase labels, shared light/dark surfaces, and accent-derived hover auras.
 
 ## 2.4.2
 

@@ -23,7 +23,7 @@ Current release: **2.4.3**
 Version **2.4.0** consolidates the presentation tweaks added throughout 2.3.x into a smaller set of shared component rules and design tokens.
 
 - Header search and light/dark controls now share one `header-control` component, with a guaranteed circular hover/focus shape and transparent navbar wrappers.
-- Category/tag pills now share one geometry plus explicit surface and image-overlay variants, so size, typography, colors, and focus treatment no longer depend on incidental Bulma classes.
+- Category/tag pills now share one geometry, lowercase typography, light/dark colors, and accent hover treatment across cards, showcase images, and articles.
 - Featured markers use the same compact vertical rhythm as other pills; the corner star marker is a consistent square.
 - Desktop list cards and the homepage showcase share a single 300px presentation-height token.
 - The list-card image/text split uses one image-width token instead of duplicated 38/62 rules.
