@@ -41,7 +41,6 @@
   --media-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
   --hover-accent-ring: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
   --hover-accent-border: color-mix(in srgb, var(--main-color) 35%, transparent);
-  --card-shadow-hover: 0 0 0 2px color-mix(in srgb, var(--main-color) 25%, transparent), var(--card-shadow);
 
   --pill-height: 1.75rem;
   --pill-padding-x: 0.75rem;
@@ -244,9 +243,10 @@ figcaption,
   border-radius: var(--pill-radius);
 }
 
-/* Stationary accent feedback; slide motion belongs exclusively to the carousel. */
+/* Use a restrained lift for interactive cards. Carousel slides stay stationary
+   because their transform is reserved for slide animation. */
 .interactive-card {
-  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 /* Keyboard focus remains stronger than the subtle hover ring. */
@@ -265,8 +265,9 @@ figcaption,
 }
 
 .post-list-card.interactive-card:hover {
-  border-color: var(--hover-accent-border);
-  box-shadow: var(--card-shadow-hover) !important;
+  transform: translateY(-1px);
+  border-color: var(--border-soft);
+  box-shadow: var(--card-shadow) !important;
 }
 
 .post-list-card .post-card-excerpt {
@@ -439,7 +440,6 @@ html[data-theme="dark"] {
   --search-overlay: rgba(0, 0, 0, 0.42);
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
   --media-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
-  --card-shadow-hover: 0 0 0 2px color-mix(in srgb, var(--main-color) 25%, transparent), var(--card-shadow);
   --pill-surface-hover: color-mix(in srgb, var(--site-accent) 18%, #181818);
   background-color: var(--surface-page);
 }
@@ -617,9 +617,8 @@ html[data-theme="dark"] .top-featured .box {
   border-color: var(--border-soft);
 }
 
-/* Keep the same accent feedback in dark mode. */
 html[data-theme="dark"] .post-list-card.interactive-card:hover {
-  border-color: var(--hover-accent-border);
+  border-color: var(--border-soft);
 }
 
 html[data-theme="dark"] .has-text-black,
@@ -1028,7 +1027,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
    the active slide can fight the animation and cause a visible jump. */
 .carousel .carousel-item.interactive-card:hover {
   border: 0 !important;
-  box-shadow: var(--card-shadow-hover) !important;
+  box-shadow: var(--card-shadow) !important;
 }
 
 .tf-item {
@@ -1042,7 +1041,8 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 
 .tf-item.interactive-card:hover {
   border: 0 !important;
-  box-shadow: var(--card-shadow-hover) !important;
+  transform: translateY(-1px);
+  box-shadow: var(--card-shadow) !important;
 }
 
 .showcase-image {
@@ -1070,12 +1070,13 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-card);
   box-shadow: var(--card-shadow);
-  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .aside .post-card:hover,
 .tag-card:hover {
-  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--card-shadow);
 }
 
 .tag-card .tag-image {
