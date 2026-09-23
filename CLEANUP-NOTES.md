@@ -37,7 +37,7 @@ The icon cleanup was completed by moving remaining inline theme icons into reusa
 
 ## 2.3.5 dark-palette follow-up
 
-Dark-mode surfaces were moved from green-biased charcoals to neutral grays/blacks. Green remains an accent rather than a background/surface color so photographic and screenshot content is framed neutrally.
+Dark-mode surfaces were moved from green-biased charcoals to neutral grays/blacks. Ghost's configured accent color is reserved for accents rather than background surfaces so photographic and screenshot content is framed neutrally.
 
 
 ## 2.3.6 caption follow-up

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.4.3
+
+- Use the Ghost Design & branding accent color across featured badges, links, heading rules, focus states, card highlights, pills, table feedback, controls, and native search.
+- Derive light and dark hover surfaces, readable link shades, rings, and subtle backgrounds from the selected accent color.
+- Use Ghost's contrast helper for readable featured-badge text on arbitrary accent colors.
+- Preserve neutral page, card, media, code, and dark-mode surfaces where color is structural rather than an accent.
+
 ## 2.4.2
 
 - Add a left-aligned green H2 underline that fades to transparent halfway across the article heading.

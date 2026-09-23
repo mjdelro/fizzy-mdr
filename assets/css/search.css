@@ -1,13 +1,15 @@
 /* Fizzy MDR color bridge for Ghost's native Sodo Search iframe. */
 :root {
+  --site-accent: #176b3a;
+  --site-accent-contrast: #fff;
   --search-bg: #fff;
   --search-text: #2d332f;
   --search-muted: #737a75;
-  --search-accent: #176b3a;
-  --search-hover: #edf6f0;
+  --search-accent: var(--site-accent);
+  --search-hover: color-mix(in srgb, var(--site-accent) 8%, #fff);
   --search-border: rgba(25, 40, 32, 0.1);
   --search-shadow: 0 20px 55px rgba(24, 39, 31, 0.18);
-  --search-focus: rgba(23, 107, 58, 0.2);
+  --search-focus: color-mix(in srgb, var(--site-accent) 20%, transparent);
 }
 
 html[data-mdr-theme="dark"] {
@@ -15,11 +17,11 @@ html[data-mdr-theme="dark"] {
   --search-bg: #181818;
   --search-text: #eee;
   --search-muted: #999;
-  --search-accent: #8dd7a5;
-  --search-hover: #232323;
+  --search-accent: color-mix(in srgb, var(--site-accent) 72%, #fff);
+  --search-hover: color-mix(in srgb, var(--site-accent) 12%, #181818);
   --search-border: rgba(255, 255, 255, 0.12);
   --search-shadow: 0 22px 62px rgba(0, 0, 0, 0.46);
-  --search-focus: rgba(107, 193, 137, 0.3);
+  --search-focus: color-mix(in srgb, var(--site-accent) 30%, transparent);
 }
 
 html,

@@ -593,8 +593,8 @@ body {
   background: linear-gradient(
     90deg,
     rgba(0, 0, 0, 1) 0%,
-    rgba(52, 122, 69, 1) 50%,
-    rgba(52, 122, 69, 1) 100%
+    var(--site-accent) 50%,
+    var(--site-accent) 100%
   );
   margin: 1rem 0;
 }

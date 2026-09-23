@@ -6,24 +6,27 @@
   --font-ui: var(--gh-font-heading, "IBM Plex Sans"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Atkinson Hyperlegible Mono", "SFMono-Regular", Consolas, monospace;
   --font-quote: "Special Elite", "Atkinson Hyperlegible Next", sans-serif;
-  --main-color: #176b3a;
+  --site-accent: #176b3a;
+  --site-accent-contrast: #fff;
+  --main-color: var(--site-accent);
+  --accent-readable: color-mix(in srgb, var(--site-accent) 78%, #000);
   --text-black: #333;
   --text-primary: #2d332f;
   --text-secondary: #474d49;
   --text-muted: #737a75;
-  --link-color-hover: #0f5b30;
-  --bg-color-light: #edf6f0;
+  --link-color-hover: var(--accent-readable);
+  --bg-color-light: color-mix(in srgb, var(--site-accent) 8%, #fff);
   --surface-page: #f5f6f4;
   --surface-card: #fff;
   --surface-elevated: #fff;
   --surface-subtle: #fafbf9;
-  --surface-accent: #edf6f0;
+  --surface-accent: color-mix(in srgb, var(--site-accent) 8%, #fff);
   --input-background: #fff;
   --inline-code-background: #eef1ef;
   --inline-code-border: #d7ddd9;
   --table-stripe: #f8f9f7;
   --table-head: #eef1ef;
-  --table-hover: rgba(23, 107, 58, 0.08);
+  --table-hover: color-mix(in srgb, var(--site-accent) 8%, transparent);
   --border-soft: rgba(25, 40, 32, 0.08);
   --search-overlay: rgba(245, 246, 244, 0.34);
   --radius-card: 10px;
@@ -44,7 +47,7 @@
   --pill-padding-x: 0.75rem;
   --pill-font-size: 0.75rem;
   --pill-radius: 4px;
-  --pill-surface-hover: #e0f0e5;
+  --pill-surface-hover: color-mix(in srgb, var(--site-accent) 14%, #fff);
   --pill-overlay-background: rgba(0, 0, 0, 0.72);
   --pill-overlay-hover: rgba(0, 0, 0, 0.86);
 }
@@ -223,8 +226,8 @@ figcaption,
 .featured-label {
   z-index: 3;
   pointer-events: none;
-  background: #176b3a !important;
-  color: #fff;
+  background: var(--site-accent) !important;
+  color: var(--site-accent-contrast);
   box-shadow: none;
 }
 
@@ -411,19 +414,19 @@ figcaption,
 
 /* ===== Color scheme ===== */
 html[data-theme="dark"] {
-  /* Neutral media-first dark palette: green is reserved for accents, not surfaces. */
-  --main-color: #6bc189;
-  --link-color-hover: #8dd7a5;
+  /* Neutral media-first surfaces; brand treatments derive from Ghost's accent. */
+  --accent-readable: color-mix(in srgb, var(--site-accent) 72%, #fff);
+  --link-color-hover: color-mix(in srgb, var(--site-accent) 82%, #fff);
   --text-black: #f0f0f0;
   --text-primary: #e8e8e8;
   --text-secondary: #c7c7c7;
   --text-muted: #999;
-  --bg-color-light: #202020;
+  --bg-color-light: color-mix(in srgb, var(--site-accent) 10%, #202020);
   --surface-page: #111;
   --surface-card: #181818;
   --surface-elevated: #202020;
   --surface-subtle: #151515;
-  --surface-accent: #232323;
+  --surface-accent: color-mix(in srgb, var(--site-accent) 12%, #181818);
   --border-soft: rgba(255, 255, 255, 0.1);
   --input-background: #1c1c1c;
   --inline-code-background: #202020;
@@ -435,7 +438,7 @@ html[data-theme="dark"] {
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
   --media-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
   --card-shadow-hover: 0 0 0 2px color-mix(in srgb, var(--main-color) 25%, transparent), var(--card-shadow);
-  --pill-surface-hover: #2a2a2a;
+  --pill-surface-hover: color-mix(in srgb, var(--site-accent) 18%, #181818);
   background-color: var(--surface-page);
 }
 
@@ -647,7 +650,7 @@ html[data-theme="dark"] .button.is-static {
 }
 
 html[data-theme="dark"] .button.is-light:hover {
-  background-color: #21422d !important;
+  background-color: var(--pill-surface-hover) !important;
   color: var(--link-color-hover) !important;
 }
 
@@ -666,7 +669,7 @@ html[data-theme="dark"] .textarea::placeholder {
 }
 
 html[data-theme="dark"] .post-wrap .post-content a {
-  color: #d8eee0;
+  color: var(--accent-readable);
 }
 
 html[data-theme="dark"] .post-wrap .post-content a:hover {
@@ -679,7 +682,7 @@ html[data-theme="dark"] li > code,
 html[data-theme="dark"] table code,
 html[data-theme="dark"] h2 code,
 html[data-theme="dark"] h3 code {
-  color: #e4ebe6;
+  color: color-mix(in srgb, var(--site-accent) 22%, #fff);
   background: var(--inline-code-background);
   border-color: var(--inline-code-border);
 }
@@ -876,7 +879,11 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 }
 
 .tag-hero-fallback {
-  background-image: linear-gradient(to bottom right, #acffc5, #078ddb);
+  background-image: linear-gradient(
+    to bottom right,
+    color-mix(in srgb, var(--site-accent) 35%, #fff),
+    color-mix(in srgb, var(--site-accent) 78%, #000)
+  );
 }
 
 .position-relative {

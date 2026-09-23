@@ -210,6 +210,9 @@
 
   function syncGhostSearchTheme(theme = getTheme()) {
     const styleUrl = document.body?.dataset.searchStyleUrl || "";
+    const hostStyles = window.getComputedStyle(document.documentElement);
+    const siteAccent = hostStyles.getPropertyValue("--site-accent").trim();
+    const siteAccentContrast = hostStyles.getPropertyValue("--site-accent-contrast").trim();
 
     document.querySelectorAll("#sodo-search-root iframe").forEach((frame) => {
       try {
@@ -218,6 +221,8 @@
 
         frameDocument.documentElement.setAttribute("data-mdr-theme", theme);
         frameDocument.documentElement.style.colorScheme = theme;
+        if (siteAccent) frameDocument.documentElement.style.setProperty("--site-accent", siteAccent);
+        if (siteAccentContrast) frameDocument.documentElement.style.setProperty("--site-accent-contrast", siteAccentContrast);
 
         if (styleUrl && !frameDocument.getElementById("fizzy-mdr-search-theme")) {
           const link = frameDocument.createElement("link");
