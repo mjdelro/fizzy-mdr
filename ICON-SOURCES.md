@@ -6,6 +6,8 @@ Fizzy MDR vendors only the SVG geometry required by the theme. No icon package, 
 
 The interface icon partials in `partials/icons/` are standardized on the Lucide icon family and use the theme's `currentColor` stroke styling. Lucide is released under the ISC License.
 
+Featured star markers also use a solid `currentColor` fill.
+
 Used for: archive, home/house, link, location/map pin, search, star, tag/tags, moon, and sun.
 
 Source: https://lucide.dev/

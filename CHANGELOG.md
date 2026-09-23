@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.4.1
+
+- Match both table-of-contents panels to the soft image shadow and rounded corners, without the old left border.
+
+- Add a soft, stationary shadow and rounded corners to content images and gallery photos, with dark-mode framing.
+
+- Use a filled star for featured markers throughout the theme.
+
+- Replace hover lift/scale effects with a subtle accent highlight matching search and theme controls.
+- Apply the stationary highlight to cards, category pills, and legacy hover utilities in light and dark themes.
+- Use a wider 6px highlight for article and featured showcase cards; keep footer social links stationary with color-only hover feedback.
+- Preserve carousel slide animation and keyboard focus outlines.
+
 ## 2.4.0
 
 - Replaced deprecated social URL helpers with Ghost’s `social_url` helper.

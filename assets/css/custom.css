@@ -35,7 +35,10 @@
   --card-image-width: 38%;
   --card-stack-gap: 1.5rem;
   --card-shadow: 0 2px 8px rgba(24, 39, 31, 0.045);
-  --card-shadow-hover: 0 7px 18px rgba(24, 39, 31, 0.07);
+  --media-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
+  --hover-accent-ring: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
+  --hover-accent-border: color-mix(in srgb, var(--main-color) 35%, transparent);
+  --card-shadow-hover: var(--hover-accent-ring), var(--card-shadow);
 
   --pill-height: 1.75rem;
   --pill-padding-x: 0.75rem;
@@ -167,6 +170,14 @@ figcaption,
   font-style: italic !important;
 }
 
+/* Soft author-card-style framing on content images, including lightbox links.
+   Shadow and rounding do not alter image dimensions or gallery proportions. */
+.post-content .kg-image-card .kg-image,
+.post-content .kg-gallery-card .kg-gallery-image img {
+  border-radius: 6px;
+  box-shadow: var(--media-shadow);
+}
+
 /* Preserve intentional line breaks entered in Ghost image and gallery captions. */
 .kg-image-card figcaption,
 .kg-gallery-card figcaption {
@@ -222,10 +233,17 @@ figcaption,
   background: var(--main-color) !important;
 }
 
-/* Theme-owned interactive cards use one restrained motion model instead of
-   the legacy scale/shadow utility combination. */
+/* Stationary accent feedback; slide motion belongs exclusively to the carousel. */
 .interactive-card {
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+/* Wider accent framing for article and featured showcase cards. */
+.post-list-card,
+.tf-item,
+.carousel .carousel-item,
+.aside .post-card {
+  --card-shadow-hover: 0 0 0 6px color-mix(in srgb, var(--main-color) 12%, transparent), var(--card-shadow);
 }
 
 /* Homepage/index article cards. */
@@ -237,8 +255,7 @@ figcaption,
 }
 
 .post-list-card.interactive-card:hover {
-  transform: translateY(-1px);
-  border-color: rgba(25, 40, 32, 0.14);
+  border-color: var(--hover-accent-border);
   box-shadow: var(--card-shadow-hover) !important;
 }
 
@@ -355,7 +372,7 @@ figcaption,
   font-size: 0.72rem;
   font-weight: 500;
   line-height: 1.2;
-  transition: color 150ms ease, transform 150ms ease;
+  transition: color 150ms ease;
 }
 
 .footer-social-link svg {
@@ -368,7 +385,6 @@ figcaption,
 .footer-social-link:hover,
 .footer-social-link:focus-visible {
   color: var(--main-color);
-  transform: translateY(-1px);
 }
 
 .footer-social-link:focus-visible {
@@ -412,7 +428,8 @@ html[data-theme="dark"] {
   --table-hover: rgba(255, 255, 255, 0.05);
   --search-overlay: rgba(0, 0, 0, 0.42);
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
-  --card-shadow-hover: 0 7px 18px rgba(0, 0, 0, 0.32);
+  --media-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --card-shadow-hover: var(--hover-accent-ring), var(--card-shadow);
   --pill-surface-hover: #2a2a2a;
   background-color: var(--surface-page);
 }
@@ -460,9 +477,9 @@ html[data-theme="dark"] {
 
 .header-control:hover {
   background: var(--surface-accent) !important;
-  border-color: color-mix(in srgb, var(--main-color) 35%, transparent);
+  border-color: var(--hover-accent-border);
   color: var(--main-color) !important;
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--main-color) 12%, transparent);
+  box-shadow: var(--hover-accent-ring);
 }
 
 .header-control:focus-visible {
@@ -590,9 +607,9 @@ html[data-theme="dark"] .top-featured .box {
   border-color: var(--border-soft);
 }
 
-/* Keep framing around photography and screenshots chromatically neutral. */
+/* Keep the same accent feedback in dark mode. */
 html[data-theme="dark"] .post-list-card.interactive-card:hover {
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: var(--hover-accent-border);
 }
 
 html[data-theme="dark"] .featured-label {
@@ -926,6 +943,11 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   stroke-linejoin: round;
 }
 
+/* Featured markers use the shared star silhouette with a solid fill. */
+.mdr-icon-star {
+  fill: currentColor;
+}
+
 .brand-icon {
   display: inline-block;
   width: 1em;
@@ -1001,7 +1023,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
    the active slide can fight the animation and cause a visible jump. */
 .carousel .carousel-item.interactive-card:hover {
   border: 0 !important;
-  transform: none !important;
   box-shadow: var(--card-shadow-hover) !important;
 }
 
@@ -1016,7 +1037,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 
 .tf-item.interactive-card:hover {
   border: 0 !important;
-  transform: translateY(-1px);
   box-shadow: var(--card-shadow-hover) !important;
 }
 
@@ -1045,12 +1065,11 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-card);
   box-shadow: var(--card-shadow);
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
 
 .aside .post-card:hover,
 .tag-card:hover {
-  transform: translateY(-1px);
   box-shadow: var(--card-shadow-hover);
 }
 
@@ -1060,6 +1079,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 
 /* Category/tag pills share one geometry everywhere; width remains content-driven. */
 .category-pill {
+  transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -1089,7 +1109,8 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 
 .category-pill--surface:hover,
 .category-pill--surface:focus-visible {
-  background-color: var(--pill-surface-hover) !important;
+  background-color: var(--surface-accent) !important;
+  box-shadow: var(--hover-accent-ring) !important;
   color: var(--link-color-hover) !important;
 }
 
@@ -1100,7 +1121,8 @@ html[data-theme="dark"] .button.category-pill--surface {
 
 html[data-theme="dark"] .button.category-pill--surface:hover,
 html[data-theme="dark"] .button.category-pill--surface:focus-visible {
-  background-color: var(--pill-surface-hover) !important;
+  background-color: var(--surface-accent) !important;
+  box-shadow: var(--hover-accent-ring) !important;
   color: var(--link-color-hover) !important;
 }
 
@@ -1115,9 +1137,11 @@ html[data-theme="dark"] .button.category-pill--surface:focus-visible {
   color: #fff !important;
 }
 
-.category-pill--overlay:hover {
-  background-color: var(--pill-overlay-hover) !important;
-  color: #fff !important;
+.category-pill--overlay:hover,
+.category-pill--overlay:focus-visible {
+  background-color: var(--surface-accent) !important;
+  color: var(--main-color) !important;
+  box-shadow: var(--hover-accent-ring) !important;
 }
 
 .category-pill:focus-visible {
@@ -1136,6 +1160,12 @@ html[data-theme="dark"] .button.category-pill--surface:focus-visible {
 }
 
 /* Generated table of contents. */
+#toc,
+#toc-img {
+  border-radius: 6px;
+  box-shadow: var(--media-shadow);
+}
+
 #toc[hidden],
 #toc-img[hidden] {
   display: none !important;

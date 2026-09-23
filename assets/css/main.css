@@ -98,7 +98,7 @@ Theme-specific overrides and design tokens live in custom.css.
 }
 
 .has-shadow-lift:hover {
-  box-shadow: 0 20px 40px rgba(12, 12, 94, 0.1) !important;
+  box-shadow: var(--card-shadow-hover) !important;
 }
 
 /* Borders */
@@ -320,7 +320,7 @@ strong {
   transition: all 0.3s;
 }
 .can-scale:hover {
-  transform: scale(1.01);
+  box-shadow: var(--hover-accent-ring);
   transition: all 0.5s ease;
 }
 /* ====================== body ====================== 2019.04.11 */
@@ -956,7 +956,7 @@ table tr td:last-child {
 #toc ul,
 #toc-img ul {
   margin-left: 0;
-  border-left: 1px solid #ddd;
+  border-left: 0;
   /* background-color: #fff; */
   /* margin-right:10px; */
   padding: 0 10px 0 10px;
@@ -1035,10 +1035,9 @@ table tr td:last-child {
   transition: all 0.5s ease;
 }
 .aside .post-card:hover {
-  box-shadow: rgba(39, 44, 49, 0.07) 8px 28px 50px,
-    rgba(39, 44, 49, 0.04) 1px 6px 12px;
+  box-shadow: var(--card-shadow-hover);
   transition: all 0.3s ease;
-  transform: scale(1.03);
+  border-color: var(--hover-accent-border);
 }
 .aside .featured-image {
   min-height: 190px;
@@ -1122,8 +1121,9 @@ table tr td:last-child {
   transition: opacity 0.3s ease;
 }
 .aside .tag-list-content a:hover {
-  border-bottom: 1px solid #fff;
-  font-weight: 600;
+  border-bottom: 1px solid var(--main-color);
+  background-color: var(--surface-accent);
+  color: var(--main-color);
 }
 .aside .tag-list-footer {
   display: flex;
@@ -1136,7 +1136,6 @@ table tr td:last-child {
   color: #fff;
 }
 .aside .tag-list-footer a:hover > span {
-  font-weight: 600;
   color: #fff;
   border-bottom: 1px solid #fff;
 }
