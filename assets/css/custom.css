@@ -1083,6 +1083,180 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border-radius: var(--radius-card) var(--radius-card) 0 0;
 }
 
+/* Tag directory page. */
+.tag-directory-hero {
+  padding-top: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.tag-directory-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: left;
+}
+
+.tag-directory-heading-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: none;
+  border-radius: var(--radius-card);
+  background: var(--site-accent);
+  color: var(--site-accent-contrast);
+}
+
+.tag-directory-heading-icon .mdr-icon {
+  width: 1.9rem;
+  height: 1.9rem;
+  stroke-width: 2;
+}
+
+.tag-directory-eyebrow {
+  margin: 0 0 0.2rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tag-archive-title {
+  margin: 0 !important;
+  color: var(--text-primary) !important;
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  line-height: 1.05;
+}
+
+.tag-directory-intro {
+  margin: 1.5rem auto 0;
+  text-align: center;
+}
+
+.tag-directory-section {
+  padding-top: clamp(2rem, 4vw, 3rem);
+}
+
+.tag-directory-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-card);
+  background: var(--surface-card);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+  text-decoration: none !important;
+}
+
+.tag-directory-card:hover,
+.tag-directory-card:focus-visible {
+  color: var(--text-primary);
+}
+
+.tag-directory-card:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 3px;
+}
+
+.tag-directory-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface-accent);
+}
+
+.tag-directory-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 180ms ease;
+}
+
+.tag-directory-card:hover .tag-directory-visual img {
+  opacity: 0.92;
+}
+
+.tag-directory-visual.is-placeholder {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--site-accent) 16%, var(--surface-card)),
+    color-mix(in srgb, var(--site-accent) 34%, var(--surface-card))
+  );
+  color: var(--accent-readable);
+}
+
+.tag-directory-placeholder-icon {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface-card) 82%, transparent);
+}
+
+.tag-directory-placeholder-icon .mdr-icon {
+  width: 1.8rem;
+  height: 1.8rem;
+  stroke-width: 2;
+}
+
+.tag-directory-card-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem;
+}
+
+.tag-directory-name {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tag-directory-description {
+  display: -webkit-box;
+  margin: 0.65rem 0 0;
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.tag-directory-count {
+  margin-top: auto;
+  padding-top: 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+@media screen and (max-width: 768px) {
+  .tag-directory-heading {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .tag-directory-heading-icon {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .tag-archive-item {
+    padding: 0.5rem !important;
+  }
+}
+
 /* Category/tag pills share one geometry everywhere; width remains content-driven. */
 .category-pill {
   transition: background-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
@@ -1130,6 +1304,11 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   padding: 0 !important;
 }
 
+.post-tag-archive-link .mdr-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+  stroke-width: 2;
+}
 
 .category-pill:focus-visible {
   outline: 2px solid var(--main-color);

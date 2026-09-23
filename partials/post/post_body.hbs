@@ -7,10 +7,10 @@
 
 {{#has tag="count:>0"}}
     <div class="buttons tags has-text-weight-semibold">
-        <span class="button category-pill category-pill--icon category-pill--surface">
+        <a href="/tags/" class="button category-pill category-pill--icon category-pill--surface post-tag-archive-link" title="Browse all tags" aria-label="Browse all tags">
             {{#has tag="count:1"}}{{> "icons/tag"}}{{/has}}
             {{#has tag="count:>1"}}{{> "icons/tags"}}{{/has}}
-        </span>
+        </a>
         {{#foreach tags}}
             <a href="{{url}}" class="button category-pill category-pill--surface">{{name}}</a>
         {{/foreach}}

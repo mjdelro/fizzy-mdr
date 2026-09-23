@@ -7,6 +7,8 @@
 - Use Ghost's contrast helper for readable featured-badge text on arbitrary accent colors.
 - Preserve neutral page, card, media, code, and dark-mode surfaces where color is structural rather than an accent.
 - Standardize category tags across the featured showcase, carousel, post cards, and articles: lowercase labels, a brand-accent background, white text, and a coal hover state in both themes.
+- Redesign the tag archive as a responsive topic directory with image and accent-derived placeholder cards.
+- Enlarge the article tag icon and link it to the complete tag archive.
 
 ## 2.4.2
 
