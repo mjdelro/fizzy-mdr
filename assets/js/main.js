@@ -187,6 +187,7 @@
       const link = document.createElement("a");
       link.href = image.currentSrc || image.src;
       link.dataset.fslightbox = "post-images";
+      link.dataset.type = "image";
       link.setAttribute("aria-label", "Open image in lightbox");
       link.appendChild(image);
       figure.replaceChildren(link);
@@ -200,6 +201,7 @@
       link.href = image.currentSrc || image.src;
       link.dataset.noSwup = "";
       link.dataset.fslightbox = "post-images";
+      link.dataset.type = "image";
       link.setAttribute("aria-label", "Open image in lightbox");
       image.before(link);
       link.appendChild(image);
