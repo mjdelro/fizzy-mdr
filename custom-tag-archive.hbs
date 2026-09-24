@@ -24,12 +24,18 @@
             {{#foreach tags}}
                 <div class="column tag-archive-item is-3-desktop is-4-tablet is-6-mobile">
                     <a class="tag-directory-card interactive-card" href="{{url}}" aria-label="View posts tagged {{name}}">
-                        <div class="tag-directory-visual{{#unless feature_image}} is-placeholder{{/unless}}">
-                            {{#if feature_image}}
-                                <img src="{{img_url feature_image size="medium"}}" alt="" loading="lazy">
-                            {{else}}
-                                <span class="tag-directory-placeholder-icon" aria-hidden="true">{{> "icons/tag"}}</span>
-                            {{/if}}
+                        <div class="tag-directory-visual">
+                            {{#get "posts" filter="tags:{{slug}}+feature_image:-null" limit="4" order="published_at desc" as |tag_posts|}}
+                                {{#if tag_posts}}
+                                    <div class="tag-directory-mosaic" aria-hidden="true">
+                                        {{#foreach tag_posts}}
+                                            <img src="{{img_url feature_image size="medium"}}" alt="" loading="lazy">
+                                        {{/foreach}}
+                                    </div>
+                                {{else}}
+                                    <div class="tag-directory-mosaic-placeholder" aria-hidden="true">{{> "icons/tag"}}</div>
+                                {{/if}}
+                            {{/get}}
                         </div>
                         <div class="tag-directory-card-body">
                             <h2 class="tag-directory-name is-ui-font">{{name}}</h2>
