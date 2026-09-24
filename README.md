@@ -1,8 +1,8 @@
-# Fizzy MDR
+2.4.4# Fizzy MDR
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.4.3**
+Current release: **2.4.4**
 
 ## Features
 

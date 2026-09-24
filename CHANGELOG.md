@@ -1,4 +1,14 @@
+## 2.4.4
+
+- Explicitly identify image-card and gallery lightbox sources as images so R2-hosted media opens reliably through FsLightbox.
+- Preserve tag-directory, tag-pill, and card-hover refinements shipped since 2.4.3.
+
 # Changelog
+
+## 2.4.4
+
+- Explicitly identify image-card and gallery lightbox sources as images so R2-hosted media opens reliably through FsLightbox.
+- Preserve tag-directory, tag-pill, and card-hover refinements shipped since 2.4.3.
 
 ## 2.4.3
 
