@@ -1,9 +1,10 @@
-## 2.4.4
-
-- Explicitly identify image-card and gallery lightbox sources as images so R2-hosted media opens reliably through FsLightbox.
-- Preserve tag-directory, tag-pill, and card-hover refinements shipped since 2.4.3.
-
 # Changelog
+
+## 2.4.5
+
+- Add more space between tag-page titles and their post-count badges.
+- Darken shared tag pills slightly across articles, post cards, and showcase cards.
+- Add the fading accent rule beneath list-card titles and move excerpts down without changing card dimensions.
 
 ## 2.4.4
 

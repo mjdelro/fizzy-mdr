@@ -47,7 +47,7 @@
   --pill-font-size: 0.75rem;
   --pill-radius: 4px;
   --pill-surface-hover: color-mix(in srgb, var(--site-accent) 14%, #fff);
-  --tag-pill-background: var(--site-accent);
+  --tag-pill-background: color-mix(in srgb, var(--site-accent) 88%, #000);
   --tag-pill-color: #fff;
   --tag-pill-hover-background: #242424;
   --tag-pill-hover-color: #fff;
@@ -287,6 +287,19 @@ figcaption,
   line-height: 1.15;
   letter-spacing: -0.015em;
   font-weight: 700;
+}
+
+.post-list-card .title::after {
+  content: "";
+  display: block;
+  width: 50%;
+  height: 2px;
+  margin: 0.45rem 0 0;
+  background: linear-gradient(to right, var(--main-color), transparent);
+}
+
+.post-list-card .post-card-excerpt {
+  margin-top: 0.65rem;
 }
 
 /* Quieter metadata so the headline remains the focal point. */
@@ -885,6 +898,14 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
     color-mix(in srgb, var(--site-accent) 35%, #fff),
     color-mix(in srgb, var(--site-accent) 78%, #000)
   );
+}
+
+.tag-page-post-count {
+  margin-top: 1.15rem;
+}
+
+.tag-page-post-count span {
+  display: inline-block;
 }
 
 .position-relative {
