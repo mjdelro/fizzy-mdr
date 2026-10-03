@@ -6,10 +6,7 @@ https://github.com/huangyuzhang/Fizzy-Theme
 Theme-specific overrides and design tokens live in custom.css.
 */
 
-/* ====================== utilities ====================== */
-/* Fizzy utility classes retained by Fizzy MDR. */
-
-/* Padding */
+/* Utility classes retained for template compatibility. */
 .has-padding-05 {
   padding: 0.5rem;
 }
@@ -46,7 +43,6 @@ Theme-specific overrides and design tokens live in custom.css.
   }
 }
 
-/* Margin */
 .is-vmargin-2 {
   margin-top: 2rem !important;
   margin-bottom: 2rem !important;
@@ -84,7 +80,6 @@ Theme-specific overrides and design tokens live in custom.css.
   margin-bottom: 0 !important;
 }
 
-/* Shadows */
 .has-shadow-thin {
   box-shadow: 0 0 1px #bbb;
 }
@@ -101,7 +96,6 @@ Theme-specific overrides and design tokens live in custom.css.
   box-shadow: var(--card-shadow-hover) !important;
 }
 
-/* Borders */
 .round-border-6 {
   border-radius: 6px;
 }
@@ -110,7 +104,6 @@ Theme-specific overrides and design tokens live in custom.css.
   border-radius: 2rem;
 }
 
-/* Layout */
 .has-2-ends {
   display: flex;
   align-items: flex-start;
@@ -127,7 +120,6 @@ Theme-specific overrides and design tokens live in custom.css.
   display: flex;
 }
 
-/* Backgrounds */
 .has-background-light-line {
   background-image: repeating-linear-gradient(45deg, #f7f7f7, #f7f7f7 2px, #eee 2px, #eee 3px);
 }
@@ -156,7 +148,6 @@ Theme-specific overrides and design tokens live in custom.css.
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
 }
 
-/* Spacing */
 .spacing-1 {
   padding: 1rem;
 }
@@ -169,12 +160,10 @@ Theme-specific overrides and design tokens live in custom.css.
   padding: 2.5rem;
 }
 
-/* Text */
 .has-text-shadow-black {
   text-shadow: 0 2px 2px rgba(7, 17, 27, 0.4);
 }
 
-/* Images */
 .image-squared {
   display: block;
   width: 100% !important;
@@ -182,8 +171,7 @@ Theme-specific overrides and design tokens live in custom.css.
   object-fit: cover;
 }
 
-/* ====================== over-write bulma default ====================== */
-/* fix "has-spaced-navbar-fixed-top" cut off the top on mobile devices 2019.04.09 */
+/* Bulma's spaced-navbar offset otherwise clips the page on mobile. */
 @media screen and (max-width: 1087px) {
   body.has-spaced-navbar-fixed-top,
   html.has-spaced-navbar-fixed-top {
@@ -198,14 +186,12 @@ Theme-specific overrides and design tokens live in custom.css.
   }
 }
 
-/* listing padding on mobile*/
 @media screen and (max-width: 768px) {
   main.section {
     padding: 1.5rem !important;
   }
 }
 
-/* inline code */
 p code,
 blockquote code,
 li > code,
@@ -227,23 +213,20 @@ h3 code {
   }
 }
 
-/* for code block background */
 pre {
   border-radius: 6px;
 }
 
-/* overwrite prismjs line-number style 2019.07.30 */
+/* Leave room for Prism's line-number gutter. */
 pre[class*="language-"].line-numbers {
   padding-left: 3rem !important;
 }
 
-/* overwrite figcaption font size */
 .content figure figcaption {
   font-size: 1rem;
   margin-top: 1rem;
 }
 
-/* overwrite figure spacing (code blocks) */
 .content figure:not(:last-child) {
   margin-bottom: 1em !important;
 }
@@ -251,7 +234,6 @@ pre[class*="language-"].line-numbers {
   margin-top: 1em !important;
 }
 
-/* navbar */
 .navbar-start .navbar-item,
 .navbar-item img {
   margin-right: 1rem;
@@ -268,11 +250,9 @@ pre[class*="language-"].line-numbers {
   font-weight: 600;
   box-shadow: 0 0 1px #ccc;
 }
-/* button */
 .button {
   transition: all 0.3s ease;
 }
-/* strong */
 strong {
   color: inherit !important;
 }
@@ -281,7 +261,7 @@ strong {
   margin: 0 0.5rem;
 }
 
-/* ====================== bulma & Prismjs conflict 2019.05.12 ====================== */
+/* Restore Prism tokens that collide with Bulma's tag and number classes. */
 .content .tag,
 .content .number {
   display: inline;
@@ -296,7 +276,6 @@ strong {
   background: inherit;
   margin: inherit;
 }
-/* ====================== components ====================== */
 .featured-label {
   position: absolute;
   background: #fb3b3b;
@@ -322,7 +301,6 @@ strong {
 .can-scale:hover {
   box-shadow: var(--card-shadow-hover);
 }
-/* ====================== body ====================== 2019.04.11 */
 html {
   scroll-behavior: smooth;
 }
@@ -330,8 +308,6 @@ html,
 body {
   overflow-x: hidden;
 }
-/* ====================== header ====================== 2019.04.12 */
-
 @media screen and (min-width: 1024px) {
   .nav-container {
     margin: 0 auto;
@@ -357,7 +333,6 @@ body {
   margin-block: 0.5rem;
 }
 
-/* ====================== component: carousel ====================== 2019.04.09 */
 .carousel {
   overflow: hidden;
   height: 22.5rem;
@@ -433,15 +408,11 @@ body {
   width: 100%;
   padding: 20px;
 }
-/* ====================== index ====================== 2019.04.09 */
-
-/* index: post-card 2019.04.09 */
 @media screen and (min-width: 769px) {
   .post-card {
     min-height: 250px;
   }
 }
-/* index: featured-image 2019.04.10 */
 .featured-image {
   position: relative;
   height: 100%;
@@ -456,7 +427,6 @@ body {
   }
 }
 
-/* index: post-meta 2019.04.09 updated: 2019.04.11 */
 .post-info {
   position: relative;
 }
@@ -482,7 +452,6 @@ body {
   }
 }
 
-/* index: featured-label - Updated:2019.05.10 */
 .post-info .featured-label {
   top: 10px;
   right: 10px;
@@ -507,7 +476,6 @@ body {
   }
 }
 
-/* showcase 2019.05.30 */
 .showcase {
   padding-bottom: 0 !important;
 }
@@ -517,9 +485,6 @@ body {
     padding-bottom: 1rem !important;
   }
 }
-/* ====================== post ====================== 2019.04.13 */
-
-/* remove box border-radius in mobile device 2019.04.11 */
 @media screen and (max-width: 768px) {
   .single-article .box {
     border-radius: 0;
@@ -537,20 +502,17 @@ body {
     border-radius: 0;
   }
 }
-/* featured-label placement */
 .featured-image .featured-label {
   bottom: 10px;
   right: 10px;
 }
 
-/* default style for post content */
 .single-article .post-wrap {
   max-width: 760px;
   padding: 48px 15px;
   font-size: 1.15rem;
   margin: auto !important;
 }
-/* post heading size */
 .post-wrap h1 {
   font-size: calc(1.4vw + 1.1rem) !important;
 }
@@ -577,7 +539,6 @@ body {
   font-weight: 600 !important;
 }
 
-/* post-content 2019.04.13 */
 .post-wrap .post-content a {
   color: #000;
   word-break: break-word;
@@ -588,7 +549,6 @@ body {
   color: var(--link-color-hover);
   border-bottom: 1px solid;
 }
-/* hr */
 .post-wrap .post-content hr {
   background: linear-gradient(
     90deg,
@@ -598,7 +558,6 @@ body {
   );
   margin: 1rem 0;
 }
-/* list */
 .post-wrap .post-content ul,
 .post-content ol {
   margin-left: 1.5em;
@@ -607,7 +566,6 @@ body {
   line-height: 1.4em;
 }
 
-/* Nested list */
 .post-wrap .post-content ul ul {
   margin-top: 0.25em;
 }
@@ -615,7 +573,6 @@ body {
   line-height: 1.4em;
 }
 
-/* code block */
 .post-wrap .post-content pre code {
   display: block;
   line-height: 1.5em;
@@ -623,11 +580,10 @@ body {
   font-weight: 400;
 }
 
-/* image layout (temporary solution, may have some bugs 2019.04.14) */
-/* fixed wide layout bug, but need a better way in the future */
+/* Reset Ghost's figure margins so wide cards can control their own geometry. */
 .single-article .post-content figure {
-  margin-left: 0; /* overwrite default 2rem */
-  margin-right: 0; /* overwrite default 2rem */
+  margin-left: 0;
+  margin-right: 0;
 }
 .single-article .post-content .kg-embed-card {
   display: flex;
@@ -635,7 +591,6 @@ body {
   align-items: center;
   margin-bottom: 2rem;
 }
-/* wide image */
 .single-article .post-content .kg-width-full,
 .single-article .post-content .kg-width-wide {
   max-width: calc(100vw - 369px);
@@ -652,7 +607,6 @@ body {
   right: 50%;
 }
 .single-article .post-content .kg-width-wide img {
-  /* max-width: 1100px; */
   width: 100%;
   height: auto;
 }
@@ -696,7 +650,6 @@ body {
     margin-right: calc(-50vw);
   }
 }
-/* full width image */
 .single-article .post-content .kg-width-full {
   max-width: 100vw;
   width: 100vw;
@@ -707,7 +660,6 @@ body {
   object-fit: cover;
   width: 100%;
 }
-/* gallery */
 .kg-gallery-card {
   margin: 1rem auto !important;
   width: 100% !important;
@@ -743,7 +695,6 @@ body {
   margin: 0 0 0 0.25em;
 }
 
-/* author */
 .authors {
   margin-top: 3rem;
 }
@@ -784,7 +735,6 @@ body {
   margin-bottom: 8px;
 }
 
-/* Blockquotes */
 .single-article .post-wrap .post-content blockquote {
   color: #363636;
   line-height: 1.5rem;
@@ -802,7 +752,6 @@ blockquote ul {
   margin-top: 0 !important;
 }
 
-/* table  2019.07.10 */
 .post-content table {
   overflow-x: auto;
   display: block;
@@ -862,7 +811,6 @@ table tr td:last-child {
   padding: 6px 12px;
   border: #dbdbdb 1px solid;
 }
-/* table responsive 2019.07.10 */
 @media screen and (max-width: 1279px) {
   .post-content table {
     white-space: nowrap;
@@ -877,7 +825,7 @@ table tr td:last-child {
     font-size: 0.75rem;
   }
 }
-/* katex block: wide overflow scroll */
+/* Let wide KaTeX blocks scroll without moving the page. */
 .post-content .katex-display {
   display: block;
   width: 100%;
@@ -886,19 +834,15 @@ table tr td:last-child {
   margin: 0.5em 0;
   padding: 0.5em 0;
 }
-/* katex font-size -> same as normal text */
 .katex {
   font-size: 1em !important;
 }
-/* ====================== post: TOC ====================== 2019.05.12 */
 #toc,
 #toc-img {
   font-family: "IBM Plex Sans", sans-serif;
   border-radius: 3px;
   background-color: white;
-  /* box-shadow: 0 20px 40px rgba(12,12,94,.1) !important; */
 }
-/* not displaying below 1280px */
 @media screen and (max-width: 1279px) {
   #toc,
   #toc-img {
@@ -922,7 +866,6 @@ table tr td:last-child {
 
 #toc:before,
 #toc-img:before {
-  /* content: "Table of Content"; */
   margin-left: 10px;
   border-bottom: 1px solid #333;
   margin-bottom: 10px;
@@ -951,8 +894,6 @@ table tr td:last-child {
 #toc-img ul {
   margin-left: 0;
   border-left: 0;
-  /* background-color: #fff; */
-  /* margin-right:10px; */
   padding: 0 10px 0 10px;
 }
 #toc ul:first-child,
@@ -972,7 +913,7 @@ table tr td:last-child {
 }
 #toc ul:first-child ul,
 #toc-img ul:first-child ul {
-  padding-top: 0px; /* fixed, need test */
+  padding-top: 0px;
 }
 #toc ul:last-child ul,
 #toc-img ul:last-child ul {
@@ -986,7 +927,6 @@ table tr td:last-child {
 #toc-img li {
   display: block;
 }
-/* ====================== post: aside ====================== 2019.04.11 */
 @media screen and (min-width: 769px) {
   .aside {
     padding-bottom: 3rem;
@@ -1035,7 +975,6 @@ table tr td:last-child {
 }
 .aside .featured-image {
   min-height: 190px;
-  /* border-radius: 6px 6px 0 0; */
 }
 .aside .post-info {
   padding: 20px;
@@ -1054,9 +993,6 @@ table tr td:last-child {
 .aside .featured-label {
   top: -38px;
 }
-/* .aside .featured-label.no-img{
-    top: 10px;
-} */
 @media screen and (max-width: 768px) {
   .aside .post-info .featured-label.has-img {
     top: -34px;
@@ -1071,7 +1007,6 @@ table tr td:last-child {
     line-height: 24px;
   }
 }
-/* aside: tag list card */
 .aside .tag-list {
   display: flex !important;
   flex-direction: column;
@@ -1137,7 +1072,6 @@ table tr td:last-child {
   height: 100%;
 }
 
-/* ====================== template: Tag Archive ====================== 2019.04.14 */
 .card-wrap {
   margin-bottom: 30px;
 }
@@ -1202,7 +1136,6 @@ table tr td:last-child {
 .tag-archive-item {
   padding: 1rem !important;
 }
-/* ====================== template: Post Archive ====================== 2019.05.28 */
 ul.post-archive {
   margin-left: 0 !important;
   line-height: 2 !important;
@@ -1235,7 +1168,6 @@ ul.post-archive {
   white-space: nowrap;
   width: 75px;
 }
-/* ====================== template: Full Width ====================== 2019.05.10 */
 .single-article .post-wrap.full-width {
   max-width: 960px;
   padding: 48px 15px;
@@ -1243,7 +1175,6 @@ ul.post-archive {
   line-height: 2;
   margin: auto !important;
 }
-/* ====================== footer ====================== 2019.04.12 */
 .footer {
   box-shadow: 0 0px 1px 0 #bbb;
 }
@@ -1256,7 +1187,6 @@ ul.post-archive {
   color: var(--link-color-hover);
 }
 
-/* ====================== error page ====================== 2019.05.10 */
 .error-wrap {
   margin: 0 auto;
   padding: 80px 30px;
@@ -1281,7 +1211,6 @@ ul.post-archive {
   margin-bottom: 32px;
 }
 
-/* ====================== bookmark card ====================== 2019.09.07 */
 .kg-bookmark-container {
   display: flex;
   flex-wrap: wrap;

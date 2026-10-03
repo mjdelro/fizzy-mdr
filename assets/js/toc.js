@@ -101,8 +101,7 @@
       items.forEach((item) => item.classList.toggle("active", item.dataset.tocTarget === id));
     };
 
-    // Keep a clicked TOC item active while smooth scrolling so the scroll spy
-    // cannot briefly jump back to the section we are leaving.
+    // Hold the clicked item active so the scroll spy cannot jump backward mid-scroll.
     let pendingTargetId = null;
     let pendingTargetTimer = null;
 
@@ -140,8 +139,7 @@
         else break;
       }
 
-      // Ensure the final short section can become active even when it cannot
-      // scroll all the way up to the marker before the document ends.
+      // Let the final short section activate even when it cannot reach the marker.
       const root = document.documentElement;
       if (window.scrollY + window.innerHeight >= root.scrollHeight - 2) {
         activeId = headings[headings.length - 1].id;

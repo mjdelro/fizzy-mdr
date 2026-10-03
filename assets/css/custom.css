@@ -1,6 +1,3 @@
-/* Fizzy MDR theme overrides and components. */
-
-/* ===== Design tokens ===== */
 :root {
   --font-body: var(--gh-font-body, "Atkinson Hyperlegible Next"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-ui: var(--gh-font-heading, "IBM Plex Sans"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -53,7 +50,6 @@
   --tag-pill-hover-color: #fff;
 }
 
-/* ===== General layout ===== */
 .site-license .cc-icons,
 .site-license .footer-badges {
   display: flex;
@@ -97,13 +93,11 @@
   width: 75px;
 }
 
-/* Wider article content */
 .single-article .post-wrap {
   width: 100%;
   max-width: 960px;
 }
 
-/* ===== Typography ===== */
 body {
   font-family: var(--font-body);
 }
@@ -120,7 +114,7 @@ h6,
   font-family: var(--font-ui);
 }
 
-/* Article copy. Legacy upstream font classes remain as compatibility aliases. */
+/* Legacy upstream font classes remain as compatibility aliases. */
 .is-body-font,
 .is-georgia,
 .post-content,
@@ -128,7 +122,6 @@ figcaption {
   font-family: var(--font-body) !important;
 }
 
-/* Left-aligned H2 accent fades completely at the heading's midpoint. */
 .post-content > h2::after {
   content: "";
   display: block;
@@ -138,7 +131,6 @@ figcaption {
   background: linear-gradient(to right, var(--main-color), transparent);
 }
 
-/* Stronger, slightly tighter display typography for post titles. */
 .single-article .post-wrap > .title {
   font-family: var(--font-ui);
   font-weight: 700;
@@ -146,7 +138,6 @@ figcaption {
   line-height: 1.08;
 }
 
-/* Code: use Atkinson's monospaced companion everywhere. */
 code,
 pre,
 kbd,
@@ -184,8 +175,7 @@ figcaption,
   font-style: italic !important;
 }
 
-/* Soft author-card-style framing on content images, including lightbox links.
-   Shadow and rounding do not alter image dimensions or gallery proportions. */
+/* Image framing must not alter gallery dimensions or proportions. */
 .post-content .kg-image-card .kg-image,
 .post-content .kg-gallery-card .kg-gallery-image img {
   border-radius: 6px;
@@ -204,7 +194,7 @@ figcaption,
   background-color: var(--surface-page) !important;
 }
 
-/* A flatter, cleaner header that stays visually connected to the page. */
+/* The header border keeps it connected to the page without adding elevation. */
 .navbar.has-shadow-thin {
   box-shadow: none !important;
   border-bottom: 1px solid var(--border-soft);
@@ -256,7 +246,6 @@ figcaption,
   outline-offset: 3px;
 }
 
-/* Homepage/index article cards. */
 .post-list-card {
   background: var(--surface-card);
   border: 1px solid var(--border-soft);
@@ -313,7 +302,6 @@ figcaption,
   color: var(--text-muted);
 }
 
-/* A little more breathing room before the article list. */
 #showcase {
   margin-bottom: 0.75rem;
 }
@@ -362,12 +350,10 @@ figcaption,
   }
 }
 
-/* Make article text breathe a little more at the new 960px measure. */
 .single-article .post-content {
   line-height: 1.68;
 }
 
-/* ===== Footer ===== */
 .footer-socials {
   max-width: 34rem;
   margin: 1rem auto 1.25rem;
@@ -428,7 +414,6 @@ figcaption,
   }
 }
 
-/* ===== Color scheme ===== */
 html[data-theme="dark"] {
   /* Neutral media-first surfaces; brand treatments derive from Ghost's accent. */
   --accent-readable: color-mix(in srgb, var(--site-accent) 72%, #fff);
@@ -457,7 +442,6 @@ html[data-theme="dark"] {
   background-color: var(--surface-page);
 }
 
-/* ===== Header controls ===== */
 .header-control-wrap {
   padding-inline: 0.3rem !important;
   background: transparent !important;
@@ -605,9 +589,7 @@ html[data-theme="dark"] .header-control:hover {
   color: var(--main-color) !important;
 }
 
-/* Bulma's `.navbar.is-white .navbar-burger` selector is more specific than a
-   plain `.navbar-burger` override, so explicitly override the white-navbar
-   burger in dark mode. */
+/* Match Bulma's more-specific white-navbar burger selector in dark mode. */
 html[data-theme="dark"] .navbar.is-white .navbar-burger,
 html[data-theme="dark"] .navbar .navbar-burger {
   color: var(--text-primary) !important;
@@ -807,9 +789,7 @@ html[data-theme="dark"] .site-license .cc-icons img {
   color: var(--main-color);
 }
 
-/* ===== Dark-mode component coverage ===== */
-/* Bulma assigns heading colors directly, so article headings need an explicit
-   theme-aware color rather than relying on the parent .content color. */
+/* Bulma assigns heading colors directly, so headings cannot inherit from .content. */
 html[data-theme="dark"] .post-wrap .post-content h1,
 html[data-theme="dark"] .post-wrap .post-content h2,
 html[data-theme="dark"] .post-wrap .post-content h3,
@@ -819,7 +799,6 @@ html[data-theme="dark"] .post-wrap .post-content h6 {
   color: var(--text-primary) !important;
 }
 
-/* Table of contents dark surface. */
 html[data-theme="dark"] #toc,
 html[data-theme="dark"] #toc-img {
   background-color: var(--surface-card) !important;
@@ -827,8 +806,7 @@ html[data-theme="dark"] #toc-img {
   border-color: var(--border-soft) !important;
 }
 
-/* Ghost file cards / attachment links. Keep the native card layout while
-   replacing hard-coded light colors with the theme palette. */
+/* Keep Ghost's file-card layout while replacing its hard-coded light colors. */
 .post-wrap .post-content .kg-file-card,
 .post-wrap .post-content a.kg-file-card-container {
   color: var(--text-primary) !important;
@@ -875,7 +853,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   color: var(--text-primary) !important;
 }
 
-/* ===== Theme utilities ===== */
 .site-navbar {
   z-index: 999;
 }
@@ -954,7 +931,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   padding-bottom: 3rem;
 }
 
-/* ===== Components ===== */
 .mdr-icon {
   display: inline-block;
   width: 1em;
@@ -1012,15 +988,13 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   }
 }
 
-/* Native carousel with a horizontal right-to-left swipe transition. */
 .carousel {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-card);
 }
 
-/* All slides share the same physical layer. JavaScript drives the horizontal
-   transform directly via the Web Animations API. */
+/* Slides share one layer; JavaScript owns their horizontal transform. */
 .carousel .carousel-item {
   display: none;
   position: absolute !important;
@@ -1044,8 +1018,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   display: block;
 }
 
-/* Keep the carousel transform reserved for slide motion. A hover translate on
-   the active slide can fight the animation and cause a visible jump. */
+/* Reserve carousel transforms for slide motion to prevent hover jumps. */
 .carousel .carousel-item.interactive-card:hover {
   border: 0 !important;
   box-shadow: var(--card-shadow) !important;
@@ -1084,7 +1057,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 .tf-item .link-block {
   z-index: 1;
 }
-/* Reusable card geometry across theme-owned card surfaces. */
 .aside .post-card,
 .tag-card {
   box-sizing: border-box;
@@ -1104,7 +1076,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border-radius: var(--radius-card) var(--radius-card) 0 0;
 }
 
-/* Tag directory page. */
 .tag-directory-hero {
   padding-top: clamp(2.5rem, 5vw, 4.5rem);
 }
@@ -1360,7 +1331,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 }
 
 
-/* Generated table of contents. */
 #toc,
 #toc-img {
   border-radius: 6px;
@@ -1452,7 +1422,6 @@ html[data-theme="dark"] #toc-img li > a:is(:hover, :focus-visible) {
   }
 }
 
-/* Responsive native Ghost YouTube embeds */
 .kg-embed-card {
   width: 100%;
   max-width: 100%;
