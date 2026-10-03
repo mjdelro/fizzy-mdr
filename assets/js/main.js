@@ -20,13 +20,28 @@
 
   function setupNavbar() {
     document.querySelectorAll(".navbar-burger").forEach((button) => {
-      button.addEventListener("click", () => {
-        const target = document.getElementById(button.dataset.target);
-        if (!target) return;
+      const target = document.getElementById(button.dataset.target);
+      if (!target) return;
 
+      const close = (restoreFocus = false) => {
+        button.classList.remove("is-active");
+        target.classList.remove("is-active");
+        button.setAttribute("aria-expanded", "false");
+        if (restoreFocus) button.focus();
+      };
+
+      button.addEventListener("click", () => {
         const active = button.classList.toggle("is-active");
         target.classList.toggle("is-active", active);
         button.setAttribute("aria-expanded", String(active));
+      });
+
+      target.addEventListener("click", (event) => {
+        if (event.target.closest("a")) close();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && button.classList.contains("is-active")) close(true);
       });
     });
   }
@@ -63,41 +78,62 @@
     if (!carousel) return;
 
     const slides = Array.from(carousel.querySelectorAll(".carousel-item"));
-    if (slides.length < 2) return;
+    if (slides.length < 2) {
+      carousel.querySelector(".carousel-controls")?.setAttribute("hidden", "");
+      return;
+    }
 
-    const intervalMs = 5000;
     const transitionMs = 600;
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    const previous = carousel.querySelector(".carousel-nav-button--previous");
+    const next = carousel.querySelector(".carousel-nav-button--next");
+    const pips = Array.from(carousel.querySelectorAll(".carousel-pip"));
     let index = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
-    let timer = null;
     let animating = false;
 
-    const setActive = (next) => {
+    const updatePips = (activeIndex) => {
+      pips.forEach((pip, pipIndex) => {
+        const active = pipIndex === activeIndex;
+        pip.classList.toggle("is-active", active);
+        if (active) pip.setAttribute("aria-current", "true");
+        else pip.removeAttribute("aria-current");
+      });
+    };
+
+    const setActive = (activeIndex) => {
       slides.forEach((slide, slideIndex) => {
-        const active = slideIndex === next;
+        const active = slideIndex === activeIndex;
         slide.classList.toggle("is-active", active);
+        if (active) slide.removeAttribute("inert");
+        else slide.setAttribute("inert", "");
         slide.classList.remove("is-transitioning");
         slide.setAttribute("aria-hidden", String(!active));
+        slide.setAttribute("aria-label", `${slideIndex + 1} of ${slides.length}`);
+        slide.setAttribute("role", "group");
+        slide.setAttribute("aria-roledescription", "slide");
         slide.style.removeProperty("z-index");
       });
-      index = next;
+      updatePips(activeIndex);
+      index = activeIndex;
       animating = false;
     };
 
-    const show = (next, animate = true) => {
-      if (next === index || animating) return;
+    const show = (nextIndex, animate = true) => {
+      if (nextIndex === index || animating) return;
 
       const current = slides[index];
-      const incoming = slides[next];
-      const shouldAnimate = animate && typeof incoming.animate === "function";
+      const incoming = slides[nextIndex];
+      const shouldAnimate = animate && !reducedMotion?.matches && typeof incoming.animate === "function";
+
+      updatePips(nextIndex);
 
       if (!shouldAnimate) {
-        setActive(next);
+        setActive(nextIndex);
         return;
       }
 
       animating = true;
       incoming.classList.add("is-transitioning");
-      incoming.setAttribute("aria-hidden", "false");
       incoming.style.zIndex = "2";
       current.style.zIndex = "1";
 
@@ -118,36 +154,18 @@
       ], timing);
 
       Promise.allSettled([outgoingAnimation.finished, incomingAnimation.finished]).then(() => {
-        setActive(next);
+        setActive(nextIndex);
         outgoingAnimation.cancel();
         incomingAnimation.cancel();
       });
     };
 
-    const stop = () => {
-      if (timer !== null) window.clearTimeout(timer);
-      timer = null;
-    };
-
-    const schedule = () => {
-      stop();
-      if (document.hidden) return;
-
-      timer = window.setTimeout(() => {
-        show((index + 1) % slides.length);
-        schedule();
-      }, intervalMs);
-    };
-
     setActive(index);
-
-    carousel.addEventListener("focusin", stop);
-    carousel.addEventListener("focusout", (event) => {
-      if (!carousel.contains(event.relatedTarget)) schedule();
+    previous?.addEventListener("click", () => show((index - 1 + slides.length) % slides.length));
+    next?.addEventListener("click", () => show((index + 1) % slides.length));
+    pips.forEach((pip) => {
+      pip.addEventListener("click", () => show(Number(pip.dataset.carouselSlide) - 1));
     });
-    document.addEventListener("visibilitychange", () => document.hidden ? stop() : schedule());
-    window.addEventListener("pageshow", schedule);
-    schedule();
   }
 
   function setupCaptionBreaks() {

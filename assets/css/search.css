@@ -4,7 +4,7 @@
   --site-accent-contrast: #fff;
   --search-bg: #fff;
   --search-text: #2d332f;
-  --search-muted: #737a75;
+  --search-muted: #656b67;
   --search-accent: var(--site-accent);
   --search-hover: color-mix(in srgb, var(--site-accent) 8%, #fff);
   --search-border: rgba(25, 40, 32, 0.1);

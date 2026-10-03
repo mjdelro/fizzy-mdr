@@ -121,7 +121,7 @@ Theme-specific overrides and design tokens live in custom.css.
 }
 
 .has-background-light-line {
-  background-image: repeating-linear-gradient(45deg, #f7f7f7, #f7f7f7 2px, #eee 2px, #eee 3px);
+  background-color: var(--surface-page, #f5f6f4);
 }
 
 .bg-cover-center {
@@ -251,7 +251,7 @@ pre[class*="language-"].line-numbers {
   box-shadow: 0 0 1px #ccc;
 }
 .button {
-  transition: all 0.3s ease;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease, box-shadow 150ms ease;
 }
 strong {
   color: inherit !important;
@@ -876,7 +876,7 @@ table tr td:last-child {
 #toc a,
 #toc-img a {
   display: block;
-  color: #aaa;
+  color: var(--text-secondary, #474d49);
 }
 
 #toc a:hover,
@@ -1161,7 +1161,7 @@ ul.post-archive {
 }
 .post-archive-item .authors,
 .post-archive-item .authors a {
-  color: #888;
+  color: var(--text-muted, #656b67);
   font-size: 0.9rem;
 }
 .post-archive .post-archive-item time {

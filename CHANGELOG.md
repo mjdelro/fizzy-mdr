@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.0
+
+- Replace the looping featured carousel with manual edge controls and no more than five low-opacity position pips.
+- Add keyboard dismissal, focus restoration, reduced-motion behavior, stronger text contrast, and resilient narrow-screen controls.
+- Refine the editorial visual system with flatter cards, quieter image-free states, purposeful shadows, and documented design direction.
+- Use recent post-image mosaics in the tag directory and simplify its image-free fallback.
+- Clean up theme comments and remove obsolete decorative treatments without changing Ghost functionality.
+
 ## 2.4.5
 
 - Add more space between tag-page titles and their post-count badges.

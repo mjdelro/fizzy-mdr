@@ -2,11 +2,11 @@
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.4.5**
+Current release: **2.5.0**
 
 ## Features
 
-- Editorial homepage with rotating featured carousel and supporting cards
+- Editorial homepage with a manually controlled featured carousel and supporting cards
 - Persistent light/dark mode with matching native Ghost search
 - Responsive feature images and YouTube embeds
 - Atkinson Hyperlegible Next body typography
@@ -34,7 +34,7 @@ Version **2.4.0** consolidates the presentation tweaks added throughout 2.3.x in
 - Removed stale component selectors and an obsolete icon-button utility.
 - Fixed an old undefined CSS `--shadow` reference in the upstream stylesheet.
 - Native hash scrolling and TOC clicks now share the same computed header offset.
-- Preserved the right-to-left 5-second carousel, neutral dark mode, caption `\n` support, and responsive TOC behavior.
+- Replaced the looping carousel with manual edge controls and a maximum of five position pips while preserving its right-to-left transition.
 
 ## 2.3 Cleanup & Standardization
 
@@ -73,16 +73,16 @@ Fizzy MDR converts that marker to a real `<br>` only inside Ghost image and gall
 
 After activation, open **Settings → Design & branding → Theme** in Ghost Admin.
 
-- **Show Showcase** — show the homepage editorial showcase
-- **Show Toc** — generate an H2/H3 table of contents on posts
-- **Line Numbers** — show Prism line numbers on code blocks
+- **Show Showcase**: show the homepage editorial showcase
+- **Show Toc**: generate an H2/H3 table of contents on posts
+- **Line Numbers**: show Prism line numbers on code blocks
 
 Legacy Code Injection variables for these features are no longer required.
 
 ## Internal Tags
 
-- `#carousel` — include a post in the homepage carousel
-- `#noindex` — exclude a post from standard listing templates
+- `#carousel`: include a post in the homepage carousel
+- `#noindex`: exclude a post from standard listing templates
 
 See [CHANGELOG.md](./CHANGELOG.md) for the full release history.
 

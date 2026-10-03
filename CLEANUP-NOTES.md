@@ -1,5 +1,12 @@
 # Fizzy MDR Cleanup Notes
 
+## Anti Slop UI pass
+
+- Replaced the looping featured carousel with manual edge controls and no more than five low-opacity position pips.
+- Added a resilient narrow-screen header, 44px touch targets, reduced-motion behavior, stronger muted-text contrast, and keyboard menu dismissal.
+- Removed generic decorative fallbacks and the tag-directory eyebrow while preserving the publication's editorial identity.
+- Flattened ordinary cards and reserved stronger shadow for media and floating utilities.
+
 ## 2.4.0 consistency refactor
 
 - Consolidated desktop card height, image split, showcase gap, card shadows, pill geometry, and header-control geometry into shared design tokens.

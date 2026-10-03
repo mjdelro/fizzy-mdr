@@ -5,8 +5,8 @@
         <div class="column is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
             <div class="columns">
                 <div class="column is-7">
-                    <div id="carousel-home" class="carousel" aria-label="Featured posts">
-                        {{#get "posts" limit="6" include="tags" filter="tags:[hash-carousel]" as |carousel_posts|}}
+                    <div id="carousel-home" class="carousel" role="region" aria-roledescription="carousel" aria-label="Featured posts">
+                        {{#get "posts" limit="5" include="tags" filter="tags:[hash-carousel]" as |carousel_posts|}}
                             {{#foreach carousel_posts}}
                                 <article class="carousel-item box interactive-card{{#has number="1"}} is-active{{/has}}">
                                     {{#if feature_image}}
@@ -24,6 +24,16 @@
                                     </div>
                                 </article>
                             {{/foreach}}
+
+                            <div class="carousel-controls">
+                                <button class="carousel-nav-button carousel-nav-button--previous" type="button" aria-label="Previous featured post"><span aria-hidden="true">‹</span></button>
+                                <button class="carousel-nav-button carousel-nav-button--next" type="button" aria-label="Next featured post"><span aria-hidden="true">›</span></button>
+                                <div class="carousel-pips" role="group" aria-label="Choose featured post">
+                                    {{#foreach carousel_posts}}
+                                        <button class="carousel-pip{{#has number="1"}} is-active{{/has}}" type="button" data-carousel-slide="{{@number}}" aria-label="Show featured post {{@number}}"{{#has number="1"}} aria-current="true"{{/has}}></button>
+                                    {{/foreach}}
+                                </div>
+                            </div>
                         {{/get}}
                     </div>
                 </div>
