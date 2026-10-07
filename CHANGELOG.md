@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.1
+
+- Render article quotations with the bundled Charis Italic face.
+
 ## 2.6.0
 
 - Use self-hosted Charis 7 for article prose, captions, and quotations while retaining Atkinson Hyperlegible Next for supporting text.

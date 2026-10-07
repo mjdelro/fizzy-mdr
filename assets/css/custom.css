@@ -171,6 +171,7 @@ h3 code {
 .single-article .post-wrap .post-content blockquote,
 blockquote.kg-blockquote-alt {
   font-family: var(--font-quote) !important;
+  font-style: italic;
 }
 
 figcaption,
