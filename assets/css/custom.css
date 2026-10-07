@@ -1160,6 +1160,25 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   z-index: 2;
   pointer-events: none;
 }
+
+/* Keep image-overlay headlines readable without making the cards look elevated. */
+.carousel-meta h2,
+.tf-meta h2 {
+  text-shadow:
+    0 1px 2px rgba(7, 17, 27, 0.72),
+    0 3px 10px rgba(7, 17, 27, 0.34);
+}
+
+.carousel-meta h2 {
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem) !important;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.tf-meta h2 {
+  line-height: 1.3;
+}
+
 .carousel-meta a,
 .tf-meta a {
   pointer-events: auto;

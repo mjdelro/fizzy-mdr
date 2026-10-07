@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.2
+
+- Increase the lead carousel title from 24px to a responsive 22–28px and strengthen the restrained text shadow behind carousel and featured-card titles.
+
 ## 2.6.1
 
 - Render article quotations with the bundled Charis Italic face.

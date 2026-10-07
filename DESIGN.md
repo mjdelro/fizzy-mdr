@@ -42,4 +42,5 @@ Dial: ENERGY 1 / RHYTHM 2 / MOTION 1
 - Directional glyphs: arrows are reserved for carousel controls, pagination, and the single see-all navigation link.
 - Gradients: image overlays protect white text, tag hero gradients identify an image-free archive header, and heading rules mark editorial hierarchy.
 - Shadows: media and floating utilities receive shallow separation; ordinary cards, navigation, and controls remain flat.
+- Overlay type: the lead carousel title is larger than the compact featured titles, and both use a restrained dark text shadow to stay readable over detailed photographs.
 - Accent: green marks categories, featured state, focus, and selected links rather than decorating every surface.
