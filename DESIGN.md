@@ -18,10 +18,11 @@ Readers come for long-form articles, practical technical notes, and image-rich o
 
 ## Typography
 
-- Atkinson Hyperlegible Next is the reading face because long articles require clear character shapes.
+- Charis is the long-form article face because its strong serifs and clear features suit sustained reading.
+- Atkinson Hyperlegible Next remains the body face for cards, archives, metadata, and supporting text.
 - IBM Plex Sans gives headings and controls a firmer editorial structure without competing with article text.
 - Atkinson Hyperlegible Mono is reserved for code so technical material remains legible and visually related to the body face.
-- Special Elite is limited to quotations where the typewriter reference supports the site's subject matter.
+- Charis Italic gives quotations a distinct voice without introducing another type family.
 
 ## Layout and motion
 

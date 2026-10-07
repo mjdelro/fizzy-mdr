@@ -2,14 +2,15 @@
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.5.0**
+Current release: **2.6.0**
 
 ## Features
 
 - Editorial homepage with a manually controlled featured carousel and supporting cards
 - Persistent light/dark mode with matching native Ghost search
 - Responsive feature images and YouTube embeds
-- Atkinson Hyperlegible Next body typography
+- Self-hosted Charis 7 article typography
+- Atkinson Hyperlegible Next supporting typography
 - IBM Plex Sans headings and UI
 - Atkinson Hyperlegible Mono code
 - Vanilla JavaScript carousel and table of contents
@@ -17,6 +18,55 @@ Current release: **2.5.0**
 - Ghost Admin settings for showcase, TOC, and code line numbers
 - GScan validation in the GitHub Actions deployment workflow
 - Vendored, reusable SVG icon partials with no runtime icon-library dependency
+- Highlight-to-translate passages with desktop selection, touch, and keyboard support
+
+## Highlight to translate
+
+Add translatable Tagalog text with an HTML card in the Ghost editor. The English translation stays hidden until a reader selects the Tagalog passage on desktop, taps it on a touch device, or focuses it and presses Enter or Space. The theme reads the translation only from `data-translation` and inserts it as plain text.
+
+### Whole paragraph
+
+```html
+<p class="translate-on-select"
+   data-translation="In the surge of love, the heart beat softly.">
+  Sa silakbo ng pagmamahal, pumintig ang puso nang marahan.
+</p>
+```
+
+### Short phrase inside a paragraph
+
+```html
+<p>
+  Narinig ko ang
+  <span class="translate-on-select"
+        data-translation="the heart's quiet longing">
+    tahimik na pananabik ng puso
+  </span>
+  sa kanyang tinig.
+</p>
+```
+
+### Apostrophes and quotation marks
+
+Use double quotes around the attribute when the translation contains an apostrophe:
+
+```html
+<span class="translate-on-select"
+      data-translation="The heart's quiet longing.">
+  Ang tahimik na pananabik ng puso.
+</span>
+```
+
+Encode double quotation marks inside the translation as `&quot;`. Ghost preserves this standard HTML entity and the tooltip displays a normal quotation mark:
+
+```html
+<span class="translate-on-select"
+      data-translation="She said, &quot;Wait for me.&quot;">
+  Sinabi niya, “Hintayin mo ako.”
+</span>
+```
+
+Keep the reader-visible Tagalog inside the element and the manually written English in `data-translation`. Do not put HTML inside the attribute. If a passage contains a link or another control, that control keeps its normal behavior; readers can still select and copy the Tagalog text.
 
 ## 2.4 Consistency Refactor
 
@@ -93,4 +143,6 @@ Customized and maintained by [Michael del Rosario](https://michaeldelrosar.io).
 
 ## License
 
-MIT. See [LICENSE](./LICENSE).
+Theme code is licensed under the MIT License. See [LICENSE](./LICENSE).
+
+The bundled Charis webfonts remain licensed under the SIL Open Font License, Version 1.1. See [assets/fonts/charis/OFL.txt](./assets/fonts/charis/OFL.txt).

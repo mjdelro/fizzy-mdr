@@ -196,6 +196,179 @@
     });
   }
 
+  function setupTranslations() {
+    const passages = Array.from(document.querySelectorAll(".translate-on-select[data-translation]"))
+      .filter((passage) => passage.dataset.translation.trim());
+    if (!passages.length) return;
+
+    const tooltip = document.createElement("div");
+    const tooltipId = "translation-tooltip";
+    const originalDescriptions = new Map();
+    let activePassage = null;
+    let activeAnchor = null;
+    let activeMode = null;
+    let openingScrollX = 0;
+    let openingScrollY = 0;
+
+    tooltip.id = tooltipId;
+    tooltip.className = "translation-tooltip";
+    tooltip.setAttribute("role", "tooltip");
+    tooltip.setAttribute("aria-live", "polite");
+    tooltip.hidden = true;
+    document.body.appendChild(tooltip);
+
+    const restoreDescription = (passage) => {
+      const original = originalDescriptions.get(passage);
+      if (original) passage.setAttribute("aria-describedby", original);
+      else passage.removeAttribute("aria-describedby");
+    };
+
+    const hide = () => {
+      if (!activePassage) return;
+      activePassage.setAttribute("aria-expanded", "false");
+      restoreDescription(activePassage);
+      activePassage = null;
+      activeAnchor = null;
+      activeMode = null;
+      tooltip.hidden = true;
+      tooltip.textContent = "";
+    };
+
+    const position = () => {
+      if (!activeAnchor || tooltip.hidden) return;
+
+      const gap = 10;
+      const viewportPadding = 12;
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const anchorRect = activeAnchor.getBoundingClientRect();
+      let left = anchorRect.left + (anchorRect.width / 2) - (tooltipRect.width / 2);
+      let top = anchorRect.top - tooltipRect.height - gap;
+
+      left = Math.min(
+        Math.max(viewportPadding, left),
+        Math.max(viewportPadding, window.innerWidth - tooltipRect.width - viewportPadding)
+      );
+
+      if (top < viewportPadding) top = anchorRect.bottom + gap;
+      top = Math.min(
+        Math.max(viewportPadding, top),
+        Math.max(viewportPadding, window.innerHeight - tooltipRect.height - viewportPadding)
+      );
+
+      tooltip.style.left = `${Math.round(left)}px`;
+      tooltip.style.top = `${Math.round(top)}px`;
+    };
+
+    const show = (passage, anchor, mode) => {
+      if (activePassage && activePassage !== passage) {
+        activePassage.setAttribute("aria-expanded", "false");
+        restoreDescription(activePassage);
+      }
+
+      activePassage = passage;
+      activeAnchor = anchor;
+      activeMode = mode;
+      openingScrollX = window.scrollX;
+      openingScrollY = window.scrollY;
+      tooltip.textContent = passage.dataset.translation;
+      tooltip.hidden = false;
+      passage.setAttribute("aria-expanded", "true");
+
+      const original = originalDescriptions.get(passage);
+      passage.setAttribute("aria-describedby", [original, tooltipId].filter(Boolean).join(" "));
+      position();
+    };
+
+    const selectionDetails = () => {
+      const selection = window.getSelection();
+      if (!selection || selection.isCollapsed || !selection.toString().trim() || !selection.rangeCount) return null;
+
+      const range = selection.getRangeAt(0);
+      const start = range.startContainer.nodeType === Node.ELEMENT_NODE
+        ? range.startContainer
+        : range.startContainer.parentElement;
+      const end = range.endContainer.nodeType === Node.ELEMENT_NODE
+        ? range.endContainer
+        : range.endContainer.parentElement;
+      const passage = start?.closest?.(".translate-on-select[data-translation]");
+
+      if (!passage || passage !== end?.closest?.(".translate-on-select[data-translation]")) return null;
+      if (!passage.dataset.translation.trim()) return null;
+
+      const rect = range.getBoundingClientRect();
+      return {
+        passage,
+        anchor: rect.width || rect.height ? range : passage
+      };
+    };
+
+    const showSelection = () => {
+      const details = selectionDetails();
+      if (details) show(details.passage, details.anchor, "selection");
+      else if (activeMode === "selection") hide();
+    };
+
+    passages.forEach((passage) => {
+      originalDescriptions.set(passage, passage.getAttribute("aria-describedby"));
+      if (!passage.hasAttribute("tabindex")) passage.tabIndex = 0;
+      if (!passage.hasAttribute("role") && !passage.querySelector("a, button, input, select, textarea")) {
+        passage.setAttribute("role", "button");
+      }
+      passage.setAttribute("aria-controls", tooltipId);
+      passage.setAttribute("aria-expanded", "false");
+
+      passage.addEventListener("keydown", (event) => {
+        if (event.target !== passage || (event.key !== "Enter" && event.key !== " ")) return;
+        event.preventDefault();
+        if (activePassage === passage && activeMode === "keyboard") hide();
+        else show(passage, passage, "keyboard");
+      });
+    });
+
+    document.addEventListener("pointerdown", (event) => {
+      if (!event.target.closest?.(".translate-on-select[data-translation], .translation-tooltip")) hide();
+    });
+
+    document.addEventListener("pointerup", (event) => {
+      const passage = event.target.closest?.(".translate-on-select[data-translation]");
+      const touchLike = event.pointerType === "touch" || event.pointerType === "pen";
+
+      if (!touchLike) {
+        window.requestAnimationFrame(showSelection);
+        return;
+      }
+
+      if (!passage || event.target.closest("a, button, input, select, textarea")) return;
+      window.requestAnimationFrame(() => {
+        const details = selectionDetails();
+        if (details) {
+          show(details.passage, details.anchor, "selection");
+        } else if (activePassage === passage && activeMode === "touch") {
+          hide();
+        } else {
+          show(passage, passage, "touch");
+        }
+      });
+    });
+
+    document.addEventListener("selectionchange", () => {
+      if (activeMode === "selection" && !selectionDetails()) hide();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") hide();
+    });
+
+    window.addEventListener("scroll", () => {
+      if (!activePassage) return;
+      const distance = Math.hypot(window.scrollX - openingScrollX, window.scrollY - openingScrollY);
+      if (distance >= 40) hide();
+      else position();
+    }, { passive: true });
+
+    window.addEventListener("resize", hide, { passive: true });
+  }
+
   function setupLightbox() {
     document.querySelectorAll("figure.kg-image-card").forEach((figure) => {
       const image = figure.querySelector("img.kg-image");
@@ -359,6 +532,7 @@
     setupArchiveGroups();
     setupCarousel();
     setupCaptionBreaks();
+    setupTranslations();
     setupLightbox();
     setupGhostSearchStyling();
     setupTheme();

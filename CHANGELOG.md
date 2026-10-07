@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.6.0
+
+- Use self-hosted Charis 7 for article prose, captions, and quotations while retaining Atkinson Hyperlegible Next for supporting text.
+- Bundle the four official Charis webfont faces and their SIL Open Font License, and load them only on posts and pages.
+- Remove Special Elite so quotations share the article type family and the site makes one fewer external font request.
+- Add theme-level highlight-to-translate support for manually translated Tagalog passages.
+- Show one viewport-contained translation tooltip for desktop selection, touch taps, or keyboard activation.
+- Keep translations as plain text, preserve native selection and copying, and close on outside interaction, selection clearing, Escape, resize, or substantial scrolling.
+- Match the existing editorial type, surfaces, accent, border radius, dark mode, and reduced-motion behavior.
+- Document whole-paragraph, inline-phrase, apostrophe, and quotation-mark authoring in Ghost HTML cards.
+
 ## 2.5.0
 
 - Replace the looping featured carousel with manual edge controls and no more than five low-opacity position pips.

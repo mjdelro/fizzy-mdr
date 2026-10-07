@@ -2,7 +2,8 @@
   --font-body: var(--gh-font-body, "Atkinson Hyperlegible Next"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-ui: var(--gh-font-heading, "IBM Plex Sans"), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "Atkinson Hyperlegible Mono", "SFMono-Regular", Consolas, monospace;
-  --font-quote: "Special Elite", "Atkinson Hyperlegible Next", sans-serif;
+  --font-reading: "Charis", Georgia, "Times New Roman", serif;
+  --font-quote: var(--font-reading);
   --site-accent: #176b3a;
   --site-accent-contrast: #fff;
   --main-color: var(--site-accent);
@@ -116,10 +117,13 @@ h6,
 
 /* Legacy upstream font classes remain as compatibility aliases. */
 .is-body-font,
-.is-georgia,
-.post-content,
-figcaption {
+.is-georgia {
   font-family: var(--font-body) !important;
+}
+
+.post-content,
+.post-content figcaption {
+  font-family: var(--font-reading) !important;
 }
 
 .post-content > h2::after {
@@ -163,7 +167,7 @@ h3 code {
   font-weight: 400;
 }
 
-/* Keep the typewriter accent only where it reads as an intentional quote style. */
+/* Keep quotations within the article's reading family. */
 .single-article .post-wrap .post-content blockquote,
 blockquote.kg-blockquote-alt {
   font-family: var(--font-quote) !important;
@@ -370,6 +374,64 @@ figcaption,
 
 .single-article .post-content {
   line-height: 1.68;
+}
+
+.translate-on-select {
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--site-accent) 7%, transparent);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: color-mix(in srgb, var(--site-accent) 68%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  cursor: help;
+}
+
+.translate-on-select:focus-visible {
+  outline: 2px solid var(--main-color);
+  outline-offset: 3px;
+}
+
+.translation-tooltip {
+  position: fixed;
+  z-index: 1200;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: min(23rem, calc(100vw - 1.5rem));
+  padding: 0.7rem 0.85rem;
+  overflow-wrap: anywhere;
+  border: 1px solid color-mix(in srgb, var(--site-accent) 32%, var(--border-soft));
+  border-radius: var(--radius-card);
+  background: var(--surface-elevated);
+  box-shadow: var(--media-shadow);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  white-space: normal;
+  pointer-events: none;
+}
+
+.translation-tooltip[hidden] {
+  display: none;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .translate-on-select {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .translate-on-select,
+  .translation-tooltip {
+    scroll-behavior: auto;
+    transition: none;
+  }
 }
 
 .footer-socials {
