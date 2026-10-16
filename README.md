@@ -68,7 +68,7 @@ Encode double quotation marks inside the translation as `&quot;`. Ghost preserve
 
 Keep the reader-visible Tagalog inside the element and the manually written English in `data-translation`. Do not put HTML inside the attribute. If a passage contains a link or another control, that control keeps its normal behavior; readers can still select and copy the Tagalog text.
 
-## 2.4 Consistency Refactor
+## 2.4 consistency refactor
 
 Version **2.4.0** consolidates the presentation tweaks added throughout 2.3.x into a smaller set of shared component rules and design tokens.
 
@@ -86,7 +86,7 @@ Version **2.4.0** consolidates the presentation tweaks added throughout 2.3.x in
 - Native hash scrolling and TOC clicks now share the same computed header offset.
 - Replaced the looping carousel with manual edge controls and a maximum of five position pips while preserving its right-to-left transition.
 
-## 2.3 Cleanup & Standardization
+## 2.3 cleanup and standardization
 
 Version **2.3.0** was a broad maintenance and refactor release focused on making the theme easier to maintain without intentionally redesigning it.
 
@@ -103,13 +103,13 @@ Version **2.3.0** was a broad maintenance and refactor release focused on making
 - Cleaned locale inconsistencies and miscellaneous HTML/CSS issues
 - Standardized package scripts and GitHub Actions validation around GScan
 
-The **2.3.1–2.3.11** patches preserved that cleanup while fixing header-control hover geometry, restoring the stable 5-second carousel animation, changing its travel direction to right-to-left, standardizing the theme icon system, moving dark-mode surfaces to neutral charcoal so photography and screenshots are framed without a green cast, adding reliable frontend caption breaks, standardizing category/tag pill geometry, explicitly centering feature-image crops, and making desktop article cards more compact so short excerpts do not leave large empty text areas, and making TOC highlighting track clicks and scrolling immediately.
+The 2.3.1 through 2.3.11 patches kept that cleanup and fixed several follow-up issues. They corrected header-control hover geometry, restored the five-second carousel animation, changed its travel direction to right-to-left, and standardized the icon system. They also changed dark-mode surfaces to neutral charcoal, added reliable frontend caption breaks, centered feature-image crops, made desktop article cards more compact, and kept TOC highlighting in sync with clicks and scrolling.
 
-## Icon System
+## Icon system
 
 Fizzy MDR keeps icons as local Handlebars partials under `partials/icons/`, so pages do not load an icon framework or icon JavaScript at runtime. Interface icons are standardized on Lucide; GitHub, Facebook, Twitch, Ko-fi, and X brand marks use Simple Icons; LinkedIn uses Bootstrap Icons because it is not distributed by current Simple Icons releases. See [ICON-SOURCES.md](./ICON-SOURCES.md) for source and license details.
 
-## Caption Line Breaks
+## Caption line breaks
 
 Ghost can flatten `Shift+Enter` soft breaks in image and gallery captions before the theme receives the published HTML. To force a frontend line break, type a literal `\n` in the caption:
 
@@ -119,7 +119,7 @@ First line\nSecond line
 
 Fizzy MDR converts that marker to a real `<br>` only inside Ghost image and gallery captions.
 
-## Theme Settings
+## Theme settings
 
 After activation, open **Settings → Design & branding → Theme** in Ghost Admin.
 
@@ -129,7 +129,7 @@ After activation, open **Settings → Design & branding → Theme** in Ghost Adm
 
 Legacy Code Injection variables for these features are no longer required.
 
-## Internal Tags
+## Internal tags
 
 - `#carousel`: include a post in the homepage carousel
 - `#noindex`: exclude a post from standard listing templates
