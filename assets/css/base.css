@@ -154,6 +154,10 @@ hr {
   padding: 1.25rem;
 }
 
+.box:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
 /* Grid: Columns & Column */
 .columns {
   margin-left: -0.75rem;
@@ -473,6 +477,18 @@ hr {
   justify-content: flex-start;
 }
 
+.buttons:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.buttons .button {
+  margin-bottom: 0.5rem;
+}
+
+.buttons .button:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
 .buttons.is-centered {
   justify-content: center;
 }
@@ -486,6 +502,7 @@ hr {
 .buttons.has-addons .button:not(:last-child) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
+  margin-right: 0;
 }
 
 .tags {
@@ -545,6 +562,15 @@ hr {
 .title,
 .subtitle {
   word-break: break-word;
+}
+
+.title:not(:last-child),
+.subtitle:not(:last-child) {
+  margin-bottom: 1.25rem;
+}
+
+.title:not(.is-spaced) + .subtitle {
+  margin-top: -1rem;
 }
 
 .title {
