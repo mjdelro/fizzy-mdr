@@ -513,56 +513,79 @@
     const systemTheme = window.matchMedia?.("(prefers-color-scheme: dark)");
     const themeColorMeta = document.getElementById("theme-color-meta");
 
-    const updateControls = (theme) => {
-      const nextTheme = theme === "dark" ? "light" : "dark";
-      const label = `Switch to ${nextTheme} mode`;
+    const readPref = () => {
+      try {
+        const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+        if (stored === "light" || stored === "dark") return stored;
+      } catch {
+        // Treat unavailable storage as system preference.
+      }
+      return "system";
+    };
+
+    const resolveTheme = (pref) => {
+      if (pref === "light" || pref === "dark") return pref;
+      return systemTheme?.matches ? "dark" : "light";
+    };
+
+    const nextPref = (pref) => {
+      if (pref === "system") return "light";
+      if (pref === "light") return "dark";
+      return "system";
+    };
+
+    const updateControls = (pref) => {
+      const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+      const label = `Theme: ${cap(pref)} (click for ${cap(nextPref(pref))})`;
 
       toggles.forEach((toggle) => {
         toggle.setAttribute("aria-label", label);
         toggle.setAttribute("title", label);
-        toggle.setAttribute("aria-pressed", String(theme === "dark"));
         const text = toggle.querySelector(".theme-toggle-text");
         if (text) text.textContent = label;
       });
     };
 
-    const applyTheme = (theme, persist = false) => {
+    const applyPref = (pref, persist = false) => {
+      const theme = resolveTheme(pref);
+      root.setAttribute("data-theme-pref", pref);
       root.setAttribute("data-theme", theme);
       root.style.colorScheme = theme;
       themeColorMeta?.setAttribute("content", theme === "dark" ? "#1c1d20" : "#f6f2e9");
 
       if (persist) {
         try {
-          window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+          if (pref === "system") {
+            window.localStorage.removeItem(THEME_STORAGE_KEY);
+          } else {
+            window.localStorage.setItem(THEME_STORAGE_KEY, pref);
+          }
         } catch {
           // Theme still applies for the current page if storage is unavailable.
         }
       }
 
-      updateControls(theme);
+      updateControls(pref);
       syncGhostSearchTheme(theme);
     };
 
     toggles.forEach((toggle) => {
-      toggle.addEventListener("click", () => applyTheme(getTheme() === "dark" ? "light" : "dark", true));
+      toggle.addEventListener("click", () => {
+        const currentPref = root.getAttribute("data-theme-pref") || readPref();
+        applyPref(nextPref(currentPref), true);
+      });
     });
 
     if (systemTheme) {
-      const onSystemChange = (event) => {
-        let storedTheme = null;
-        try {
-          storedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-        } catch {
-          // Treat unavailable storage as no explicit preference.
-        }
-        if (storedTheme !== "light" && storedTheme !== "dark") applyTheme(event.matches ? "dark" : "light");
+      const onSystemChange = () => {
+        if (readPref() === "system") applyPref("system");
       };
 
       if (systemTheme.addEventListener) systemTheme.addEventListener("change", onSystemChange);
       else if (systemTheme.addListener) systemTheme.addListener(onSystemChange);
     }
 
-    applyTheme(getTheme());
+    applyPref(readPref());
   }
 
   onReady(() => {
