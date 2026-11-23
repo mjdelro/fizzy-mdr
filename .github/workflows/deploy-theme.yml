@@ -28,7 +28,7 @@ jobs:
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: |
           python3 - <<'PY'
-          import base64, hashlib, hmac, json, os, time, urllib.request, zipfile
+          import base64, hashlib, hmac, json, os, time, urllib.error, urllib.request, zipfile
           from pathlib import Path
 
           api_url = os.environ["GHOST_API_URL"].rstrip("/")
@@ -63,6 +63,7 @@ jobs:
           headers = {
               "Authorization": f"Ghost {make_jwt()}",
               "Accept-Version": "v5.0",
+              "User-Agent": "fizzy-mdr-deploy/1.0",
               "Content-Type": f"multipart/form-data; boundary={boundary}",
           }
           if os.environ.get("CF_ACCESS_CLIENT_ID") and os.environ.get("CF_ACCESS_CLIENT_SECRET"):
@@ -70,12 +71,16 @@ jobs:
               headers["CF-Access-Client-Secret"] = os.environ["CF_ACCESS_CLIENT_SECRET"]
 
           req = urllib.request.Request(f"{api_url}/ghost/api/admin/themes/upload/", data=body, headers=headers, method="POST")
-          with urllib.request.urlopen(req, timeout=60) as resp:
-              ct = resp.headers.get("Content-Type", "")
-              if "application/json" not in ct:
-                  raise RuntimeError(f"Expected JSON from Ghost, got {ct} (URL: {resp.geturl()}). Check Cloudflare Access secrets.")
-              uploaded = json.loads(resp.read().decode())["themes"][0]
-              print(f"Uploaded theme: {uploaded['name']} (active={uploaded['active']})")
+          try:
+              with urllib.request.urlopen(req, timeout=60) as resp:
+                  ct = resp.headers.get("Content-Type", "")
+                  if "application/json" not in ct:
+                      raise RuntimeError(f"Expected JSON from Ghost, got {ct} (URL: {resp.geturl()}). Check Cloudflare Access secrets.")
+                  uploaded = json.loads(resp.read().decode())["themes"][0]
+                  print(f"Uploaded theme: {uploaded['name']} (active={uploaded['active']})")
+          except urllib.error.HTTPError as exc:
+              snippet = exc.read().decode("utf-8", errors="replace")[:400]
+              raise RuntimeError(f"HTTP {exc.code} from {exc.url}: {snippet}") from exc
 
           if not uploaded.get("active"):
               act_headers = {k: v for k, v in headers.items() if k != "Content-Type"}
