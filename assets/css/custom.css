@@ -162,10 +162,14 @@ li > code,
 table code,
 h2 code,
 h3 code {
-  font-size: 0.85em !important;
-  font-weight: 500;
-  padding: 0.1em 0.35em;
+  font-size: 0.82em;
+  font-weight: 400;
+  padding: 0.08em 0.32em;
+  margin: 0;
+  border: 0;
   border-radius: 4px;
+  background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+  color: var(--accent-readable);
 }
 
 .post-wrap .post-content pre code {
@@ -797,9 +801,9 @@ html[data-theme="dark"] li > code,
 html[data-theme="dark"] table code,
 html[data-theme="dark"] h2 code,
 html[data-theme="dark"] h3 code {
-  color: color-mix(in srgb, var(--site-accent) 18%, var(--text-primary));
-  background: var(--inline-code-background);
-  border-color: var(--inline-code-border);
+  color: color-mix(in srgb, var(--site-accent) 55%, var(--text-primary));
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+  border: 0;
 }
 
 html[data-theme="dark"] .single-article .post-wrap .post-content blockquote {
