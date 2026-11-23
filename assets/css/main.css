@@ -306,7 +306,7 @@ html {
 }
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 @media screen and (min-width: 1024px) {
   .nav-container {
