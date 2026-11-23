@@ -1,4 +1,19 @@
-# Fizzy MDR
+<p align="center">
+  <img src="assets/repo-icon.svg" alt="Fizzy MDR Icon" width="104" height="104" />
+</p>
+
+<h1 align="center">Fizzy MDR</h1>
+
+<p align="center">A customized Ghost 6 theme forked from Fizzy and tailored for michaeldelrosar.io.</p>
+
+<p align="center">
+  <a href="https://github.com/mjdelro/fizzy-mdr/releases/latest"><img src="https://img.shields.io/github/v/release/mjdelro/fizzy-mdr?style=flat-square&color=ec4899" alt="" /></a>
+  <a href="https://michaeldelrosar.io"><img src="https://img.shields.io/badge/live-michaeldelrosar.io-3b82f6?style=flat-square" alt="" /></a>
+  <img src="https://img.shields.io/badge/Ghost-6.x-15171A?style=flat-square&logo=ghost&logoColor=white" alt="" />
+  <img src="https://img.shields.io/github/license/mjdelro/fizzy-mdr?style=flat-square&color=64748b" alt="" />
+</p>
+
+---
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
