@@ -55,8 +55,7 @@ The palette uses warm neutrals with one publication accent. Ghost supplies the l
 ## Typography
 
 - Charis is the long-form article face because its strong serifs and clear features suit sustained reading.
-- Atkinson Hyperlegible Next remains the body face for cards, archives, metadata, and supporting text.
-- IBM Plex Sans gives headings and controls a firmer editorial structure without competing with article text.
+- Atkinson Hyperlegible Next handles headings, navigation, controls, cards, archives, and metadata so all non-prose typography shares one unified low-vision sans family.
 - Intel One Mono is reserved for code so technical material remains legible with widened punctuation and distinct homoglyphs (`0/O`, `1/l/I`).
 - Charis Italic gives quotations a distinct voice without introducing another type family.
 

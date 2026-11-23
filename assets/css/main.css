@@ -839,7 +839,7 @@ table tr td:last-child {
 }
 #toc,
 #toc-img {
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "Atkinson Hyperlegible Next", sans-serif;
   border-radius: 3px;
   background-color: white;
 }
@@ -1146,7 +1146,7 @@ ul.post-archive {
   align-items: normal;
   flex-wrap: nowrap;
   line-height: 2 !important;
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "PingFang SC",
+  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "PingFang SC",
     "Heiti SC", "STXihei", "Microsoft YaHei", sans-serif !important;
 }
 .post-archive-item .date {
@@ -1156,7 +1156,7 @@ ul.post-archive {
   border-bottom: 0 !important;
 }
 .post-archive-item .subtitle {
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "PingFang SC",
+  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "PingFang SC",
     "Heiti SC", "STXihei", "Microsoft YaHei";
 }
 .post-archive-item .authors,
@@ -1237,7 +1237,7 @@ ul.post-archive {
   font-size: 1rem;
   line-height: 1;
   text-align: left;
-  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "PingFang SC",
+  font-family: "Atkinson Hyperlegible Next", -apple-system, BlinkMacSystemFont, "PingFang SC",
     "Heiti SC", "STXihei", "Microsoft YaHei", sans-serif;
 }
 .kg-bookmark-title {

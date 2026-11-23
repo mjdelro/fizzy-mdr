@@ -21,7 +21,7 @@
 
 - **Warm Paper & Warm Coal palettes:** Evidence-based light (`#f6f2e9`) and dark (`#1c1d20`) surfaces verified to WCAG AA contrast across prose, UI, Sodo Search, and dual-polarity Prism syntax highlighting.
 - **3-state Theme Toggle:** Cycles `System` / `Light` / `Dark` and stays synced with OS day/night changes.
-- **Zero render-blocking third-party CDNs:** Bulma-free self-hosted `base.css` (`~15 KB`) and self-hosted Latin-subsetted WOFF2 fonts (`Charis`, `Atkinson Hyperlegible Next`, `IBM Plex Sans`, and `Intel One Mono`).
+- **Zero render-blocking third-party CDNs:** Bulma-free self-hosted `base.css` (`~15 KB`) and self-hosted Latin-subsetted WOFF2 fonts (`Charis`, `Atkinson Hyperlegible Next`, and `Intel One Mono`).
 - **On-demand post assets:** Prism syntax highlighting and `fslightbox` image lightboxes load only on posts that use them; KaTeX CSS loads non-blocking.
 - **Accessibility & print:** Keyboard skip-to-content link, single `<main>` landmark, reduced-motion support, footer RSS feed link, brand-accent `theme-color` for Discord/social embeds, and a clean `@media print` stylesheet.
 - **Vanilla JS & vendored SVG icons:** Manual featured carousel, H2/H3 table of contents, highlight-to-translate tooltips, and local icon partials under `partials/icons/` (see [ICON-SOURCES.md](./ICON-SOURCES.md)).

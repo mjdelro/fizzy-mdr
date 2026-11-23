@@ -1,6 +1,6 @@
 {
   "name": "fizzy-mdr",
-  "version": "3.0.7",
+  "version": "3.0.8",
   "description": "A customized Ghost theme forked from Fizzy for michaeldelrosar.io, featuring accessible typography, editorial cards, persistent light/dark modes, streamlined footer socials, and a cleaner reading experience.",
   "author": {
     "name": "Yuzhang Huang",
@@ -31,7 +31,6 @@
     "accessibility",
     "charis",
     "atkinson-hyperlegible-next",
-    "ibm-plex-sans",
     "intel-one-mono",
     "atkinson-hyperlegible-mono",
     "portfolio",
