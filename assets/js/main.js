@@ -491,7 +491,7 @@
     const applyTheme = (theme, persist = false) => {
       root.setAttribute("data-theme", theme);
       root.style.colorScheme = theme;
-      themeColorMeta?.setAttribute("content", theme === "dark" ? "#111111" : "#f5f6f4");
+      themeColorMeta?.setAttribute("content", theme === "dark" ? "#1c1d20" : "#f6f2e9");
 
       if (persist) {
         try {
