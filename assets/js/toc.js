@@ -19,6 +19,14 @@
   function buildToc(container, headings) {
     if (!container || headings.length === 0) return;
 
+    const nav = document.createElement("nav");
+    nav.setAttribute("aria-label", "Table of contents");
+
+    const title = document.createElement("p");
+    title.className = "toc-title";
+    title.textContent = "On this page";
+    nav.appendChild(title);
+
     const root = document.createElement("ul");
     root.className = "toc-list";
     let currentH2 = null;
@@ -45,7 +53,8 @@
       if (heading.tagName === "H2") currentH2 = item;
     });
 
-    container.replaceChildren(root);
+    nav.appendChild(root);
+    container.replaceChildren(nav);
   }
 
   function getHeadingOffset(content) {
@@ -98,7 +107,26 @@
 
     const items = Array.from(document.querySelectorAll("#toc li[data-toc-target], #toc-img li[data-toc-target]"));
     const activate = (id) => {
-      items.forEach((item) => item.classList.toggle("active", item.dataset.tocTarget === id));
+      items.forEach((item) => {
+        const isActive = item.dataset.tocTarget === id;
+        item.classList.toggle("active", isActive);
+        const link = item.querySelector(":scope > a");
+        if (link) {
+          if (isActive) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        }
+        if (isActive) {
+          const box = item.closest("#toc, #toc-img");
+          if (box && box.scrollHeight > box.clientHeight) {
+            const top = item.offsetTop;
+            const bottom = top + item.offsetHeight;
+            if (top < box.scrollTop) box.scrollTop = Math.max(0, top - 16);
+            else if (bottom > box.scrollTop + box.clientHeight) {
+              box.scrollTop = bottom - box.clientHeight + 16;
+            }
+          }
+        }
+      });
     };
 
     // Hold the clicked item active so the scroll spy cannot jump backward mid-scroll.

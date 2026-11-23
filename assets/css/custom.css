@@ -1628,42 +1628,71 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 
 #toc,
 #toc-img {
+  position: sticky;
+  top: 5.75rem;
+  margin: 0;
+  width: 100%;
+  max-width: 240px;
+  max-height: calc(100vh - 7.5rem);
+  overflow-y: auto;
   background-color: var(--surface-card) !important;
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-card, 10px);
   box-shadow: var(--media-shadow);
   font-size: 0.85rem;
   line-height: 1.45;
-  max-width: 240px;
-  max-height: calc(100vh - 160px);
-  overflow-y: auto;
-  padding: 0.5rem;
+  padding: 0.65rem 0.5rem;
+}
+
+@media screen and (max-width: 1407px) {
+  #toc,
+  #toc-img {
+    display: none !important;
+  }
 }
 
 #toc[hidden],
 #toc-img[hidden] {
   display: none !important;
 }
+
+#toc .toc-title,
+#toc-img .toc-title {
+  margin: 0 0 0.45rem;
+  padding: 0 0.6rem 0.4rem;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 #toc .toc-list,
-#toc-img .toc-list {
+#toc-img .toc-list,
+#toc ul,
+#toc-img ul,
+#toc ul:first-child,
+#toc-img ul:first-child,
+#toc ul:last-child,
+#toc-img ul:last-child {
   margin: 0;
   padding: 0;
+  border: 0;
 }
+
 #toc li,
 #toc-img li {
   list-style: none;
   margin: 0;
 }
-/* Put indentation inside each full-width clickable row. */
-#toc ul,
-#toc-img ul {
-  padding: 0;
-  margin: 0;
-}
+
 #toc li > ul,
 #toc-img li > ul {
   margin-left: 0;
 }
+
 #toc li > a,
 #toc-img li > a {
   display: block;
@@ -1673,6 +1702,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border: 0;
   overflow-wrap: anywhere;
 }
+
 #toc li li > a,
 #toc-img li li > a {
   padding-left: 1.25rem;
