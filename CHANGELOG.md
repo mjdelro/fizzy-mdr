@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0
+
+- Remove the external Bulma `0.9.4` CDN dependency (`~200 KB` from `cdnjs.cloudflare.com`) and replace it with a self-hosted, token-native `assets/css/base.css` (~10 KB) covering only the layout, grid, navbar, content, and utility primitives used by the theme.
+- Achieve zero render-blocking third-party network requests for core site rendering.
+
 ## 2.9.0
 
 - Self-host Latin-subsetted WOFF2 files for Atkinson Hyperlegible Next, IBM Plex Sans, and Intel One Mono, removing all Google Fonts network requests.
