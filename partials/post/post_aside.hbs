@@ -3,19 +3,19 @@
         <div class="column is-hidden-touch is-1-desktop is-1-widescreen is-2-fullhd"></div>
         <div class="column is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
             <div class="columns is-multiline aside-grid">
-                <div class="column card-frame aside-column aside-previous is-6-tablet">
-                    {{#prev_post}}
+                {{#prev_post}}
+                    <div class="column card-frame aside-column aside-previous is-6-tablet">
                         <span class="nav-label left is-ui-font has-shadow-lift">{{t "Previous Post"}}</span>
                         {{> "post/post_card"}}
-                    {{/prev_post}}
-                </div>
+                    </div>
+                {{/prev_post}}
 
-                <div class="column card-frame aside-column aside-next is-6-tablet">
-                    {{#next_post}}
+                {{#next_post}}
+                    <div class="column card-frame aside-column aside-next is-6-tablet">
                         <span class="nav-label right is-ui-font has-shadow-lift">{{t "Next Post"}}</span>
                         {{> "post/post_card"}}
-                    {{/next_post}}
-                </div>
+                    </div>
+                {{/next_post}}
 
                 {{#if primary_tag}}
                     {{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="3" as |related_posts|}}
