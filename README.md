@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/repo-icon.svg" alt="Fizzy MDR Icon" width="104" height="104" />
+  <img src="assets/repo-icon.png" alt="Fizzy MDR Icon" width="104" height="104" />
 </p>
 
 <h1 align="center">Fizzy MDR</h1>
@@ -7,31 +7,31 @@
 <p align="center">A customized Ghost 6 theme forked from Fizzy and tailored for michaeldelrosar.io.</p>
 
 <p align="center">
-  <a href="https://github.com/mjdelro/fizzy-mdr/releases/latest"><img src="https://img.shields.io/github/v/release/mjdelro/fizzy-mdr?style=flat-square&color=ec4899" alt="" /></a>
-  <a href="https://michaeldelrosar.io"><img src="https://img.shields.io/badge/live-michaeldelrosar.io-3b82f6?style=flat-square" alt="" /></a>
-  <img src="https://img.shields.io/badge/Ghost-6.x-15171A?style=flat-square&logo=ghost&logoColor=white" alt="" />
-  <img src="https://img.shields.io/github/license/mjdelro/fizzy-mdr?style=flat-square&color=64748b" alt="" />
+  <a href="https://github.com/mjdelro/fizzy-mdr/releases/latest"><img src="https://img.shields.io/github/v/release/mjdelro/fizzy-mdr?style=flat-square&color=347a45" alt="" /></a>
+  <a href="https://michaeldelrosar.io"><img src="https://img.shields.io/badge/live-michaeldelrosar.io-347a45?style=flat-square" alt="" /></a>
+  <img src="https://img.shields.io/badge/Ghost-6.x-1c1d20?style=flat-square&logo=ghost&logoColor=white" alt="" />
+  <img src="https://img.shields.io/github/license/mjdelro/fizzy-mdr?style=flat-square&color=635f57" alt="" />
 </p>
 
 ---
 
 A customized **Ghost 6** theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang, maintained for [michaeldelrosar.io](https://michaeldelrosar.io).
 
-Current release: **2.6.0**
+Current release: **3.0.3**
 
 ## Features
 
 - Editorial homepage with a manually controlled featured carousel and supporting cards
-- Persistent light/dark mode with matching native Ghost search
-- Responsive feature images and YouTube embeds
-- Self-hosted Charis 7 article typography
-- Atkinson Hyperlegible Next supporting typography
-- IBM Plex Sans headings and UI
-- Atkinson Hyperlegible Mono code
+- Evidence-based **Warm Paper** (light) and **Warm Coal** (dark) palettes with WCAG AA verified contrast
+- 3-state **System / Light / Dark** theme toggle synced with native Ghost Sodo Search and dual-polarity Prism syntax highlighting
+- Zero render-blocking third-party CSS/font CDNs: self-hosted `base.css` (Bulma-free) and self-hosted Latin-subsetted WOFF2 fonts (`Charis`, `Atkinson Hyperlegible Next`, `IBM Plex Sans`, and `Intel One Mono`)
+- On-demand loading for Prism syntax highlighting and `fslightbox` image lightboxes, plus non-blocking KaTeX CSS
+- Responsive feature images, YouTube embeds, and clean `@media print` output
 - Vanilla JavaScript carousel and table of contents
-- Dark-mode coverage for Ghost cards, tables, code, archives, and TOC
+- Keyboard-accessible skip-to-content link, single `<main>` landmark, and footer RSS feed link
+- Brand-accent `theme-color` metadata for Discord and social link embeds
 - Ghost Admin settings for showcase, TOC, and code line numbers
-- GScan validation in the GitHub Actions deployment workflow
+- GScan validation and Cloudflare Access Service Token support in the GitHub Actions deployment workflow
 - Vendored, reusable SVG icon partials with no runtime icon-library dependency
 - Highlight-to-translate passages with desktop selection, touch, and keyboard support
 
