@@ -43,15 +43,12 @@
         }
     </style>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@400;600;700&family=Intel+One+Mono:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="{{asset 'css/fonts.css'}}">
     <link rel="stylesheet" href="{{asset 'css/main.css'}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
 
     {{#is "post, page"}}
         <link rel="preload" as="font" type="font/woff2" href="{{asset 'fonts/charis/Charis-Regular.woff2'}}" crossorigin>
-        <link rel="stylesheet" href="{{asset 'css/fonts.css'}}">
     {{/is}}
 
     {{#is "post"}}
@@ -62,8 +59,11 @@
     <link rel="stylesheet" href="{{asset 'css/custom.css'}}">
 </head>
 <body class="{{body_class}} has-background-light-line" data-line-numbers="{{@custom.line_numbers}}" data-search-style-url="{{asset 'css/search.css'}}"{{#is "post, page"}} data-fslightbox-js="{{asset 'js/fslightbox.js'}}"{{/is}}{{#is "post"}} data-prism-css="{{asset 'css/prism.css'}}" data-prism-js="{{asset 'js/prism.js'}}"{{/is}}>
+    <a class="skip-link" href="#main-content">Skip to content</a>
     {{> "header"}}
-    {{{body}}}
+    <main id="main-content" tabindex="-1">
+        {{{body}}}
+    </main>
     {{> "footer"}}
 
     {{ghost_foot}}

@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.9.0
+
+- Self-host Latin-subsetted WOFF2 files for Atkinson Hyperlegible Next, IBM Plex Sans, and Intel One Mono, removing all Google Fonts network requests.
+- Add a keyboard-accessible skip-to-content link and `<main id="main-content">` landmark in `default.hbs`.
+
+## 2.8.0
+
+- Upgrade the header theme toggle to a 3-state `System` / `Light` / `Dark` cycle (using Lucide monitor, sun, and moon icons) so readers can return to OS-synced polarity.
+- Add an RSS feed link and Lucide RSS icon to the footer socials.
+- Add a `@media print` stylesheet for clean PDF/print output.
+
+## 2.7.2
+
+- Remove footer Imgur badges and their unused CSS rules.
+- Load Prism (`prism.css` + `prism.js`) and `fslightbox.js` on demand only when code blocks or lightbox images are present.
+- Preload `Charis-Regular.woff2` on posts/pages, refine inline `code` padding, and add explicit dimensions + `decoding="async"` to footer CC icons and author avatars.
+
+## 2.7.1
+
+- Sync Sodo Search iframe styles (`search.css`) and pill hover tokens to Warm Paper and Warm Coal.
+- Subset bundled Charis `.woff2` fonts to Latin ranges, reducing total font payload by 87% (1.30 MB to 172 KB).
+- Defer post scripts, make KaTeX CSS non-render-blocking, and harden the GitHub Actions Ghost deploy workflow for Cloudflare Access Service Tokens.
+
+## 2.7.0
+
+- Adopt evidence-based **Warm Paper** (light) and **Warm Coal** (dark) color tokens with WCAG AA contrast verification across all surfaces, text roles, and dual-polarity Prism syntax highlighting.
+- Switch technical/code typography to **Intel One Mono** with upright comments.
+
 ## 2.6.2
 
 - Increase the lead carousel title from 24px to a responsive 22–28px and strengthen the restrained text shadow behind carousel and featured-card titles.

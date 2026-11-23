@@ -81,6 +81,33 @@ body {
   font-family: var(--font-body);
 }
 
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 1000;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  background: var(--tag-pill-background);
+  color: var(--tag-pill-color) !important;
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--media-shadow);
+  transition: top 150ms ease;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+  outline: 2px solid var(--main-color);
+  outline-offset: 2px;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
 /* Keep the original Fizzy class name for template compatibility. */
 h1,
 h2,
