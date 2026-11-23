@@ -44,11 +44,11 @@
   --pill-padding-x: 0.75rem;
   --pill-font-size: 0.75rem;
   --pill-radius: 4px;
-  --pill-surface-hover: color-mix(in srgb, var(--site-accent) 14%, #fff);
+  --pill-surface-hover: color-mix(in srgb, var(--site-accent) 14%, #fbf8f1);
   --tag-pill-background: color-mix(in srgb, var(--site-accent) 88%, #000);
   --tag-pill-color: #fff;
-  --tag-pill-hover-background: #242424;
-  --tag-pill-hover-color: #fff;
+  --tag-pill-hover-background: #292b30;
+  --tag-pill-hover-color: #ebe9e4;
 }
 
 .site-license .cc-icons,

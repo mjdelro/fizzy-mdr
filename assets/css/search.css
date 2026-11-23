@@ -2,24 +2,24 @@
 :root {
   --site-accent: #176b3a;
   --site-accent-contrast: #fff;
-  --search-bg: #fff;
-  --search-text: #2d332f;
-  --search-muted: #656b67;
+  --search-bg: #fbf8f1;
+  --search-text: #232528;
+  --search-muted: #635f57;
   --search-accent: var(--site-accent);
-  --search-hover: color-mix(in srgb, var(--site-accent) 8%, #fff);
-  --search-border: rgba(25, 40, 32, 0.1);
-  --search-shadow: 0 20px 55px rgba(24, 39, 31, 0.18);
+  --search-hover: color-mix(in srgb, var(--site-accent) 8%, #fbf8f1);
+  --search-border: rgba(35, 37, 40, 0.12);
+  --search-shadow: 0 20px 55px rgba(35, 37, 40, 0.18);
   --search-focus: color-mix(in srgb, var(--site-accent) 20%, transparent);
 }
 
 html[data-mdr-theme="dark"] {
   color-scheme: dark;
-  --search-bg: #181818;
-  --search-text: #eee;
-  --search-muted: #999;
-  --search-accent: color-mix(in srgb, var(--site-accent) 72%, #fff);
-  --search-hover: color-mix(in srgb, var(--site-accent) 12%, #181818);
-  --search-border: rgba(255, 255, 255, 0.12);
+  --search-bg: #222428;
+  --search-text: #dcdad5;
+  --search-muted: #8a8d94;
+  --search-accent: color-mix(in srgb, var(--site-accent) 72%, #dcdad5);
+  --search-hover: color-mix(in srgb, var(--site-accent) 12%, #222428);
+  --search-border: rgba(220, 218, 213, 0.12);
   --search-shadow: 0 22px 62px rgba(0, 0, 0, 0.46);
   --search-focus: color-mix(in srgb, var(--site-accent) 30%, transparent);
 }

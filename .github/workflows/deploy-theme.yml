@@ -20,9 +20,66 @@ jobs:
       - name: Validate theme with GScan
         run: npm test
 
-      - name: Deploy Ghost theme
-        uses: TryGhost/action-deploy-theme@v2
-        with:
-          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
-          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
-          version: v6.0
+      - name: Package and deploy Ghost theme
+        env:
+          GHOST_API_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          GHOST_ADMIN_API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, hmac, json, os, time, urllib.request, zipfile
+          from pathlib import Path
+
+          api_url = os.environ["GHOST_API_URL"].rstrip("/")
+          key_id, hex_secret = os.environ["GHOST_ADMIN_API_KEY"].split(":", 1)
+
+          def b64u(b: bytes) -> str:
+              return base64.urlsafe_b64encode(b).rstrip(b"=").decode("ascii")
+
+          def make_jwt() -> str:
+              iat = int(time.time())
+              h = b64u(json.dumps({"alg": "HS256", "typ": "JWT", "kid": key_id}, separators=(",", ":")).encode())
+              p = b64u(json.dumps({"iat": iat, "exp": iat + 300, "aud": "/admin/"}, separators=(",", ":")).encode())
+              sig = hmac.new(bytes.fromhex(hex_secret), f"{h}.{p}".encode(), hashlib.sha256).digest()
+              return f"{h}.{p}.{b64u(sig)}"
+
+          zip_path = Path("fizzy-mdr.zip")
+          exclude = {".git", ".github", "node_modules", zip_path.name}
+          with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
+              for path in Path(".").rglob("*"):
+                  if any(part in exclude for part in path.parts):
+                      continue
+                  if path.is_file():
+                      zf.write(path, path)
+
+          boundary = f"----GhostThemeUpload{int(time.time())}"
+          body = (
+              f"--{boundary}\r\n"
+              f'Content-Disposition: form-data; name="file"; filename="fizzy-mdr.zip"\r\n'
+              f"Content-Type: application/zip\r\n\r\n"
+          ).encode() + zip_path.read_bytes() + f"\r\n--{boundary}--\r\n".encode()
+
+          headers = {
+              "Authorization": f"Ghost {make_jwt()}",
+              "Accept-Version": "v5.0",
+              "Content-Type": f"multipart/form-data; boundary={boundary}",
+          }
+          if os.environ.get("CF_ACCESS_CLIENT_ID") and os.environ.get("CF_ACCESS_CLIENT_SECRET"):
+              headers["CF-Access-Client-Id"] = os.environ["CF_ACCESS_CLIENT_ID"]
+              headers["CF-Access-Client-Secret"] = os.environ["CF_ACCESS_CLIENT_SECRET"]
+
+          req = urllib.request.Request(f"{api_url}/ghost/api/admin/themes/upload/", data=body, headers=headers, method="POST")
+          with urllib.request.urlopen(req, timeout=60) as resp:
+              ct = resp.headers.get("Content-Type", "")
+              if "application/json" not in ct:
+                  raise RuntimeError(f"Expected JSON from Ghost, got {ct} (URL: {resp.geturl()}). Check Cloudflare Access secrets.")
+              uploaded = json.loads(resp.read().decode())["themes"][0]
+              print(f"Uploaded theme: {uploaded['name']} (active={uploaded['active']})")
+
+          if not uploaded.get("active"):
+              act_headers = {k: v for k, v in headers.items() if k != "Content-Type"}
+              act_req = urllib.request.Request(f"{api_url}/ghost/api/admin/themes/{uploaded['name']}/activate/", headers=act_headers, method="PUT")
+              with urllib.request.urlopen(act_req, timeout=30) as resp:
+                  print(f"Activated theme: {uploaded['name']}")
+          PY
