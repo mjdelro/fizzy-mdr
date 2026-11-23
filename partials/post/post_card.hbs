@@ -37,7 +37,7 @@
                                 {{#primary_author}}
                                     {{#if profile_image}}
                                         <a href="{{url}}">
-                                            <figure class="image is-32x32 is-marginless"><img class="image-squared is-rounded" src="{{img_url profile_image size="icon"}}" alt="{{name}}" title="{{name}}"></figure>
+                                            <figure class="image is-32x32 is-marginless"><img class="image-squared is-rounded" src="{{img_url profile_image size="icon"}}" alt="{{name}}" title="{{name}}" width="32" height="32" loading="lazy" decoding="async"></figure>
                                         </a>
                                     {{/if}}
                                 {{/primary_author}}

@@ -62,8 +62,6 @@ The palette uses warm neutrals with one publication accent. Ghost supplies the l
 
 Headings should feel firm rather than dramatic. Use weight, scale, and spacing to establish hierarchy. Keep body copy comfortably loose at approximately `1.68` line height on article pages. Metadata is smaller and quieter, but it must remain readable.
 
-Special Elite is an editorial accent, not a general display face. Do not use it for navigation, headings, controls, or decorative labels.
-
 ## Layout and rhythm
 
 Article pages use a centered reading column with a maximum width of `960px`. Index and archive pages can use wider compositions when readers need to scan photographs, subjects, or dates.

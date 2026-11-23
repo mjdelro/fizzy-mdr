@@ -51,15 +51,11 @@
   --tag-pill-hover-color: #ebe9e4;
 }
 
-.site-license .cc-icons,
-.site-license .footer-badges {
+.site-license .cc-icons {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
-
-.site-license .cc-icons {
   gap: 4px;
   margin-top: 0.5rem;
 }
@@ -69,24 +65,6 @@
   width: auto !important;
   height: 22px !important;
   max-width: none !important;
-}
-
-.site-license .footer-badges {
-  gap: 5px;
-  margin-top: 0.75rem;
-}
-
-.site-license .footer-badges img {
-  display: block;
-  width: auto !important;
-  height: 32px !important;
-  max-width: 100%;
-}
-
-@media (max-width: 480px) {
-  .site-license .footer-badges img {
-    height: 28px !important;
-  }
 }
 
 .post-archive .post-archive-item time {
@@ -157,8 +135,10 @@ li > code,
 table code,
 h2 code,
 h3 code {
-  font-size: 0.88em !important;
+  font-size: 0.85em !important;
   font-weight: 500;
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
 }
 
 .post-wrap .post-content pre code {

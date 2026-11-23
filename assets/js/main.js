@@ -398,7 +398,45 @@
       link.appendChild(image);
     });
 
-    if (typeof refreshFsLightbox === "function") refreshFsLightbox();
+    if (typeof refreshFsLightbox === "function") {
+      refreshFsLightbox();
+      return;
+    }
+
+    const lightboxUrl = document.body?.dataset.fslightboxJs;
+    if (lightboxUrl && document.querySelector('a[data-fslightbox="post-images"]')) {
+      const script = document.createElement("script");
+      script.src = lightboxUrl;
+      script.defer = true;
+      script.onload = () => {
+        if (typeof refreshFsLightbox === "function") refreshFsLightbox();
+      };
+      document.body.appendChild(script);
+    }
+  }
+
+  function setupPrism() {
+    const prismCss = document.body?.dataset.prismCss;
+    const prismJs = document.body?.dataset.prismJs;
+    if (!prismJs || !document.querySelector('pre code[class*="language-"]')) return;
+
+    if (prismCss && !document.getElementById("fizzy-mdr-prism-css")) {
+      const link = document.createElement("link");
+      link.id = "fizzy-mdr-prism-css";
+      link.rel = "stylesheet";
+      link.href = prismCss;
+      document.head.appendChild(link);
+    }
+
+    const script = document.createElement("script");
+    script.src = prismJs;
+    script.defer = true;
+    script.onload = () => {
+      if (window.Prism && typeof window.Prism.highlightAll === "function") {
+        window.Prism.highlightAll();
+      }
+    };
+    document.body.appendChild(script);
   }
 
   function syncGhostSearchTheme(theme = getTheme()) {
@@ -534,6 +572,7 @@
     setupCaptionBreaks();
     setupTranslations();
     setupLightbox();
+    setupPrism();
     setupGhostSearchStyling();
     setupTheme();
   });
