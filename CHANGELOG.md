@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.0.3
+
+- Set static `<meta name="theme-color">` to `{{@site.accent_color}}` so social link embeds (Discord, Slack, iMessage) display the brand green accent stripe while browsers still switch dynamically to Warm Paper / Warm Coal on load.
+
+## 3.0.2
+
+- Polish the Table of Contents (`#toc` / `#toc-img`) with compact `0.85rem` sizing, `240px` max-width, vertical row padding, scroll containment, and direct-child active highlighting.
+
+## 3.0.1
+
+- Restore `.buttons .button` horizontal gap and `.title` / `.box` bottom margins in `assets/css/base.css`.
+- Remove nested `<main>` landmarks across 7 templates and add an accessible `<h1>` to `home.hbs` and `index.hbs`.
+
 ## 3.0.0
 
 - Remove the external Bulma `0.9.4` CDN dependency (`~200 KB` from `cdnjs.cloudflare.com`) and replace it with a self-hosted, token-native `assets/css/base.css` (~10 KB) covering only the layout, grid, navbar, content, and utility primitives used by the theme.
