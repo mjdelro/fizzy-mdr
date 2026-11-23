@@ -106,7 +106,10 @@
     syncHeadingOffset();
 
     const items = Array.from(document.querySelectorAll("#toc li[data-toc-target], #toc-img li[data-toc-target]"));
+    let currentActiveId = null;
     const activate = (id) => {
+      if (id === currentActiveId) return;
+      currentActiveId = id;
       items.forEach((item) => {
         const isActive = item.dataset.tocTarget === id;
         item.classList.toggle("active", isActive);
@@ -160,7 +163,7 @@
       }
 
       let activeId = headings[0].id;
-      const marker = offset + 2;
+      const marker = offset + 16;
 
       for (const heading of headings) {
         if (heading.getBoundingClientRect().top <= marker) activeId = heading.id;
