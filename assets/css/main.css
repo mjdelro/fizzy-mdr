@@ -514,22 +514,22 @@ body {
   margin: auto !important;
 }
 .post-wrap h1 {
-  font-size: calc(1.4vw + 1.1rem) !important;
+  font-size: calc(1.4vw + 1.1rem);
 }
 .post-wrap h2 {
-  font-size: calc(1vw + 1rem) !important;
+  font-size: calc(1vw + 1rem);
 }
 .post-wrap h3 {
-  font-size: calc(0.8vw + 0.85rem) !important;
+  font-size: calc(0.8vw + 0.85rem);
 }
 .post-wrap h4 {
-  font-size: calc(0.7vw + 0.8rem) !important;
+  font-size: calc(0.7vw + 0.8rem);
 }
 .post-wrap h5 {
-  font-size: calc(0.65vw + 0.7rem) !important;
+  font-size: calc(0.65vw + 0.7rem);
 }
 .post-wrap h6 {
-  font-size: calc(0.55vw + 0.6rem) !important;
+  font-size: calc(0.55vw + 0.6rem);
 }
 .post-wrap h2,
 .post-wrap h3,
