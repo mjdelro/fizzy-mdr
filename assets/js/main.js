@@ -592,28 +592,34 @@
     const title = document.querySelector(".single-article .post-wrap > .title");
     if (!title) return;
 
-    const MIN_PX = 23; // 1.44rem floor so very long titles wrap instead of shrinking tiny
+    const MIN_PX = 22; // 1.375rem floor so ultra-long titles still wrap cleanly
 
     const fit = () => {
       title.style.fontSize = "";
       title.style.whiteSpace = "";
       if (window.innerWidth < 769) return;
 
-      const baseSize = parseFloat(window.getComputedStyle(title).fontSize);
+      let size = parseFloat(window.getComputedStyle(title).fontSize);
       const avail = title.clientWidth;
-      if (!baseSize || !avail) return;
+      if (!size || !avail) return;
 
       title.style.whiteSpace = "nowrap";
-      const needed = title.scrollWidth;
-      title.style.whiteSpace = "";
+      let needed = title.scrollWidth;
 
       if (needed > avail) {
-        const scaled = Math.floor(baseSize * (avail / needed) * 10) / 10;
-        if (scaled >= MIN_PX) {
-          title.style.fontSize = `${scaled}px`;
-        } else {
-          title.style.fontSize = `${MIN_PX}px`;
+        size = Math.max(MIN_PX, Math.floor(size * (avail / needed) * 2) / 2);
+        title.style.fontSize = `${size}px`;
+
+        // Step down cleanly in 0.5px increments to account for non-linear kerning
+        while (title.scrollWidth > avail && size > MIN_PX) {
+          size = Math.max(MIN_PX, size - 0.5);
+          title.style.fontSize = `${size}px`;
         }
+      }
+
+      // Only allow wrapping if it still overflows even at the minimum readable size
+      if (title.scrollWidth > avail) {
+        title.style.whiteSpace = "";
       }
     };
 
