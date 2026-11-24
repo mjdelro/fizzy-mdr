@@ -5,27 +5,27 @@
             <div class="featured-image">
                 <img class="card-feature-image" src="{{img_url feature_image size="medium"}}"
                      srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w"
-                     sizes="(max-width: 768px) 100vw, 38vw" alt="{{feature_image_alt}}" loading="lazy">
+                     sizes="(max-width: 768px) 100vw, 34vw" alt="{{feature_image_alt}}" loading="lazy" decoding="async">
             </div>
         </a>
-        <div class="column is-7 is-paddingless">
+        <div class="column is-7 is-paddingless post-list-card-body">
         {{else}}
-        <div class="column is-12 is-paddingless">
+        <div class="column is-12 is-paddingless post-list-card-body">
         {{/if}}
             <div class="post-info">
                 {{#if featured}}
                 <span class="featured-label {{#if feature_image}}has-img{{else}}no-img{{/if}} is-ui-font" title="{{t "Featured"}}">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
                 {{/if}}
 
-                <div class="level is-mobile is-ui-font is-uppercase is-margin-bottom-1">
-                    <div class="level-left">
-                        {{#primary_tag}}<div class="level-item"><div class="buttons are-small"><a href="{{url}}" class="button category-pill category-pill--surface">{{name}}</a></div></div>{{/primary_tag}}
-                        <div class="level-item is-size-7"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></div>
-                    </div>
-                </div>
+                <a href="{{url}}" class="post-list-card-title-link is-ui-font has-text-black"><h2 class="title is-4 is-size-5-mobile">{{title}}</h2></a>
+                <p class="post-card-excerpt {{#if feature_image}}is-hidden-mobile{{else}}is-size-7-mobile{{/if}}">{{excerpt words="32"}}</p>
 
-                <a href="{{url}}" class="is-ui-font has-text-black"><h2 class="title is-3 is-size-5-mobile is-margin-bottom-1">{{title}}</h2></a>
-                <p class="post-card-excerpt {{#if feature_image}}is-hidden-mobile{{else}}is-size-7-mobile is-margin-bottom-1{{/if}}">{{excerpt words="38"}}</p>
+                <div class="post-list-card-meta is-ui-font is-uppercase">
+                    {{#primary_tag}}<a href="{{url}}" class="post-list-card-tag">{{name}}</a>{{/primary_tag}}
+                    <span class="post-list-card-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></span>
+                    <span class="post-list-card-sep" aria-hidden="true">&middot;</span>
+                    <span class="post-list-card-read">{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                </div>
             </div>
         </div>
     </div>

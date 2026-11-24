@@ -33,7 +33,8 @@
   --toc-scroll-offset: 6rem;
 
   --card-height-desktop: 300px;
-  --card-image-width: 38%;
+  --list-card-height-desktop: 215px;
+  --card-image-width: 34%;
   --card-stack-gap: 1.5rem;
   --card-shadow: none;
   --media-shadow: 0 8px 16px -2px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.02);
@@ -295,10 +296,10 @@ figcaption,
 
 .post-list-card .post-card-excerpt {
   font-family: var(--font-body);
-  font-size: clamp(1rem, calc(0.72rem + 0.25vw), 1.125rem);
-  line-height: 1.6;
+  font-size: 0.96rem;
+  line-height: 1.55;
   color: var(--text-secondary);
-  margin-bottom: 0 !important;
+  margin: 0.5rem 0 0 !important;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -307,33 +308,69 @@ figcaption,
 }
 
 .post-list-card .title {
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.015em;
   font-weight: 700;
+  margin-bottom: 0 !important;
 }
 
-.post-list-card .title::after {
-  content: "";
-  display: block;
-  width: 50%;
-  height: 2px;
-  margin: 0.45rem 0 0;
-  background: linear-gradient(to right, var(--main-color), transparent);
+.post-list-card .post-list-card-title-link:hover .title {
+  color: var(--main-color);
 }
 
-.post-list-card .post-card-excerpt {
-  margin-top: 0.65rem;
+.post-list-card .post-list-card-body {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Quieter metadata so the headline remains the focal point. */
-.post-list-card .level.is-uppercase {
+.post-list-card .post-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 1.25rem;
+}
+
+/* Quiet bottom metadata bar so the headline remains the focal point. */
+.post-list-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.9rem;
   color: var(--text-muted);
   font-size: 0.72rem;
-  letter-spacing: 0.035em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
 
-.post-list-card .level-item.is-size-7 {
-  color: var(--text-muted);
+.post-list-card-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--pill-radius, 4px);
+  background: color-mix(in srgb, var(--site-accent) 11%, transparent);
+  color: var(--accent-readable);
+  text-transform: lowercase;
+  letter-spacing: 0.01em;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.post-list-card-tag:hover,
+.post-list-card-tag:focus-visible {
+  background: var(--tag-pill-background);
+  color: var(--tag-pill-color);
+}
+
+html[data-theme="dark"] .post-list-card-tag {
+  background: color-mix(in srgb, var(--site-accent) 18%, transparent);
+  color: color-mix(in srgb, var(--site-accent) 55%, var(--text-primary));
+}
+
+html[data-theme="dark"] .post-list-card-tag:hover,
+html[data-theme="dark"] .post-list-card-tag:focus-visible {
+  background: var(--tag-pill-background);
+  color: var(--tag-pill-color);
 }
 
 #showcase {
@@ -341,7 +378,6 @@ figcaption,
 }
 
 @media screen and (min-width: 769px) {
-  .post-list-card .post-card,
   .carousel,
   .carousel .carousel-item,
   .top-featured {
@@ -349,6 +385,7 @@ figcaption,
   }
 
   .post-list-card .post-card {
+    height: var(--list-card-height-desktop);
     min-height: 0;
   }
 
@@ -368,7 +405,7 @@ figcaption,
   }
 
   .post-list-card .post-info {
-    padding: 2.25rem 2.5rem;
+    padding: 1.35rem 1.75rem;
   }
 
   .top-featured {
