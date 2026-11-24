@@ -276,10 +276,10 @@ figcaption,
   border-radius: var(--pill-radius);
 }
 
-/* Use a restrained lift for interactive cards. Carousel slides stay stationary
-   because their transform is reserved for slide animation. */
+/* Keep interactive cards stationary on hover for vestibular accessibility;
+   communicate hover through border, shadow, and underlined title color. */
 .interactive-card {
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 /* Keyboard focus remains stronger than the subtle hover ring. */
@@ -297,9 +297,8 @@ figcaption,
 }
 
 .post-list-card.interactive-card:hover {
-  transform: translateY(-1px);
-  border-color: var(--border-soft);
-  box-shadow: var(--card-shadow) !important;
+  border-color: var(--hover-accent-border);
+  box-shadow: var(--card-shadow-hover, var(--card-shadow)) !important;
 }
 
 .post-list-card .post-card-excerpt {
@@ -331,8 +330,13 @@ figcaption,
   background: linear-gradient(to right, var(--main-color), transparent);
 }
 
-.post-list-card .post-list-card-title-link:hover .title {
-  color: var(--main-color);
+.post-list-card .post-list-card-title-link:hover .title,
+.post-list-card .post-list-card-title-link:focus-visible .title,
+.post-list-card.interactive-card:hover .post-list-card-title-link .title {
+  color: var(--accent-readable);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
 }
 
 .post-list-card .post-list-card-body {
@@ -800,7 +804,7 @@ html[data-theme="dark"] .top-featured .box {
 }
 
 html[data-theme="dark"] .post-list-card.interactive-card:hover {
-  border-color: var(--border-soft);
+  border-color: var(--hover-accent-border);
 }
 
 html[data-theme="dark"] .has-text-black,
@@ -1191,6 +1195,12 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border: 1px solid var(--border-soft);
   background-color: var(--surface-card);
   box-shadow: var(--card-shadow);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.carousel.showcase-carousel:hover {
+  border-color: var(--hover-accent-border);
+  box-shadow: var(--card-shadow-hover, var(--card-shadow));
 }
 
 /* Slides share one layer; JavaScript owns their horizontal transform. */
@@ -1231,11 +1241,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 280ms ease;
-}
-
-.carousel-item:hover .carousel-media-image {
-  transform: scale(1.015);
 }
 
 .carousel-body {
@@ -1265,8 +1270,12 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 }
 
 .carousel-title-link:hover .carousel-title,
-.carousel-title-link:focus-visible .carousel-title {
+.carousel-title-link:focus-visible .carousel-title,
+.carousel-item:hover .carousel-title {
   color: var(--accent-readable);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
 }
 
 .carousel-title-link::after {
@@ -1475,12 +1484,19 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   grid-template-columns: 108px minmax(0, 1fr);
   gap: 0.85rem;
   align-items: start;
-  padding-bottom: 0.85rem;
+  padding: 0.45rem 0.55rem 0.85rem;
+  margin-inline: -0.55rem;
+  border-radius: 6px;
   border-bottom: 1px solid var(--border-soft);
+  transition: background-color 150ms ease;
+}
+
+.showcase-featured-item:hover {
+  background-color: var(--surface-accent);
 }
 
 .showcase-featured-item:last-child {
-  padding-bottom: 0;
+  padding-bottom: 0.45rem;
   border-bottom: 0;
 }
 
@@ -1498,11 +1514,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 240ms ease;
-}
-
-.showcase-featured-item:hover .showcase-featured-thumb {
-  transform: scale(1.03);
 }
 
 .showcase-featured-content {
@@ -1525,11 +1536,16 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: color 150ms ease;
 }
 
 .showcase-featured-title-link:hover .showcase-featured-title,
-.showcase-featured-title-link:focus-visible .showcase-featured-title {
+.showcase-featured-title-link:focus-visible .showcase-featured-title,
+.showcase-featured-item:hover .showcase-featured-title {
   color: var(--accent-readable);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
 }
 
 .showcase-featured-meta {
@@ -1620,7 +1636,7 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-card);
   box-shadow: var(--card-shadow);
-  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
 
 .aside .card-frame > article {
@@ -1642,8 +1658,8 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 }
 
 .tag-card:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--card-shadow);
+  border-color: var(--hover-accent-border);
+  box-shadow: var(--card-shadow-hover, var(--card-shadow));
 }
 
 .tag-card .tag-image {
