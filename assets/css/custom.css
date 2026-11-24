@@ -852,12 +852,32 @@ html[data-theme="dark"] .textarea::placeholder {
   color: var(--text-muted);
 }
 
-html[data-theme="dark"] .post-wrap .post-content a {
+.post-wrap .post-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container):not(.kg-product-card-button) {
+  color: var(--accent-readable);
+  border-bottom: 0;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-decoration-skip-ink: auto;
+  transition: color 150ms ease, text-decoration-color 150ms ease;
+}
+
+.post-wrap .post-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container):not(.kg-product-card-button):hover,
+.post-wrap .post-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container):not(.kg-product-card-button):focus-visible {
+  color: var(--link-color-hover);
+  border-bottom: 0;
+  text-decoration-color: currentColor;
+}
+
+html[data-theme="dark"] .post-wrap .post-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container):not(.kg-product-card-button) {
   color: var(--accent-readable);
 }
 
-html[data-theme="dark"] .post-wrap .post-content a:hover {
+html[data-theme="dark"] .post-wrap .post-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container):not(.kg-product-card-button):hover,
+html[data-theme="dark"] .post-wrap .post-content a:not(.kg-btn):not(.kg-bookmark-container):not(.kg-file-card-container):not(.kg-product-card-button):focus-visible {
   color: var(--link-color-hover);
+  text-decoration-color: currentColor;
 }
 
 html[data-theme="dark"] p code,
