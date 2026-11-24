@@ -314,6 +314,15 @@ figcaption,
   margin-bottom: 0 !important;
 }
 
+.post-list-card .title::after {
+  content: "";
+  display: block;
+  width: 45%;
+  height: 2px;
+  margin: 0.4rem 0 0;
+  background: linear-gradient(to right, var(--main-color), transparent);
+}
+
 .post-list-card .post-list-card-title-link:hover .title {
   color: var(--main-color);
 }
