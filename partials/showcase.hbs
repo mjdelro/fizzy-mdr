@@ -23,12 +23,9 @@
                                     <a class="carousel-title-link is-ui-font" href="{{url}}" rel="bookmark">
                                         <h2 class="carousel-title">{{title}}</h2>
                                     </a>
-                                    <p class="carousel-excerpt">{{excerpt words="26"}}</p>
                                     <div class="carousel-footer is-ui-font is-uppercase">
                                         {{#primary_tag}}<a class="post-list-card-tag" href="{{url}}">{{name}}</a>{{/primary_tag}}
-                                        <span class="post-list-card-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "DD MMMM YYYY")}}</time></span>
-                                        <span class="post-list-card-sep" aria-hidden="true">&middot;</span>
-                                        <span class="post-list-card-read">{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
+                                        <span class="post-list-card-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time></span>
                                     </div>
                                 </div>
                             </article>
@@ -46,7 +43,7 @@
                     {{/get}}
                 </div>
 
-                {{#get "posts" limit="3" include="tags" filter="tags:-hash-carousel" order="featured desc,published_at desc" as |featured_posts|}}
+                {{#get "posts" limit="2" include="tags" filter="tags:-hash-carousel" order="featured desc,published_at desc" as |featured_posts|}}
                     <aside class="showcase-featured box" aria-label="{{t "Featured"}}">
                         <div class="showcase-featured-header is-ui-font">
                             <span class="showcase-featured-kicker">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
@@ -70,7 +67,6 @@
                                             <h3 class="showcase-featured-title">{{title}}</h3>
                                         </a>
                                         <div class="showcase-featured-meta is-ui-font is-uppercase">
-                                            {{#primary_tag}}<a class="post-list-card-tag" href="{{url}}">{{name}}</a>{{/primary_tag}}
                                             <span class="showcase-featured-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time></span>
                                         </div>
                                     </div>
