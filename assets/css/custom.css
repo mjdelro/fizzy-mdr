@@ -333,10 +333,7 @@ figcaption,
 .post-list-card .post-list-card-title-link:hover .title,
 .post-list-card .post-list-card-title-link:focus-visible .title,
 .post-list-card.interactive-card:hover .post-list-card-title-link .title {
-  color: var(--accent-readable);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
+  color: var(--accent-readable) !important;
 }
 
 .post-list-card .post-list-card-body {
@@ -1273,9 +1270,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 .carousel-title-link:focus-visible .carousel-title,
 .carousel-item:hover .carousel-title {
   color: var(--accent-readable);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 3px;
 }
 
 .carousel-title-link::after {
@@ -1543,9 +1537,6 @@ html[data-theme="dark"] .post-wrap .post-content a.kg-file-card-container {
 .showcase-featured-title-link:focus-visible .showcase-featured-title,
 .showcase-featured-item:hover .showcase-featured-title {
   color: var(--accent-readable);
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 2px;
 }
 
 .showcase-featured-meta {
