@@ -588,6 +588,40 @@
     applyPref(readPref());
   }
 
+  function setupArticleTitleFit() {
+    const title = document.querySelector(".single-article .post-wrap > .title");
+    if (!title) return;
+
+    const MIN_PX = 23; // 1.44rem floor so very long titles wrap instead of shrinking tiny
+
+    const fit = () => {
+      title.style.fontSize = "";
+      title.style.whiteSpace = "";
+      if (window.innerWidth < 769) return;
+
+      const baseSize = parseFloat(window.getComputedStyle(title).fontSize);
+      const avail = title.clientWidth;
+      if (!baseSize || !avail) return;
+
+      title.style.whiteSpace = "nowrap";
+      const needed = title.scrollWidth;
+      title.style.whiteSpace = "";
+
+      if (needed > avail) {
+        const scaled = Math.floor(baseSize * (avail / needed) * 10) / 10;
+        if (scaled >= MIN_PX) {
+          title.style.fontSize = `${scaled}px`;
+        } else {
+          title.style.fontSize = `${MIN_PX}px`;
+        }
+      }
+    };
+
+    fit();
+    if (document.fonts?.ready) document.fonts.ready.then(fit);
+    window.addEventListener("resize", fit, { passive: true });
+  }
+
   onReady(() => {
     setupNavbar();
     setupArchiveGroups();
@@ -598,5 +632,6 @@
     setupPrism();
     setupGhostSearchStyling();
     setupTheme();
+    setupArticleTitleFit();
   });
 })();
