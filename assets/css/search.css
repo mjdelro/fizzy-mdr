@@ -16,8 +16,8 @@ html[data-mdr-theme="dark"] {
   color-scheme: dark;
   --search-bg: #222428;
   --search-text: #dcdad5;
-  --search-muted: #8a8d94;
-  --search-accent: color-mix(in srgb, var(--site-accent) 72%, #dcdad5);
+  --search-muted: #94979f;
+  --search-accent: color-mix(in srgb, var(--site-accent) 48%, #dcdad5);
   --search-hover: color-mix(in srgb, var(--site-accent) 12%, #222428);
   --search-border: rgba(220, 218, 213, 0.12);
   --search-shadow: 0 22px 62px rgba(0, 0, 0, 0.46);

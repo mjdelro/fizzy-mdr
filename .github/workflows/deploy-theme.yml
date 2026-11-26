@@ -45,13 +45,28 @@ jobs:
               return f"{h}.{p}.{b64u(sig)}"
 
           zip_path = Path("fizzy-mdr.zip")
-          exclude = {".git", ".github", "node_modules", zip_path.name}
+          exclude_dirs = {".git", ".github", "node_modules", "anti-slop"}
+          exclude_files = {
+              zip_path.name,
+              ".gitignore",
+              "CHANGELOG.md",
+              "CLEANUP-NOTES.md",
+              "DESIGN.md",
+              "ICON-SOURCES.md",
+              "README.md",
+              "README-zh.md",
+              "package-lock.json",
+          }
+          exclude_paths = {Path("assets/repo-icon.png")}
           with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
-              for path in Path(".").rglob("*"):
-                  if any(part in exclude for part in path.parts):
+              for path in sorted(Path(".").rglob("*")):
+                  rel = Path(*path.parts)
+                  if any(part in exclude_dirs for part in rel.parts):
+                      continue
+                  if rel.name in exclude_files or rel in exclude_paths:
                       continue
                   if path.is_file():
-                      zf.write(path, path)
+                      zf.write(path, rel)
 
           boundary = f"----GhostThemeUpload{int(time.time())}"
           body = (
@@ -62,7 +77,7 @@ jobs:
 
           headers = {
               "Authorization": f"Ghost {make_jwt()}",
-              "Accept-Version": "v5.0",
+              "Accept-Version": "v6.0",
               "User-Agent": "fizzy-mdr-deploy/1.0",
               "Content-Type": f"multipart/form-data; boundary={boundary}",
           }

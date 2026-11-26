@@ -19,32 +19,40 @@
 {{#get "tags" limit="100" include="count.posts" filter="visibility:public+slug:-getting-started" order="count.posts desc"}}
 <section class="section tag-directory-section">
     <div class="container">
-        <div class="columns is-mobile is-multiline is-variable is-4">
-            {{#foreach tags}}
-                <div class="column tag-archive-item is-3-desktop is-4-tablet is-6-mobile">
-                    <a class="tag-directory-card interactive-card" href="{{url}}" aria-label="View posts tagged {{name}}">
-                        <div class="tag-directory-visual">
-                            {{#get "posts" filter="tags:{{slug}}+feature_image:-null" limit="4" order="published_at desc" as |tag_posts|}}
-                                {{#if tag_posts}}
-                                    <div class="tag-directory-mosaic" aria-hidden="true">
-                                        {{#foreach tag_posts}}
-                                            <img src="{{img_url feature_image size="medium"}}" alt="" loading="lazy">
-                                        {{/foreach}}
-                                    </div>
+        {{#if tags}}
+            <div class="columns is-mobile is-multiline is-variable is-4">
+                {{#foreach tags}}
+                    <div class="column tag-archive-item is-3-desktop is-4-tablet is-6-mobile">
+                        <a class="tag-directory-card interactive-card" href="{{url}}">
+                            <div class="tag-directory-visual">
+                                {{#if count.posts}}
+                                    {{#get "posts" filter="tags:{{slug}}+feature_image:-null" limit="4" fields="id,feature_image" order="published_at desc" as |tag_posts|}}
+                                        {{#if tag_posts}}
+                                            <div class="tag-directory-mosaic" aria-hidden="true">
+                                                {{#foreach tag_posts}}
+                                                    <img src="{{img_url feature_image size="small"}}" srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w" sizes="(max-width: 768px) 25vw, 140px" width="300" height="200" alt="" loading="lazy" decoding="async">
+                                                {{/foreach}}
+                                            </div>
+                                        {{else}}
+                                            <div class="tag-directory-mosaic-placeholder" aria-hidden="true">{{> "icons/tag"}}</div>
+                                        {{/if}}
+                                    {{/get}}
                                 {{else}}
                                     <div class="tag-directory-mosaic-placeholder" aria-hidden="true">{{> "icons/tag"}}</div>
                                 {{/if}}
-                            {{/get}}
-                        </div>
-                        <div class="tag-directory-card-body">
-                            <h2 class="tag-directory-name is-ui-font">{{name}}</h2>
-                            {{#if description}}<p class="tag-directory-description">{{description}}</p>{{/if}}
-                            <div class="tag-directory-count is-ui-font">{{plural count.posts empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}</div>
-                        </div>
-                    </a>
-                </div>
-            {{/foreach}}
-        </div>
+                            </div>
+                            <div class="tag-directory-card-body">
+                                <h2 class="tag-directory-name is-ui-font">{{name}}</h2>
+                                {{#if description}}<p class="tag-directory-description">{{description}}</p>{{/if}}
+                                <div class="tag-directory-count is-ui-font">{{plural count.posts empty=(t "No posts") singular=(t "1 post") plural=(t "% posts")}}</div>
+                            </div>
+                        </a>
+                    </div>
+                {{/foreach}}
+            </div>
+        {{else}}
+            <div class="box has-text-centered">{{t "There is no post yet."}}</div>
+        {{/if}}
     </div>
 </section>
 {{/get}}

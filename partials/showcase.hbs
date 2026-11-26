@@ -4,76 +4,86 @@
         <div class="column is-hidden-touch is-1-desktop is-1-widescreen is-2-fullhd"></div>
         <div class="column is-12-tablet is-10-desktop is-10-widescreen is-8-fullhd">
             <div class="showcase-grid">
-                <div id="carousel-home" class="carousel showcase-carousel" role="region" aria-roledescription="carousel" aria-label="Featured posts">
-                    {{#get "posts" limit="5" include="tags" filter="tags:[hash-carousel]" as |carousel_posts|}}
-                        {{#foreach carousel_posts}}
-                            <article class="carousel-item box{{#has number="1"}} is-active{{/has}}">
-                                {{#if feature_image}}
-                                    <a class="carousel-media-link" href="{{url}}" tabindex="-1" aria-hidden="true">
-                                        <img class="carousel-media-image"
-                                             src="{{img_url feature_image size="large"}}"
-                                             srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w"
-                                             sizes="(max-width: 768px) 100vw, 56vw"
-                                             alt="{{feature_image_alt}}"
-                                             {{#has number="1"}}loading="eager" fetchpriority="high"{{else}}loading="lazy"{{/has}}
-                                             decoding="async">
-                                    </a>
-                                {{/if}}
-                                <div class="carousel-body">
-                                    <a class="carousel-title-link is-ui-font" href="{{url}}" rel="bookmark">
-                                        <h2 class="carousel-title">{{title}}</h2>
-                                    </a>
-                                    <div class="carousel-footer is-ui-font is-uppercase">
-                                        {{#primary_tag}}<a class="post-list-card-tag" href="{{url}}">{{name}}</a>{{/primary_tag}}
-                                        <span class="post-list-card-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time></span>
-                                    </div>
-                                </div>
-                            </article>
-                        {{/foreach}}
-
-                        <div class="carousel-controls">
-                            <button class="carousel-nav-button carousel-nav-button--previous" type="button" aria-label="Previous featured post"><span aria-hidden="true">‹</span></button>
-                            <div class="carousel-pips" role="group" aria-label="Choose featured post">
-                                {{#foreach carousel_posts}}
-                                    <button class="carousel-pip{{#has number="1"}} is-active{{/has}}" type="button" data-carousel-slide="{{@number}}" aria-label="Show featured post {{@number}}"{{#has number="1"}} aria-current="true"{{/has}}></button>
-                                {{/foreach}}
-                            </div>
-                            <button class="carousel-nav-button carousel-nav-button--next" type="button" aria-label="Next featured post"><span aria-hidden="true">›</span></button>
-                        </div>
-                    {{/get}}
-                </div>
-
-                {{#get "posts" limit="2" include="tags" filter="tags:-hash-carousel" order="featured desc,published_at desc" as |featured_posts|}}
-                    <aside class="showcase-featured box" aria-label="{{t "Featured"}}">
-                        <div class="showcase-featured-header is-ui-font">
-                            <span class="showcase-featured-kicker">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
-                        </div>
-                        <div class="showcase-featured-list">
-                            {{#foreach featured_posts}}
-                                <article class="showcase-featured-item">
+                {{#get "posts" limit="5" include="tags" filter="tags:[hash-carousel]" as |carousel_posts|}}
+                    {{#if carousel_posts}}
+                        <div id="carousel-home" class="carousel showcase-carousel" role="region" aria-roledescription="carousel" aria-label="Featured posts">
+                            {{#foreach carousel_posts}}
+                                <article class="carousel-item box{{#has number="1"}} is-active{{/has}}">
                                     {{#if feature_image}}
-                                        <a class="showcase-featured-thumb-link" href="{{url}}" tabindex="-1" aria-hidden="true">
-                                            <img class="showcase-featured-thumb"
-                                                 src="{{img_url feature_image size="small"}}"
-                                                 srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w"
-                                                 sizes="120px"
+                                        <a class="carousel-media-link" href="{{url}}" tabindex="-1" aria-hidden="true">
+                                            <img class="carousel-media-image"
+                                                 src="{{img_url feature_image size="large"}}"
+                                                 srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w"
+                                                 sizes="(max-width: 768px) 100vw, 56vw"
+                                                 width="1200"
+                                                 height="750"
                                                  alt="{{feature_image_alt}}"
-                                                 loading="lazy"
+                                                 {{#has number="1"}}loading="eager" fetchpriority="high"{{else}}loading="lazy"{{/has}}
                                                  decoding="async">
                                         </a>
                                     {{/if}}
-                                    <div class="showcase-featured-content">
-                                        <a class="showcase-featured-title-link is-ui-font" href="{{url}}" rel="bookmark">
-                                            <h3 class="showcase-featured-title">{{title}}</h3>
+                                    <div class="carousel-body">
+                                        <a class="carousel-title-link is-ui-font" href="{{url}}" rel="bookmark">
+                                            <h2 class="carousel-title">{{title}}</h2>
                                         </a>
-                                        <div class="showcase-featured-meta is-ui-font is-uppercase">
-                                            <span class="showcase-featured-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time></span>
+                                        <div class="carousel-footer is-ui-font is-uppercase">
+                                            {{#primary_tag}}<a class="post-list-card-tag" href="{{url}}">{{name}}</a>{{/primary_tag}}
+                                            <span class="post-list-card-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time></span>
                                         </div>
                                     </div>
                                 </article>
                             {{/foreach}}
+
+                            {{#if carousel_posts.[1]}}
+                                <div class="carousel-controls">
+                                    <button class="carousel-nav-button carousel-nav-button--previous" type="button" aria-label="Previous featured post"><span aria-hidden="true">‹</span></button>
+                                    <div class="carousel-pips" role="group" aria-label="Choose featured post">
+                                        {{#foreach carousel_posts}}
+                                            <button class="carousel-pip{{#has number="1"}} is-active{{/has}}" type="button" data-carousel-slide="{{@number}}" aria-label="Show featured post {{@number}}"{{#has number="1"}} aria-current="true"{{/has}}></button>
+                                        {{/foreach}}
+                                    </div>
+                                    <button class="carousel-nav-button carousel-nav-button--next" type="button" aria-label="Next featured post"><span aria-hidden="true">›</span></button>
+                                </div>
+                            {{/if}}
                         </div>
-                    </aside>
+                    {{/if}}
+                {{/get}}
+
+                {{#get "posts" limit="2" include="tags" filter="tags:-hash-carousel" order="featured desc,published_at desc" as |featured_posts|}}
+                    {{#if featured_posts}}
+                        <aside class="showcase-featured box" aria-label="{{t "Featured"}}">
+                            <div class="showcase-featured-header is-ui-font">
+                                <span class="showcase-featured-kicker">{{> "icons/star"}} <span>{{t "Featured"}}</span></span>
+                            </div>
+                            <div class="showcase-featured-list">
+                                {{#foreach featured_posts}}
+                                    <article class="showcase-featured-item">
+                                        {{#if feature_image}}
+                                            <a class="showcase-featured-thumb-link" href="{{url}}" tabindex="-1" aria-hidden="true">
+                                                <img class="showcase-featured-thumb"
+                                                     src="{{img_url feature_image size="small"}}"
+                                                     srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w"
+                                                     sizes="120px"
+                                                     width="300"
+                                                     height="200"
+                                                     alt="{{feature_image_alt}}"
+                                                     loading="lazy"
+                                                     decoding="async">
+                                            </a>
+                                        {{/if}}
+                                        <div class="showcase-featured-content">
+                                            <a class="showcase-featured-title-link is-ui-font" href="{{url}}" rel="bookmark">
+                                                <h3 class="showcase-featured-title">{{title}}</h3>
+                                            </a>
+                                            <div class="showcase-featured-meta is-ui-font is-uppercase">
+                                                <span class="showcase-featured-date"><time datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format="DD MMM YYYY"}}</time></span>
+                                            </div>
+                                        </div>
+                                    </article>
+                                {{/foreach}}
+                            </div>
+                        </aside>
+                    {{/if}}
                 {{/get}}
             </div>
         </div>

@@ -10,7 +10,7 @@
                     {{#if @page.show_title_and_feature_image}}
                     {{#if feature_image}}
                         <section class="featured-image post-hero-image-wrap">
-                            <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high">
+                            <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" width="1200" height="675" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high" decoding="async">
                         </section>
                     {{/if}}
                     {{/if}}

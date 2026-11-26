@@ -9,7 +9,7 @@
                 {{#if feature_image}}
                     <div class="box is-paddingless is-shadowless is-full-mobile is-centered">
                         <section class="featured-image post-hero-image-wrap">
-                            <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high">
+                            <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="(max-width: 1200px) 100vw, 1200px" width="1200" height="675" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high" decoding="async">
                             {{#if featured}}<span class="featured-label large is-ui-font" title="{{t "Featured"}}">{{> "icons/star"}} {{t "Featured"}}</span>{{/if}}
                         </section>
                 {{else}}

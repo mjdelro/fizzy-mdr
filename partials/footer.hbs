@@ -7,27 +7,27 @@
 
         <nav class="footer-socials" aria-label="Social profiles">
             <div class="footer-social-links">
-                <a class="footer-social-link" href="https://github.com/mjdelro" target="_blank" rel="me noopener noreferrer" aria-label="GitHub" title="GitHub">
+                <a class="footer-social-link" href="https://github.com/mjdelro" target="_blank" rel="me noopener noreferrer">
                     {{> "icons/github"}}
                     <span>GitHub</span>
                 </a>
 
-                <a class="footer-social-link" href="https://www.linkedin.com/in/michaeljdelrosario" target="_blank" rel="me noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                <a class="footer-social-link" href="https://www.linkedin.com/in/michaeljdelrosario" target="_blank" rel="me noopener noreferrer">
                     {{> "icons/linkedin"}}
                     <span>LinkedIn</span>
                 </a>
 
-                <a class="footer-social-link" href="https://www.twitch.tv/mikey_247" target="_blank" rel="me noopener noreferrer" aria-label="Twitch" title="Twitch">
+                <a class="footer-social-link" href="https://www.twitch.tv/mikey_247" target="_blank" rel="me noopener noreferrer">
                     {{> "icons/twitch"}}
                     <span>Twitch</span>
                 </a>
 
-                <a class="footer-social-link" href="https://ko-fi.com/mikey_247" target="_blank" rel="me noopener noreferrer" aria-label="Ko-fi" title="Ko-fi">
+                <a class="footer-social-link" href="https://ko-fi.com/mikey_247" target="_blank" rel="me noopener noreferrer">
                     {{> "icons/kofi"}}
                     <span>Ko-fi</span>
                 </a>
 
-                <a class="footer-social-link" href="{{@site.url}}/rss/" aria-label="RSS Feed" title="RSS Feed">
+                <a class="footer-social-link" href="{{@site.url}}/rss/" aria-label="RSS Feed">
                     {{> "icons/rss"}}
                     <span>RSS</span>
                 </a>
@@ -43,11 +43,11 @@
                 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="license noopener noreferrer">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a>
             </p>
 
-            <p class="cc-icons" aria-label="Creative Commons BY-NC-SA 4.0">
-                <img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg" alt="Creative Commons" width="22" height="22" loading="lazy" decoding="async">
-                <img src="https://mirrors.creativecommons.org/presskit/icons/by.svg" alt="Attribution" width="22" height="22" loading="lazy" decoding="async">
-                <img src="https://mirrors.creativecommons.org/presskit/icons/nc.svg" alt="NonCommercial" width="22" height="22" loading="lazy" decoding="async">
-                <img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg" alt="ShareAlike" width="22" height="22" loading="lazy" decoding="async">
+            <p class="cc-icons">
+                <img src="{{asset 'icons/cc.svg'}}" alt="Creative Commons" width="22" height="22" loading="lazy" decoding="async">
+                <img src="{{asset 'icons/by.svg'}}" alt="Attribution" width="22" height="22" loading="lazy" decoding="async">
+                <img src="{{asset 'icons/nc.svg'}}" alt="NonCommercial" width="22" height="22" loading="lazy" decoding="async">
+                <img src="{{asset 'icons/sa.svg'}}" alt="ShareAlike" width="22" height="22" loading="lazy" decoding="async">
             </p>
         </div>
     </div>

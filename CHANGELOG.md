@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.12
+
+- Fix `:root` stylesheet cascade order in `default.hbs` so Ghost Admin's live `--site-accent` and `--site-accent-contrast` settings override `custom.css` defaults.
+- Raise dark-mode WCAG AA contrast across `--accent-readable`, `--link-color-hover`, `--text-muted` (`#94979f`), `.post-list-card-tag`, `.header-control:hover`, and Sodo Search (`search.css`).
+- Fix invalid `<hr>`, `<h2>`, and `<h4>` children inside `ul.post-archive` by grouping archive entries into valid per-month lists with an `H1 -> H2 -> H3` heading hierarchy and screen-reader featured badges.
+- Expand coarse-pointer touch targets (`@media (hover: none), (pointer: coarse)`) to `44x44px` for `.carousel-nav-button`, `.carousel-pip`, and `.post-list-card-tag`, fix undefined `--bg-page` on `.carousel-nav-button`, and add `ArrowLeft`/`ArrowRight` plus directional carousel animations.
+- Add a visible `"Menu"` label to the mobile navbar burger, add outside-click menu dismissal, remove content-masking/invalid ARIA attributes on tag cards and footer license markup, and remove duplicate Tab stops on story cards.
+- Add universal base `cursor: pointer` / disabled `cursor: not-allowed` rules in `base.css` and universal `prefers-reduced-motion: reduce` coverage in `custom.css`.
+- Merge `fonts.css` into `base.css`, preload `atkinson-400.woff2`, add intrinsic `width`/`height` across template images, optimize tag directory mosaic queries (`fields="id,feature_image"`, `size="small"` responsive `srcset`), load KaTeX on demand only when math delimiters are present, and vendor official Creative Commons SVGs in `assets/icons/`.
+- Add empty-collection and single-slide guards on showcase and archive templates, replace legacy `transition: all` rules and off-system `.is-danger.is-rounded` error buttons, fix 404 copy across all 10 locales, prune dead legacy CSS rules, and exclude repo docs from the Ghost Admin API `v6.0` deploy archive.
+
 ## 3.0.3
 
 - Set static `<meta name="theme-color">` to `{{@site.accent_color}}` so social link embeds (Discord, Slack, iMessage) display the brand green accent stripe while browsers still switch dynamically to Warm Paper / Warm Coal on load.

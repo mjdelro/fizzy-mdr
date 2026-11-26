@@ -40,7 +40,7 @@ The palette uses warm neutrals with one publication accent. Ghost supplies the l
 | Subtle | `#efeae0` | `#18191c` | Quiet section and utility backgrounds |
 | Primary text | `#232528` | `#dcdad5` | Body copy and main labels |
 | Secondary text | `#474a4d` | `#c0beb8` | Supporting copy |
-| Muted text | `#635f57` | `#8a8d94` | Dates, counts, and low-priority metadata |
+| Muted text | `#635f57` | `#94979f` | Dates, counts, and low-priority metadata |
 | Accent | Ghost setting, fallback `#176b3a` | Same source | Links, taxonomy, focus, and selected state |
 
 ### Color rules
@@ -65,7 +65,7 @@ Headings should feel firm rather than dramatic. Use weight, scale, and spacing t
 
 Article pages use a centered reading column with a maximum width of `960px`. Index and archive pages can use wider compositions when readers need to scan photographs, subjects, or dates.
 
-Desktop story cards use a `300px` frame with photography occupying `38%` of the width. The remaining space holds the title, excerpt, and metadata. Featured items can form a two-row stack with a `1.5rem` gap. These proportions keep images present without turning the home page into a gallery.
+Desktop story list cards use a `215px` horizontal frame (`300px` for taller standalone feature cards) with photography occupying `34%` of the width. The remaining space holds the title, excerpt, and metadata. Featured items can form a two-row stack with a `1.5rem` gap. These proportions keep images present without turning the home page into a gallery.
 
 Use spacing to communicate relationship:
 
@@ -101,7 +101,7 @@ Do not put unrelated interface fragments into cards simply to make a grid feel c
 
 ### Taxonomy
 
-Tags and categories are compact navigational labels. Their solid, darkened accent surface and white text distinguish them from general controls. On touch devices, expand the hit area while preserving the compact visible pill.
+Tags and categories are compact navigational labels. Standalone taxonomy pills use a solid, darkened accent surface with white text, while inline card tags use a subtle accent tint with high-contrast readable accent text that fills on hover or focus. On touch devices, expand the hit area to at least `44px` square.
 
 Tag directory cards may combine up to four recent post images into a small archive mosaic. The mosaic should reveal the subject range, not act as abstract decoration.
 

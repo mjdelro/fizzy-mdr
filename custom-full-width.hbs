@@ -6,7 +6,7 @@
         <div class="box is-paddingless is-shadowless is-full-mobile is-centered">
             {{#if feature_image}}
                 <div class="featured-image post-hero-image-wrap">
-                    <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="100vw" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high">
+                    <img class="post-hero-image" src="{{img_url feature_image size="wide"}}" srcset="{{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w, {{img_url feature_image size="wide"}} 1200w" sizes="100vw" width="1200" height="675" alt="{{feature_image_alt}}" loading="eager" fetchpriority="high" decoding="async">
                     {{#if featured}}
                         <div class="post-wrap full-width is-vpadding-15 full-width-featured-label-wrap">
                             <span class="featured-label large is-ui-font" title="{{t "Featured"}}">{{> "icons/star"}} {{t "Featured"}}</span>

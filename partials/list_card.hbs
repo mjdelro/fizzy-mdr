@@ -1,11 +1,11 @@
 <article class="{{post_class}} box post-list-card is-paddingless is-clipped margin-bottom-25 interactive-card">
     <div class="columns post-card is-marginless">
         {{#if feature_image}}
-        <a class="column is-paddingless post-list-card-image-link" href="{{url}}" title="{{title}}">
+        <a class="column is-paddingless post-list-card-image-link" href="{{url}}" tabindex="-1" aria-hidden="true">
             <div class="featured-image">
                 <img class="card-feature-image" src="{{img_url feature_image size="medium"}}"
                      srcset="{{img_url feature_image size="small"}} 300w, {{img_url feature_image size="medium"}} 600w, {{img_url feature_image size="large"}} 900w"
-                     sizes="(max-width: 768px) 100vw, 34vw" alt="{{feature_image_alt}}" loading="lazy" decoding="async">
+                     sizes="(max-width: 768px) 100vw, 34vw" width="600" height="400" alt="{{feature_image_alt}}" loading="lazy" decoding="async">
             </div>
         </a>
         <div class="column is-7 is-paddingless post-list-card-body">

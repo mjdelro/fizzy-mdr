@@ -1,4 +1,108 @@
-/* Fizzy MDR self-hosted base layout & utility layer (replaces Bulma 0.9.4 CDN) */
+/* Fizzy MDR self-hosted fonts, base layout & utility layer (replaces Bulma 0.9.4 CDN) */
+
+@font-face {
+  font-family: "Charis";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/charis/Charis-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Charis";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/charis/Charis-Italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Charis";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/charis/Charis-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Charis";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/charis/Charis-BoldItalic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/atkinson/atkinson-400-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/atkinson/atkinson-600-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/atkinson/atkinson-700-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/atkinson/atkinson-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/atkinson/atkinson-600.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/atkinson/atkinson-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/intel-one-mono/intel-one-mono-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/intel-one-mono/intel-one-mono-500.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Intel One Mono";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/intel-one-mono/intel-one-mono-700.woff2") format("woff2");
+}
 
 *,
 *::before,
@@ -79,8 +183,25 @@ td, th {
 
 a {
   color: var(--main-color, #176b3a);
-  cursor: pointer;
   text-decoration: none;
+}
+
+a[href],
+button,
+summary,
+select,
+label[for],
+label:has(input[type="checkbox"], input[type="radio"]),
+input[type="checkbox"],
+input[type="radio"],
+[role="button"],
+[role="tab"],
+[role="switch"] {
+  cursor: pointer;
+}
+
+:is(button, input, select, textarea, [role="button"], [role="tab"], [role="switch"]):is(:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
 }
 
 a:hover {
@@ -291,33 +412,52 @@ hr {
   background: none;
   border: none;
   cursor: pointer;
-  display: block;
-  height: 3.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  min-height: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0.65rem;
   position: relative;
-  width: 3.25rem;
+  width: auto;
   margin-left: auto;
 }
 
-.navbar-burger span {
+.navbar-burger-bars {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.navbar-burger-bars span {
   background-color: currentColor;
   display: block;
   height: 1.5px;
-  left: calc(50% - 8px);
+  left: 0;
   position: absolute;
   transform-origin: center;
-  transition-duration: 120ms;
+  transition-duration: 150ms;
   transition-property: background-color, opacity, transform;
   transition-timing-function: ease-out;
   width: 16px;
 }
 
-.navbar-burger span:nth-child(1) { top: calc(50% - 6px); }
-.navbar-burger span:nth-child(2) { top: calc(50% - 1px); }
-.navbar-burger span:nth-child(3) { top: calc(50% + 4px); }
+.navbar-burger-bars span:nth-child(1) { top: calc(50% - 6px); }
+.navbar-burger-bars span:nth-child(2) { top: calc(50% - 1px); }
+.navbar-burger-bars span:nth-child(3) { top: calc(50% + 4px); }
 
-.navbar-burger.is-active span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
-.navbar-burger.is-active span:nth-child(2) { opacity: 0; }
-.navbar-burger.is-active span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+.navbar-burger.is-active .navbar-burger-bars span:nth-child(1) { transform: translateY(5px) rotate(45deg); }
+.navbar-burger.is-active .navbar-burger-bars span:nth-child(2) { opacity: 0; }
+.navbar-burger.is-active .navbar-burger-bars span:nth-child(3) { transform: translateY(-5px) rotate(-45deg); }
+
+.navbar-burger-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+}
 
 .navbar-menu {
   display: none;
@@ -464,11 +604,8 @@ hr {
   user-select: none;
 }
 
-.button.is-small { font-size: 0.75rem; }
-.button.is-rounded { border-radius: 9999px; padding-left: 1.25em; padding-right: 1.25em; }
 .button.is-light { background-color: var(--surface-subtle, #efeae0); border-color: transparent; color: var(--text-primary, #232528); }
 .button.is-static { background-color: var(--surface-subtle, #efeae0); border-color: var(--border-soft); color: var(--text-muted, #635f57); pointer-events: none; }
-.button.is-danger { background-color: #a8383b; border-color: transparent; color: #ffffff; }
 
 .buttons {
   align-items: center;

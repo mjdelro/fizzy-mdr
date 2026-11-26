@@ -16,20 +16,24 @@
                     <section class="post-wrap is-vpadding-15">
                         <div class="spacing-15 is-hidden-mobile"></div>
                         <div class="post-content">
-                            {{#get "posts" limit="100" include="authors" order="published_at desc" as |archive_posts archive_meta|}}
-                                <p>{{t "There are {total} posts in total" total=archive_meta.total}}</p>
-                                <ul class="post-archive">
-                                    {{#foreach archive_posts}}
-                                        <li class="post-archive-item" data-year="{{date format=(t 'YYYY')}}" data-month="{{date format=(t 'MMMM')}}">
-                                            <div class="date"><time class="button is-static is-size-7" datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "MMM DD")}}</time></div>
-                                            <div class="subtitle">
-                                                <a href="{{url}}">{{title}}</a>
-                                                {{#if featured}}<span class="archive-featured-marker" title="{{t "Featured"}}">{{> "icons/star"}}</span>{{/if}}
-                                                <span class="authors"> - {{authors separator=", "}}</span>
-                                            </div>
-                                        </li>
-                                    {{/foreach}}
-                                </ul>
+                            {{#get "posts" limit="100" fields="id,title,url,published_at,featured" include="authors" order="published_at desc" as |archive_posts archive_meta|}}
+                                {{#if archive_posts}}
+                                    <p>{{t "There are {total} posts in total" total=archive_meta.total}}</p>
+                                    <ul class="post-archive">
+                                        {{#foreach archive_posts}}
+                                            <li class="post-archive-item" data-year="{{date format=(t 'YYYY')}}" data-month="{{date format=(t 'MMMM')}}">
+                                                <div class="date"><time class="button is-static is-size-7" datetime="{{date published_at format="YYYY-MM-DD"}}">{{date published_at format=(t "MMM DD")}}</time></div>
+                                                <div class="subtitle">
+                                                    <a href="{{url}}">{{title}}</a>
+                                                    {{#if featured}}<span class="archive-featured-marker" title="{{t "Featured"}}">{{> "icons/star"}}<span class="is-sr-only"> ({{t "Featured"}})</span></span>{{/if}}
+                                                    <span class="authors"> - {{authors separator=", "}}</span>
+                                                </div>
+                                            </li>
+                                        {{/foreach}}
+                                    </ul>
+                                {{else}}
+                                    <p>{{t "There is no post yet."}}</p>
+                                {{/if}}
                             {{/get}}
                         </div>
                     </section>

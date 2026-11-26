@@ -25,4 +25,4 @@ LinkedIn uses the Bootstrap Icons LinkedIn SVG because LinkedIn is not distribut
 Source: https://icons.getbootstrap.com/icons/linkedin/
 License: https://github.com/twbs/icons/blob/main/LICENSE.md
 
-The Creative Commons license marks in the footer remain official Creative Commons assets and are not part of this icon-partial set.
+The Creative Commons license marks in the footer are official Creative Commons SVG assets vendored locally in `assets/icons/` (`cc.svg`, `by.svg`, `nc.svg`, `sa.svg`).

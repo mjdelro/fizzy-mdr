@@ -8,7 +8,7 @@
                 <div class="error-wrap">
                     <h1 class="error-code">{{statusCode}}</h1>
                     <h2 class="title error-message">{{message}}</h2>
-                    <a class="button subtitle has-text-weight-semibold is-danger is-rounded is-ui-font" href="{{@site.url}}">{{> "icons/home"}} &nbsp; {{t "Go to home page"}}</a>
+                    <a class="button error-home-button has-text-weight-semibold is-ui-font" href="{{@site.url}}">{{> "icons/home"}} <span>{{t "Go to home page"}}</span></a>
                 </div>
             </div>
         </div>

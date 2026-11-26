@@ -43,13 +43,26 @@
       document.addEventListener("keydown", (event) => {
         if (event.key === "Escape" && button.classList.contains("is-active")) close(true);
       });
+
+      document.addEventListener("pointerdown", (event) => {
+        if (button.classList.contains("is-active") && !event.target.closest?.("#navbar")) close();
+      });
     });
   }
 
   function setupArchiveGroups() {
-    const items = Array.from(document.querySelectorAll(".post-archive-item"));
+    const list = document.querySelector("ul.post-archive");
+    if (!list) return;
+
+    const items = Array.from(list.querySelectorAll(".post-archive-item"));
+    if (!items.length) return;
+
+    const container = document.createElement("div");
+    container.className = "post-archive-groups";
+
     let year = null;
     let month = null;
+    let currentList = null;
 
     items.forEach((item) => {
       const nextYear = item.dataset.year;
@@ -59,18 +72,25 @@
         const divider = document.createElement("hr");
         const heading = document.createElement("h2");
         heading.textContent = nextYear;
-        item.before(divider, heading);
+        container.append(divider, heading);
         year = nextYear;
         month = null;
       }
 
       if (nextMonth !== month) {
-        const subheading = document.createElement("h4");
+        const subheading = document.createElement("h3");
+        subheading.className = "post-archive-month";
         subheading.textContent = nextMonth;
-        item.before(subheading);
+        currentList = document.createElement("ul");
+        currentList.className = "post-archive";
+        container.append(subheading, currentList);
         month = nextMonth;
       }
+
+      currentList.appendChild(item);
     });
+
+    list.replaceWith(container);
   }
 
   function setupCarousel() {
@@ -118,7 +138,7 @@
       animating = false;
     };
 
-    const show = (nextIndex, animate = true) => {
+    const show = (nextIndex, direction = 1, animate = true) => {
       if (nextIndex === index || animating) return;
 
       const current = slides[index];
@@ -142,14 +162,15 @@
         easing: "cubic-bezier(0.22, 1, 0.36, 1)",
         fill: "both"
       };
+      const offset = direction >= 0 ? 100 : -100;
 
       const outgoingAnimation = current.animate([
         { transform: "translateX(0%)" },
-        { transform: "translateX(-100%)" }
+        { transform: `translateX(${-offset}%)` }
       ], timing);
 
       const incomingAnimation = incoming.animate([
-        { transform: "translateX(100%)" },
+        { transform: `translateX(${offset}%)` },
         { transform: "translateX(0%)" }
       ], timing);
 
@@ -161,10 +182,22 @@
     };
 
     setActive(index);
-    previous?.addEventListener("click", () => show((index - 1 + slides.length) % slides.length));
-    next?.addEventListener("click", () => show((index + 1) % slides.length));
+    previous?.addEventListener("click", () => show((index - 1 + slides.length) % slides.length, -1));
+    next?.addEventListener("click", () => show((index + 1) % slides.length, 1));
     pips.forEach((pip) => {
-      pip.addEventListener("click", () => show(Number(pip.dataset.carouselSlide) - 1));
+      pip.addEventListener("click", () => {
+        const target = Number(pip.dataset.carouselSlide) - 1;
+        show(target, target >= index ? 1 : -1);
+      });
+    });
+    carousel.querySelector(".carousel-controls")?.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        show((index - 1 + slides.length) % slides.length, -1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        show((index + 1) % slides.length, 1);
+      }
     });
   }
 
@@ -439,6 +472,72 @@
     document.body.appendChild(script);
   }
 
+  function setupMath() {
+    if (document.body?.dataset.katex !== "true") return;
+    const content = document.querySelector(".post-content");
+    if (!content) return;
+
+    const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        return node.parentElement?.closest("pre, code, script, style, textarea, noscript")
+          ? NodeFilter.FILTER_REJECT
+          : NodeFilter.FILTER_ACCEPT;
+      }
+    });
+
+    let hasMath = false;
+    let current;
+    while ((current = walker.nextNode())) {
+      const text = current.nodeValue || "";
+      if (text.includes("$$") || (text.indexOf("$") !== -1 && text.indexOf("$", text.indexOf("$") + 1) !== -1)) {
+        hasMath = true;
+        break;
+      }
+    }
+    if (!hasMath) return;
+
+    if (!document.getElementById("fizzy-mdr-katex-css")) {
+      const link = document.createElement("link");
+      link.id = "fizzy-mdr-katex-css";
+      link.rel = "stylesheet";
+      link.href = "https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css";
+      link.integrity = "sha384-1vdNCNel6Tx/NQa8IR1mGOGKsbGreCkOPfbtPPnUURJ5Tu2PRVfQ/7KLZC+Pi1p1";
+      link.crossOrigin = "anonymous";
+      document.head.appendChild(link);
+    }
+
+    const loadScript = (src, integrity, onLoad) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.defer = true;
+      script.integrity = integrity;
+      script.crossOrigin = "anonymous";
+      if (onLoad) script.onload = onLoad;
+      document.body.appendChild(script);
+    };
+
+    loadScript(
+      "https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.js",
+      "sha384-ycJ6GAwiS15LoUPipwJOrWTvkUHl/YqELValBwI5I4awP1EeEQJYarj+w85ntcz7",
+      () => {
+        loadScript(
+          "https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/contrib/auto-render.min.js",
+          "sha384-bjyGPfbij8/NDKJhSGZNP/khQVgtHUE5exjm4Ydllo42FwIgYsdLO2lXGmRBf5Mz",
+          () => {
+            if (typeof window.renderMathInElement === "function") {
+              window.renderMathInElement(content, {
+                delimiters: [
+                  { left: "$$", right: "$$", display: true },
+                  { left: "$", right: "$", display: false }
+                ]
+              });
+            }
+          }
+        );
+      }
+    );
+  }
+
   function syncGhostSearchTheme(theme = getTheme()) {
     const styleUrl = document.body?.dataset.searchStyleUrl || "";
     const hostStyles = window.getComputedStyle(document.documentElement);
@@ -504,7 +603,7 @@
       discoveryObserver.disconnect();
       observeSearchRoot(root);
     });
-    discoveryObserver.observe(document.body, { childList: true, subtree: true });
+    discoveryObserver.observe(document.body, { childList: true });
   }
 
   function setupTheme() {
@@ -541,8 +640,6 @@
       toggles.forEach((toggle) => {
         toggle.setAttribute("aria-label", label);
         toggle.setAttribute("title", label);
-        const text = toggle.querySelector(".theme-toggle-text");
-        if (text) text.textContent = label;
       });
     };
 
@@ -636,6 +733,7 @@
     setupTranslations();
     setupLightbox();
     setupPrism();
+    setupMath();
     setupGhostSearchStyling();
     setupTheme();
     setupArticleTitleFit();

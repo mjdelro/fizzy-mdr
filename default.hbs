@@ -36,29 +36,25 @@
 
     {{ghost_head}}
 
+    <link rel="preload" as="font" type="font/woff2" href="{{asset 'fonts/atkinson/atkinson-400.woff2'}}" crossorigin>
+    {{#is "post, page"}}
+        <link rel="preload" as="font" type="font/woff2" href="{{asset 'fonts/charis/Charis-Regular.woff2'}}" crossorigin>
+    {{/is}}
+
+    <link rel="stylesheet" href="{{asset 'css/base.css'}}">
+    <link rel="stylesheet" href="{{asset 'css/main.css'}}">
+    <link rel="stylesheet" href="{{asset 'css/custom.css'}}">
+
+    {{#if @site.accent_color}}
     <style>
         :root {
             --site-accent: {{@site.accent_color}};
             --site-accent-contrast: {{contrast_text_color @site.accent_color}};
         }
     </style>
-
-    <link rel="stylesheet" href="{{asset 'css/fonts.css'}}">
-    <link rel="stylesheet" href="{{asset 'css/base.css'}}">
-    <link rel="stylesheet" href="{{asset 'css/main.css'}}">
-
-    {{#is "post, page"}}
-        <link rel="preload" as="font" type="font/woff2" href="{{asset 'fonts/charis/Charis-Regular.woff2'}}" crossorigin>
-    {{/is}}
-
-    {{#is "post"}}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css" integrity="sha384-1vdNCNel6Tx/NQa8IR1mGOGKsbGreCkOPfbtPPnUURJ5Tu2PRVfQ/7KLZC+Pi1p1" crossorigin="anonymous" media="print" onload="this.media='all'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.1/dist/katex.min.css" integrity="sha384-1vdNCNel6Tx/NQa8IR1mGOGKsbGreCkOPfbtPPnUURJ5Tu2PRVfQ/7KLZC+Pi1p1" crossorigin="anonymous"></noscript>
-    {{/is}}
-
-    <link rel="stylesheet" href="{{asset 'css/custom.css'}}">
+    {{/if}}
 </head>
-<body class="{{body_class}} has-background-light-line" data-line-numbers="{{@custom.line_numbers}}" data-search-style-url="{{asset 'css/search.css'}}"{{#is "post, page"}} data-fslightbox-js="{{asset 'js/fslightbox.js'}}"{{/is}}{{#is "post"}} data-prism-css="{{asset 'css/prism.css'}}" data-prism-js="{{asset 'js/prism.js'}}"{{/is}}>
+<body class="{{body_class}} has-background-light-line" data-line-numbers="{{@custom.line_numbers}}" data-search-style-url="{{asset 'css/search.css'}}"{{#is "post, page"}} data-fslightbox-js="{{asset 'js/fslightbox.js'}}"{{/is}}{{#is "post"}} data-prism-css="{{asset 'css/prism.css'}}" data-prism-js="{{asset 'js/prism.js'}}" data-katex="true"{{/is}}>
     <a class="skip-link" href="#main-content">Skip to content</a>
     {{> "header"}}
     <main id="main-content" tabindex="-1">

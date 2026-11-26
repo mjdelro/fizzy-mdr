@@ -8,8 +8,8 @@
                 <div class="error-wrap">
                     <h1 class="error-code">{{statusCode}}</h1>
                     <h2 class="title error-message">{{message}}</h2>
-                    <p class="message-manual is-ui-font">{{t "Maybe the URL is not correct, or the page is no longer exist."}}</p>
-                    <a class="button subtitle has-text-weight-semibold is-danger is-rounded is-ui-font" href="{{@site.url}}">{{> "icons/home"}} &nbsp; {{t "Go to home page"}}</a>
+                    <p class="message-manual is-ui-font">{{t "Maybe the URL is not correct, or the page no longer exists."}}</p>
+                    <a class="button error-home-button has-text-weight-semibold is-ui-font" href="{{@site.url}}">{{> "icons/home"}} <span>{{t "Go to home page"}}</span></a>
                 </div>
             </div>
         </div>
