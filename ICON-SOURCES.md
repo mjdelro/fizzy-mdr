@@ -8,7 +8,7 @@ The interface icon partials in `partials/icons/` are standardized on the Lucide 
 
 Featured star markers also use a solid `currentColor` fill.
 
-Used for: archive, home/house, link, location/map pin, search, star, tag/tags, moon, and sun.
+Used for: archive, clock, home/house, link, location/map pin, search, star, tag/tags, moon, and sun.
 
 Source: https://lucide.dev/
 License: https://lucide.dev/license

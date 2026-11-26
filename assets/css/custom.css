@@ -672,8 +672,8 @@ html[data-theme="dark"] {
   stroke-width: 1.9;
 }
 
-html[data-theme-pref="system"] .theme-icon-system,
-html:not([data-theme-pref]) .theme-icon-system {
+html[data-theme-pref="auto"] .theme-icon-clock,
+html:not([data-theme-pref]) .theme-icon-clock {
   display: block;
 }
 

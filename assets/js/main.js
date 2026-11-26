@@ -609,28 +609,33 @@
   function setupTheme() {
     const root = document.documentElement;
     const toggles = Array.from(document.querySelectorAll(".theme-toggle"));
-    const systemTheme = window.matchMedia?.("(prefers-color-scheme: dark)");
     const themeColorMeta = document.getElementById("theme-color-meta");
+    let autoTimer = null;
 
     const readPref = () => {
       try {
         const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
         if (stored === "light" || stored === "dark") return stored;
       } catch {
-        // Treat unavailable storage as system preference.
+        // Treat unavailable storage as time-based auto preference.
       }
-      return "system";
+      return "auto";
+    };
+
+    const resolveAutoTheme = (now = new Date()) => {
+      const hour = now.getHours();
+      return hour >= 7 && hour < 16 ? "light" : "dark";
     };
 
     const resolveTheme = (pref) => {
       if (pref === "light" || pref === "dark") return pref;
-      return systemTheme?.matches ? "dark" : "light";
+      return resolveAutoTheme();
     };
 
     const nextPref = (pref) => {
-      if (pref === "system") return "light";
+      if (pref === "auto") return "light";
       if (pref === "light") return "dark";
-      return "system";
+      return "auto";
     };
 
     const updateControls = (pref) => {
@@ -643,6 +648,31 @@
       });
     };
 
+    const scheduleAutoUpdate = (pref) => {
+      if (autoTimer) {
+        window.clearTimeout(autoTimer);
+        autoTimer = null;
+      }
+      if (pref !== "auto") return;
+
+      const now = new Date();
+      const next = new Date(now);
+      const hour = now.getHours();
+      if (hour < 7) {
+        next.setHours(7, 0, 0, 0);
+      } else if (hour < 16) {
+        next.setHours(16, 0, 0, 0);
+      } else {
+        next.setDate(next.getDate() + 1);
+        next.setHours(7, 0, 0, 0);
+      }
+
+      const delay = Math.max(1000, next.getTime() - now.getTime() + 250);
+      autoTimer = window.setTimeout(() => {
+        if (readPref() === "auto") applyPref("auto");
+      }, delay);
+    };
+
     const applyPref = (pref, persist = false) => {
       const theme = resolveTheme(pref);
       root.setAttribute("data-theme-pref", pref);
@@ -652,7 +682,7 @@
 
       if (persist) {
         try {
-          if (pref === "system") {
+          if (pref === "auto") {
             window.localStorage.removeItem(THEME_STORAGE_KEY);
           } else {
             window.localStorage.setItem(THEME_STORAGE_KEY, pref);
@@ -664,6 +694,7 @@
 
       updateControls(pref);
       syncGhostSearchTheme(theme);
+      scheduleAutoUpdate(pref);
     };
 
     toggles.forEach((toggle) => {
@@ -673,14 +704,9 @@
       });
     });
 
-    if (systemTheme) {
-      const onSystemChange = () => {
-        if (readPref() === "system") applyPref("system");
-      };
-
-      if (systemTheme.addEventListener) systemTheme.addEventListener("change", onSystemChange);
-      else if (systemTheme.addListener) systemTheme.addListener(onSystemChange);
-    }
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && readPref() === "auto") applyPref("auto");
+    });
 
     applyPref(readPref());
   }

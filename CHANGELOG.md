@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.2.0
+
+- Set default color mode based on the viewer's local time (`7:00 AM` to `4:00 PM` light mode, dark mode outside those hours) and automatically transition open tabs at the `7:00 AM` / `4:00 PM` boundaries.
+- Replace the system-theme option and monitor icon with a time-based `Auto` mode using the Lucide clock icon (`partials/icons/clock.hbs`), cycling `Auto` / `Light` / `Dark`.
+
 ## 3.1.12
 
 - Fix `:root` stylesheet cascade order in `default.hbs` so Ghost Admin's live `--site-accent` and `--site-accent-contrast` settings override `custom.css` defaults.

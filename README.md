@@ -15,12 +15,12 @@
 
 ---
 
-**Fizzy MDR** (current release: **3.1.12**) is a customized Ghost 6 theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang. See [DESIGN.md](./DESIGN.md) for the design system and [CHANGELOG.md](./CHANGELOG.md) for full release history.
+**Fizzy MDR** (current release: **3.2.0**) is a customized Ghost 6 theme based on [Fizzy Theme](https://github.com/huangyuzhang/Fizzy-Theme) by Yuzhang Huang. See [DESIGN.md](./DESIGN.md) for the design system and [CHANGELOG.md](./CHANGELOG.md) for full release history.
 
 ## Highlights
 
 - **Warm Paper & Warm Coal palettes:** Evidence-based light (`#f6f2e9`) and dark (`#1c1d20`) surfaces verified to WCAG AA contrast across prose, UI, Sodo Search, and dual-polarity Prism syntax highlighting.
-- **3-state Theme Toggle:** Cycles `System` / `Light` / `Dark` and stays synced with OS day/night changes.
+- **Time-based Auto / Light / Dark Toggle:** Defaults to viewer local time (`7:00 AM` to `4:00 PM` light mode, dark mode otherwise) with a clock icon, plus manual Light and Dark overrides.
 - **Zero render-blocking third-party CDNs:** Bulma-free self-hosted `base.css` and self-hosted Latin-subsetted WOFF2 fonts (`Charis`, `Atkinson Hyperlegible Next`, and `Intel One Mono`).
 - **On-demand post assets:** Prism syntax highlighting, KaTeX math rendering, and `fslightbox` image lightboxes load only on posts that use them.
 - **Accessibility & print:** Keyboard skip-to-content link, single `<main>` landmark, full reduced-motion support, `44px` coarse-pointer touch targets, footer RSS feed link, brand-accent `theme-color` for Discord/social embeds, and a clean `@media print` stylesheet.

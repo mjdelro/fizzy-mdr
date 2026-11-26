@@ -10,21 +10,18 @@
     <script>
         (function () {
             var storageKey = "fizzy-color-scheme";
-            var pref = "system";
-            var theme = "light";
+            var hour = new Date().getHours();
+            var pref = "auto";
+            var theme = (hour >= 7 && hour < 16) ? "light" : "dark";
 
             try {
                 var savedTheme = window.localStorage.getItem(storageKey);
                 if (savedTheme === "light" || savedTheme === "dark") {
                     pref = savedTheme;
                     theme = savedTheme;
-                } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                    theme = "dark";
                 }
             } catch (error) {
-                if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                    theme = "dark";
-                }
+                // Keep time-based default when localStorage is unavailable.
             }
 
             document.documentElement.setAttribute("data-theme-pref", pref);
